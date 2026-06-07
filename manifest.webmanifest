@@ -1,7 +1,7 @@
 {
   "name": "iTrack Internship OJK DIY",
   "short_name": "iTrack",
-  "description": "Absensi kamera, laporan kerja, izin, profil, admin, export, kalender, dan progress internship.",
+  "description": "Absensi, laporan, izin, KPI, evaluasi, dokumen, sertifikat, lokasi, event, audit log, pengumuman, dan notifikasi.",
   "start_url": "./id.html",
   "scope": "./",
   "display": "standalone",
