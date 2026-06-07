@@ -1,0 +1,25 @@
+{
+  "name": "iTrack Internship OJK DIY",
+  "short_name": "iTrack",
+  "description": "Absensi kamera, laporan kerja, izin, profil, admin, dan export program internship.",
+  "start_url": "./id.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F6FAFB",
+  "theme_color": "#16B6A8",
+  "icons": [
+    {
+      "src": "https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
