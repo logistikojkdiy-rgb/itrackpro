@@ -1,7 +1,7 @@
 {
   "name": "iTrack Internship OJK DIY",
   "short_name": "iTrack",
-  "description": "Absensi, laporan, izin, KPI, evaluasi, dokumen, sertifikat, lokasi, event, audit log, pengumuman, dan notifikasi.",
+  "description": "Internship Tracker untuk absensi, laporan, izin, dan monitoring magang.",
   "start_url": "./id.html",
   "scope": "./",
   "display": "standalone",
