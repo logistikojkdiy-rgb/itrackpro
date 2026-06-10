@@ -32,7 +32,7 @@
 </head><body>
 <div id="splash" class="splash"><div style="text-align:center"><div class="splash-logo"></div><h1>iTrack</h1><p>Internship Tracker</p></div></div><div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loading-card"><div class="loader"></div><h3 id="loadingTitle">Memproses...</h3><p id="loadingText">Mohon tunggu sebentar.</p><div class="progress-line"><span></span></div></div></div><div id="authPage" class="auth-page"></div><div id="appPage" class="app hidden"></div><div id="outsideAttendanceModal" class="modal"></div><div id="detailModal" class="modal"></div><div id="itStage1Modal" class="it-stage1-modal"><div class="it-stage1-card" id="itStage1ModalCard"></div></div>
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbz7FgMmWEdgKyoyGzPrDknc6mqGvja0wb-5J8RBLyQFl9b4ap-p2zN2jSZjtuDNOsamQw/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
+const API_URL='https://script.google.com/macros/s/AKfycbxjEZ4VWPHC4YDQT8pptj5WjmemQUGkwFeasKKKhWAaT_NIFPHrwV4E1-QMlxb5s6hsYw/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
 let currentUser=null,currentRoleIsAdmin=false,settings={APP_NAME:'iTrack Internship OJK DIY',APP_SHORT_NAME:'iTrack',APP_LOGO_URL:DEFAULT_LOGO,OFFICE_NAME:'Kantor OJK DIY',OFFICE_ADDRESS:'Jalan Jenderal Sudirman No. 22, Gowongan, Jetis, Yogyakarta 55232',OFFICE_LATITUDE:-7.7830584,OFFICE_LONGITUDE:110.3687544,OFFICE_RADIUS_METER:100,LATE_AFTER:'08:15',WORK_END_TIME:'17:00',ADMIN_NOTIFICATION_EMAIL:''};let currentCameraMode='in',cameraStream=null,capturedBase64='',currentLocation=null,currentDistance=null,serverTimeData=null,workItemCounter=0,isSubmittingAttendance=false;let state={today:null,adminAttendance:[],attendanceFilter:'SEMUA',retryPayload:null,retryAction:'',retryMode:'',recent:[],calendar:[],exportLogs:[],alerts:{}};
 const META={'user-home':['Dashboard','Hari ini'],'user-attendance':['Riwayat Absensi','Data saya'],'user-work':['Laporan','Catat kegiatan'],'user-leave':['Izin','Ajukan izin'],'user-profile':['Profil','Data akun'],'user-calendar':['Kalender','Kehadiran'],'user-progress':['Progress','Magang'],'admin-home':['Dashboard Admin','Monitoring'],'admin-attendance':['Absensi','Monitoring'],'admin-reports':['Laporan','Validasi'],'admin-leaves':['Izin','Approval'],'admin-menu':['Menu Admin','Akses lainnya'],'admin-registrations':['Registrasi','Verifikasi'],'admin-users':['Peserta','Data akun'],'admin-export':['Export','Unduh data'],'admin-export-logs':['Log Export','Riwayat export'],'admin-settings':['Pengaturan','Sistem']};
 const USER_MENUS=[['user-home','Home','home'],['user-attendance','Absensi','camera'],['user-work','Laporan','file'],['user-leave','Izin','calendar'],['user-profile','Profil','user']];const ADMIN_MENUS=[['admin-home','Home','home'],['admin-attendance','Absensi','camera'],['admin-reports','Laporan','file'],['admin-leaves','Izin','calendar'],['admin-registrations','Registrasi','user-plus'],['admin-users','Peserta','users'],['admin-export','Export','download'],['admin-export-logs','Log Export','file'],['admin-settings','Pengaturan','settings']];
@@ -849,6 +849,730 @@ window.viewAdminExport=function(){return `<section id="view-admin-export" class=
 function defaultDates(prefix){const n=new Date(),y=n.getFullYear(),m=String(n.getMonth()+1).padStart(2,'0');const first=y+'-'+m+'-01',last=y+'-'+m+'-'+String(new Date(y,n.getMonth()+1,0).getDate()).padStart(2,'0');const s=document.getElementById(prefix+'Start'),e=document.getElementById(prefix+'End');if(s&&!s.value)s.value=first;if(e&&!e.value)e.value=last}function fillSelect(id,arr,label){const el=document.getElementById(id);if(!el)return;el.innerHTML='<option value="">'+label+'</option>'+(arr||[]).map(x=>'<option value="'+escAttr(x)+'">'+esc(x)+'</option>').join('')}function setRes(o){const el=document.getElementById('itxResult');if(el)el.textContent=typeof o==='string'?o:JSON.stringify(o,null,2);const link=document.getElementById('itxFileLink');if(link){const url=o?.data?.fileUrl||'';link.style.display=url?'block':'none';if(url)link.href=url}}function attPayload(){return{templateId:val('itxAttTemplate'),tanggalMulai:val('itxAttStart'),tanggalSelesai:val('itxAttEnd'),namaPeserta:val('itxAttPerson'),statusKehadiran:val('itxAttStatus'),statusValidasi:val('itxAttValidation'),showWfoWfh:checked('itxShowWfo'),showSignatureColumn:checked('itxShowSign'),satuanKerja:val('itxSatuan'),unitKerja:val('itxUnit'),gedung:val('itxGedung'),mengetahuiLabel:val('itxMengetahui'),kotaTtd:val('itxKota'),penandatangan:val('itxPejabat'),jabatanPenandatangan:val('itxJabatan'),dibuatOleh:'Admin'}}function repPayload(){return{tanggalMulai:val('itxRepStart'),tanggalSelesai:val('itxRepEnd'),namaPeserta:val('itxRepPerson'),statusLaporan:val('itxRepStatus'),dibuatOleh:'Admin'}}function val(id){return document.getElementById(id)?.value||''}function checked(id){return !!document.getElementById(id)?.checked}function renderPreview(html,meta){lastExportPreviewHtml=html||'';const emp=document.getElementById('itxPreviewEmpty'),fr=document.getElementById('itxPreviewFrame');if(emp)emp.style.display='none';if(fr){fr.style.display='block';fr.srcdoc=lastExportPreviewHtml}setText('itxPreviewMeta',meta||'Preview dibuat.')}async function loadFilters(){try{setRes('Memuat filter...');const a=await callApi('getSafeAttendanceExportFilterOptions',{});if(a?.success){fillSelect('itxAttPerson',a.data?.peserta,'Semua Peserta');fillSelect('itxAttStatus',a.data?.statusKehadiran,'Semua Status');fillSelect('itxAttValidation',a.data?.statusValidasi,'Semua Validasi')}const r=await callApi('getSafeWorkReportExportFilterOptions',{});if(r?.success){fillSelect('itxRepPerson',r.data?.peserta,'Semua Peserta');fillSelect('itxRepStatus',r.data?.statusLaporan,'Semua Status')}setRes({success:true,message:'Filter dimuat'})}catch(e){setRes({success:false,message:e.message})}}async function runPreview(action,payload,metaPrefix){try{setRes({message:'Membuat preview...',payload});const res=await callApi(action,payload);setRes(res);if(!res?.success)throw new Error(res?.message||'Preview gagal');renderPreview(res.data?.htmlPreview,(metaPrefix||'Preview')+' · '+(res.data?.totalData||0)+' data')}catch(e){notify('error','Preview gagal',e.message)}}async function runDownload(action,payload){try{setRes({message:'Membuat file...',payload});const res=await callApi(action,payload);setRes(res);if(res?.success&&res.data?.fileUrl)window.open(res.data.fileUrl,'_blank');else if(!res?.success)throw new Error(res?.message||'Download gagal')}catch(e){notify('error','Download gagal',e.message)}}
 function initExport(){if(!document.getElementById('view-admin-export')||!document.getElementById('itxAttPreview'))return;defaultDates('itxAtt');defaultDates('itxRep');document.querySelectorAll('[data-export-tab]').forEach(b=>b.onclick=()=>{document.querySelectorAll('[data-export-tab]').forEach(x=>x.classList.remove('active'));b.classList.add('active');document.querySelectorAll('.itx-section').forEach(x=>x.classList.remove('active'));document.getElementById(b.dataset.exportTab==='attendance'?'itxAttendance':'itxReport').classList.add('active')});const tmpl=document.getElementById('itxAttTemplate');if(tmpl)tmpl.onchange=()=>{document.getElementById('itxOjkOptions').style.display=tmpl.value==='OFFICIAL_OJK'?'block':'none'};if(tmpl)tmpl.onchange();document.getElementById('itxAttPreview').onclick=()=>runPreview('previewAttendanceExport',attPayload(),'Absensi');document.getElementById('itxAttPdf').onclick=()=>runDownload('exportAttendancePdfSafe',attPayload());document.getElementById('itxAttCsv').onclick=()=>runDownload('exportAttendanceCsvSafe',attPayload());document.getElementById('itxRepPreview').onclick=()=>runPreview('previewWorkReportExport',repPayload(),'Laporan Kerja');document.getElementById('itxRepPdf').onclick=()=>runDownload('exportWorkReportPdfSafe',repPayload());document.getElementById('itxRepCsv').onclick=()=>runDownload('exportWorkReportCsvSafe',repPayload());document.getElementById('itxOpenBig').onclick=()=>{if(!lastExportPreviewHtml)return notify('warning','Belum ada preview','Klik Preview dulu.');const w=window.open('','_blank');w.document.open();w.document.write(lastExportPreviewHtml);w.document.close()};loadFilters()}
 function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=window.openView;if(typeof oldOpen==='function'){window.openView=function(id){oldOpen(id);if(id==='user-work'){reportV3Initialized=false;setTimeout(initReport,80)}if(id==='admin-export'){setTimeout(initExport,80)}}}document.addEventListener('DOMContentLoaded',initAll);window.iTrackReportExportFullUpdateRefresh=()=>{reportV3Initialized=false;initAll()};
+})();
+</script>
+<script id="itrack-report-date-stable-hotfix">
+(function(){
+  let userReportDateMap = {};
+  let isLoadingDateDraft = false;
+
+  function getUserSafe(){
+    try{
+      if(typeof currentUser !== 'undefined' && currentUser) return currentUser;
+    }catch(e){}
+
+    try{
+      return JSON.parse(localStorage.getItem('iTrack_user') || '{}');
+    }catch(e){
+      return {};
+    }
+  }
+
+  function getUserIdSafe(){
+    const u = getUserSafe();
+    return u.USER_ID || u.userId || u.USERNAME || u.username || 'guest';
+  }
+
+  function getUsernameSafe(){
+    const u = getUserSafe();
+    return u.USERNAME || u.username || '';
+  }
+
+  function todayISOStable(){
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function normalizeDateStable(value){
+    if(!value) return '';
+
+    const text = String(value).trim();
+
+    if(/^\d{4}-\d{2}-\d{2}/.test(text)){
+      return text.substring(0,10);
+    }
+
+    const m = text.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if(m){
+      return m[3] + '-' + m[2] + '-' + m[1];
+    }
+
+    const d = new Date(text);
+    if(!isNaN(d.getTime())){
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    }
+
+    return text;
+  }
+
+  function formatDateStable(value){
+    const d = normalizeDateStable(value);
+    const p = d.split('-');
+
+    if(p.length === 3){
+      return p[2] + '/' + p[1] + '/' + p[0];
+    }
+
+    return value || '-';
+  }
+
+  function dateDraftKeyStable(date){
+    return 'iTrack_workDraft_' + getUserIdSafe() + '_' + date;
+  }
+
+  function showReportDateMessage(type, html){
+    const el = document.getElementById('reportDateWarning');
+    if(!el) return;
+
+    if(!html){
+      el.classList.remove('show');
+      el.innerHTML = '';
+      return;
+    }
+
+    el.classList.add('show');
+    el.innerHTML = html;
+  }
+
+  function setSubmitDisabled(disabled, reason){
+    const form = document.getElementById('formWork');
+    if(!form) return;
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+
+    if(submitBtn){
+      submitBtn.disabled = !!disabled;
+      submitBtn.textContent = disabled ? 'Tanggal Sudah Ada Laporan' : 'Kirim Laporan';
+    }
+
+    const confirmBtn = document.getElementById('btnConfirmSubmitWork');
+    if(confirmBtn){
+      confirmBtn.disabled = !!disabled;
+      confirmBtn.textContent = disabled ? 'Tanggal Sudah Ada Laporan' : 'Konfirmasi Kirim';
+    }
+  }
+
+  async function callApiStable(action,payload){
+    if(typeof api === 'function'){
+      return await api(action,payload || {});
+    }
+
+    if(typeof API_URL === 'undefined'){
+      throw new Error('API_URL tidak ditemukan.');
+    }
+
+    const res = await fetch(API_URL,{
+      method:'POST',
+      headers:{
+        'Content-Type':'text/plain;charset=utf-8'
+      },
+      body:JSON.stringify({
+        action:action,
+        payload:payload || {}
+      })
+    });
+
+    return await res.json();
+  }
+
+  async function refreshUserReportDateMap(){
+    try{
+      const res = await callApiStable('getMyWorkReports',{
+        userId:getUserIdSafe(),
+        username:getUsernameSafe()
+      });
+
+      const rows = Array.isArray(res && res.data) ? res.data : [];
+
+      userReportDateMap = {};
+
+      rows.forEach(function(row){
+        const date = normalizeDateStable(
+          row.TANGGAL ||
+          row.tanggal ||
+          row.tanggalLaporan ||
+          ''
+        );
+
+        if(date){
+          userReportDateMap[date] = row;
+        }
+      });
+
+      return userReportDateMap;
+    }catch(e){
+      console.warn('[iTrack] Gagal memuat tanggal laporan:', e);
+      userReportDateMap = {};
+      return {};
+    }
+  }
+
+  function checkSelectedReportDate(){
+    const input = document.getElementById('workDate');
+    if(!input) return;
+
+    const selectedDate = normalizeDateStable(input.value);
+    const today = todayISOStable();
+
+    const existing = userReportDateMap[selectedDate];
+
+    if(existing){
+      const status = existing.STATUS_LAPORAN || existing.statusLaporan || '-';
+
+      showReportDateMessage(
+        'duplicate',
+        '<b>Tanggal ini sudah memiliki laporan.</b><br>' +
+        'Laporan tanggal ' + formatDateStable(selectedDate) + ' sudah tercatat dengan status <b>' + status + '</b>. ' +
+        'Silakan pilih tanggal lain atau hubungi admin jika perlu koreksi.'
+      );
+
+      setSubmitDisabled(true,'Tanggal sudah ada laporan.');
+      return;
+    }
+
+    if(selectedDate < today){
+      showReportDateMessage(
+        'backdate',
+        '<b>Laporan backdate.</b><br>' +
+        'Laporan tanggal ' + formatDateStable(selectedDate) + ' tetap dapat dikirim dan akan menunggu validasi admin.'
+      );
+
+      setSubmitDisabled(false);
+      return;
+    }
+
+    if(selectedDate > today){
+      showReportDateMessage(
+        'future',
+        '<b>Tanggal setelah hari ini.</b><br>' +
+        'Pastikan tanggal laporan sudah benar. Laporan akan menunggu validasi admin.'
+      );
+
+      setSubmitDisabled(false);
+      return;
+    }
+
+    showReportDateMessage('', '');
+    setSubmitDisabled(false);
+  }
+
+  function loadDraftForExactDateOnly(date){
+    const raw = localStorage.getItem(dateDraftKeyStable(date));
+
+    if(!raw){
+      if(window.reportItemsV3 && Array.isArray(window.reportItemsV3)){
+        // tidak dipakai jika variabel scoped, fallback diam saja
+      }
+      return null;
+    }
+
+    try{
+      return JSON.parse(raw);
+    }catch(e){
+      return null;
+    }
+  }
+
+  function resetReportFormForDate(date){
+    const note = document.getElementById('workNote');
+    const division = document.getElementById('workDivision');
+
+    if(note) note.value = '';
+
+    if(division){
+      const u = getUserSafe();
+      division.value = u.DIVISI || u.divisi || 'Internship / Magang';
+    }
+
+    /*
+     * Untuk item kegiatan, gunakan fungsi refresh patch jika ada.
+     * Kalau tidak ada, biarkan struktur lama yang menangani.
+     */
+    if(typeof window.iTrackReportExportFullUpdateRefresh === 'function'){
+      // Jangan dipanggil di sini supaya tanggal tidak ikut direset ulang.
+    }
+  }
+
+  function loadDateSpecificDraftWithoutChangingDate(){
+    const input = document.getElementById('workDate');
+    if(!input) return;
+
+    const date = normalizeDateStable(input.value);
+    const data = loadDraftForExactDateOnly(date);
+
+    if(!data){
+      resetReportFormForDate(date);
+      return;
+    }
+
+    const note = document.getElementById('workNote');
+    const division = document.getElementById('workDivision');
+
+    if(note) note.value = data.note || data.catatanUser || '';
+    if(division) division.value = data.division || data.divisi || division.value;
+
+    /*
+     * Jika patch laporan V3 punya fungsi loadWorkDraft lama,
+     * jangan pakai fallback global karena itu yang membuat tanggal mental.
+     * Item kegiatan akan tetap dari state saat ini / reload manual.
+     */
+  }
+
+  function bindStableDateInput(){
+    const input = document.getElementById('workDate');
+    if(!input || input.getAttribute('data-stable-date-bound')) return;
+
+    input.setAttribute('data-stable-date-bound','1');
+
+    input.addEventListener('change',function(){
+      if(isLoadingDateDraft) return;
+
+      const selected = normalizeDateStable(input.value);
+      input.value = selected;
+
+      loadDateSpecificDraftWithoutChangingDate();
+      checkSelectedReportDate();
+    });
+  }
+
+  async function initStableReportDate(){
+    const input = document.getElementById('workDate');
+    if(!input) return;
+
+    if(!input.value){
+      input.value = todayISOStable();
+    }else{
+      input.value = normalizeDateStable(input.value);
+    }
+
+    bindStableDateInput();
+
+    await refreshUserReportDateMap();
+
+    checkSelectedReportDate();
+  }
+
+  /*
+   * Override submit agar tanggal yang sudah ada laporan tidak terkirim lagi dari UI.
+   */
+  const oldSubmit = window.submitWorkReportForm;
+
+  window.submitWorkReportForm = async function(e){
+    if(e && e.preventDefault) e.preventDefault();
+
+    const input = document.getElementById('workDate');
+    const selectedDate = normalizeDateStable(input && input.value);
+
+    if(userReportDateMap[selectedDate]){
+      checkSelectedReportDate();
+
+      if(typeof showToast === 'function'){
+        showToast('warning','Tanggal sudah ada laporan','Silakan pilih tanggal lain atau hubungi admin.');
+      }else{
+        alert('Tanggal ini sudah ada laporan. Silakan pilih tanggal lain atau hubungi admin.');
+      }
+
+      return;
+    }
+
+    if(typeof oldSubmit === 'function'){
+      return await oldSubmit(e);
+    }
+  };
+
+  /*
+   * Refresh history lalu map tanggal setelah submit / refresh.
+   */
+  const oldRenderMyReports = window.renderMyReports;
+
+  window.renderMyReports = function(rows){
+    if(typeof oldRenderMyReports === 'function'){
+      oldRenderMyReports(rows);
+    }
+
+    userReportDateMap = {};
+
+    (Array.isArray(rows) ? rows : []).forEach(function(row){
+      const date = normalizeDateStable(row.TANGGAL || row.tanggal || row.tanggalLaporan || '');
+
+      if(date){
+        userReportDateMap[date] = row;
+      }
+    });
+
+    checkSelectedReportDate();
+  };
+
+  /*
+   * Init saat buka menu laporan.
+   */
+  const oldOpenView = window.openView;
+
+  if(typeof oldOpenView === 'function'){
+    window.openView = function(id){
+      oldOpenView(id);
+
+      if(id === 'user-work'){
+        setTimeout(initStableReportDate,300);
+      }
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(initStableReportDate,1000);
+  });
+
+  window.iTrackReportDateStableRefresh = initStableReportDate;
+})();
+</script>
+<script id="itrack-report-date-force-stable-v2">
+(function(){
+  let reportDateMap = {};
+  let stableBound = false;
+
+  function getUser(){
+    try{
+      if(typeof currentUser !== 'undefined' && currentUser) return currentUser;
+    }catch(e){}
+
+    try{
+      return JSON.parse(localStorage.getItem('iTrack_user') || '{}');
+    }catch(e){
+      return {};
+    }
+  }
+
+  function userId(){
+    const u = getUser();
+    return u.USER_ID || u.userId || u.USERNAME || u.username || 'guest';
+  }
+
+  function username(){
+    const u = getUser();
+    return u.USERNAME || u.username || '';
+  }
+
+  function todayISO(){
+    const d = new Date();
+    return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+  }
+
+  function normalizeDate(v){
+    if(!v) return '';
+
+    const text = String(v).trim();
+
+    if(/^\d{4}-\d{2}-\d{2}/.test(text)){
+      return text.substring(0,10);
+    }
+
+    const m = text.match(/^(\d{2})\/(\d{2})\/(\d{4})$/);
+    if(m){
+      return m[3] + '-' + m[2] + '-' + m[1];
+    }
+
+    const d = new Date(text);
+    if(!isNaN(d.getTime())){
+      return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+    }
+
+    return text;
+  }
+
+  function formatDate(v){
+    const d = normalizeDate(v);
+    const p = d.split('-');
+
+    if(p.length === 3){
+      return p[2] + '/' + p[1] + '/' + p[0];
+    }
+
+    return v || '-';
+  }
+
+  async function callApiSafe(action,payload){
+    if(typeof api === 'function'){
+      return await api(action,payload || {});
+    }
+
+    if(typeof API_URL === 'undefined'){
+      throw new Error('API_URL tidak ditemukan.');
+    }
+
+    const res = await fetch(API_URL,{
+      method:'POST',
+      headers:{
+        'Content-Type':'text/plain;charset=utf-8'
+      },
+      body:JSON.stringify({
+        action:action,
+        payload:payload || {}
+      })
+    });
+
+    return await res.json();
+  }
+
+  async function loadReportDateMap(){
+    try{
+      const res = await callApiSafe('getMyWorkReports',{
+        userId:userId(),
+        username:username()
+      });
+
+      const rows = Array.isArray(res && res.data) ? res.data : [];
+
+      reportDateMap = {};
+
+      rows.forEach(function(row){
+        const d = normalizeDate(
+          row.TANGGAL ||
+          row.tanggal ||
+          row.tanggalLaporan ||
+          ''
+        );
+
+        if(d){
+          reportDateMap[d] = row;
+        }
+      });
+    }catch(e){
+      console.warn('[iTrack] Gagal memuat map tanggal laporan:', e);
+      reportDateMap = {};
+    }
+  }
+
+  function showWarning(html){
+    const el = document.getElementById('reportDateWarning');
+    if(!el) return;
+
+    if(!html){
+      el.classList.remove('show');
+      el.innerHTML = '';
+      return;
+    }
+
+    el.classList.add('show');
+    el.innerHTML = html;
+  }
+
+  function setSubmitDisabled(disabled){
+    const form = document.getElementById('formWork');
+
+    if(form){
+      const btn = form.querySelector('button[type="submit"]');
+      if(btn){
+        btn.disabled = !!disabled;
+        btn.textContent = disabled ? 'Tanggal Sudah Ada Laporan' : 'Kirim Laporan';
+      }
+    }
+
+    const confirm = document.getElementById('btnConfirmSubmitWork');
+
+    if(confirm){
+      confirm.disabled = !!disabled;
+      confirm.textContent = disabled ? 'Tanggal Sudah Ada Laporan' : 'Konfirmasi Kirim';
+    }
+  }
+
+  function checkDate(){
+    const input = document.getElementById('workDate');
+    if(!input) return;
+
+    const selected = normalizeDate(input.value);
+    const today = todayISO();
+
+    input.value = selected;
+
+    const existing = reportDateMap[selected];
+
+    if(existing){
+      const status = existing.STATUS_LAPORAN || existing.statusLaporan || '-';
+
+      showWarning(
+        '<b>Tanggal ini sudah memiliki laporan.</b><br>' +
+        'Laporan tanggal ' + formatDate(selected) +
+        ' sudah tercatat dengan status <b>' + status + '</b>. ' +
+        'Silakan pilih tanggal lain atau hubungi admin jika perlu koreksi.'
+      );
+
+      setSubmitDisabled(true);
+      return;
+    }
+
+    if(selected < today){
+      showWarning(
+        '<b>Laporan backdate.</b><br>' +
+        'Laporan tanggal ' + formatDate(selected) +
+        ' tetap dapat dikirim dan akan menunggu validasi admin.'
+      );
+
+      setSubmitDisabled(false);
+      return;
+    }
+
+    if(selected > today){
+      showWarning(
+        '<b>Tanggal setelah hari ini.</b><br>' +
+        'Pastikan tanggal laporan sudah benar. Laporan akan menunggu validasi admin.'
+      );
+
+      setSubmitDisabled(false);
+      return;
+    }
+
+    showWarning('');
+    setSubmitDisabled(false);
+  }
+
+  /*
+   * Ini bagian penting:
+   * Menghapus handler tanggal lama yang membuat tanggal balik ke draft global.
+   */
+  function forceRebindDateInput(){
+    const oldInput = document.getElementById('workDate');
+    if(!oldInput) return;
+
+    if(oldInput.getAttribute('data-force-stable-date') === '1') return;
+
+    const currentValue = normalizeDate(oldInput.value || todayISO());
+
+    const newInput = oldInput.cloneNode(true);
+    newInput.value = currentValue;
+    newInput.setAttribute('data-force-stable-date','1');
+
+    oldInput.parentNode.replaceChild(newInput, oldInput);
+
+    newInput.addEventListener('input',function(){
+      /*
+       * Jangan load draft global.
+       * Jangan set tanggal dari draft.
+       * Hanya validasi tanggal yang dipilih user.
+       */
+      checkDate();
+    });
+
+    newInput.addEventListener('change',function(){
+      checkDate();
+    });
+  }
+
+  /*
+   * Override loadWorkDraft agar tidak pernah menimpa tanggal pilihan user.
+   */
+  const oldLoadWorkDraft = window.loadWorkDraft;
+
+  window.loadWorkDraft = function(){
+    const input = document.getElementById('workDate');
+    const selectedBefore = input ? normalizeDate(input.value || todayISO()) : todayISO();
+
+    if(typeof oldLoadWorkDraft === 'function'){
+      oldLoadWorkDraft();
+    }
+
+    const inputAfter = document.getElementById('workDate');
+    if(inputAfter){
+      inputAfter.value = selectedBefore;
+    }
+
+    checkDate();
+  };
+
+  /*
+   * Override submit: kalau tanggal sudah ada laporan, jangan kirim.
+   */
+  const oldSubmit = window.submitWorkReportForm;
+
+  window.submitWorkReportForm = async function(e){
+    if(e && e.preventDefault) e.preventDefault();
+
+    const input = document.getElementById('workDate');
+    const selected = normalizeDate(input && input.value);
+
+    if(reportDateMap[selected]){
+      checkDate();
+
+      if(typeof showToast === 'function'){
+        showToast('warning','Tanggal sudah ada laporan','Silakan pilih tanggal lain atau hubungi admin.');
+      }else{
+        alert('Tanggal ini sudah ada laporan. Silakan pilih tanggal lain atau hubungi admin.');
+      }
+
+      return;
+    }
+
+    if(typeof oldSubmit === 'function'){
+      return await oldSubmit(e);
+    }
+  };
+
+  /*
+   * Setelah riwayat laporan dirender, update map tanggal.
+   */
+  const oldRender = window.renderMyReports;
+
+  window.renderMyReports = function(rows){
+    if(typeof oldRender === 'function'){
+      oldRender(rows);
+    }
+
+    reportDateMap = {};
+
+    (Array.isArray(rows) ? rows : []).forEach(function(row){
+      const d = normalizeDate(
+        row.TANGGAL ||
+        row.tanggal ||
+        row.tanggalLaporan ||
+        ''
+      );
+
+      if(d){
+        reportDateMap[d] = row;
+      }
+    });
+
+    checkDate();
+  };
+
+  async function init(){
+    const input = document.getElementById('workDate');
+    if(!input) return;
+
+    if(!input.value){
+      input.value = todayISO();
+    }
+
+    forceRebindDateInput();
+
+    await loadReportDateMap();
+
+    checkDate();
+
+    stableBound = true;
+  }
+
+  /*
+   * Re-init saat masuk halaman laporan.
+   */
+  const oldOpenView = window.openView;
+
+  if(typeof oldOpenView === 'function'){
+    window.openView = function(id){
+      oldOpenView(id);
+
+      if(id === 'user-work'){
+        setTimeout(init,300);
+        setTimeout(init,900);
+      }
+    };
+  }
+
+  document.addEventListener('DOMContentLoaded',function(){
+    setTimeout(init,800);
+    setTimeout(init,1800);
+  });
+
+  window.iTrackForceStableReportDate = init;
 })();
 </script>
 </body></html>
