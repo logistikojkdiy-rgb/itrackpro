@@ -1,14 +1,15 @@
 {
   "name": "iTrack Internship OJK DIY",
   "short_name": "iTrack",
-  "description": "Aplikasi absensi, laporan kerja, izin, dan monitoring internship OJK DIY.",
-  "start_url": "./iTrack.html",
+  "description": "Aplikasi absensi, laporan kerja, izin, dokumentasi, dan monitoring internship OJK DIY.",
+  "start_url": "./id.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#F6FAFD",
   "theme_color": "#4BA9D9",
   "orientation": "portrait",
   "lang": "id-ID",
+  "dir": "ltr",
   "icons": [
     {
       "src": "https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938",
