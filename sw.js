@@ -1,34 +1,16 @@
-const CACHE_NAME = 'itrack-pwa-v1';
-
-const APP_SHELL = [
-  './',
-  './id',
-  './manifest.webmanifest'
-];
+const CACHE_NAME = 'itrack-safe-v5';
 
 self.addEventListener('install', function(event) {
   self.skipWaiting();
-
-  event.waitUntil(
-    caches.open(CACHE_NAME).then(function(cache) {
-      return cache.addAll(APP_SHELL).catch(function() {
-        return Promise.resolve();
-      });
-    })
-  );
 });
 
 self.addEventListener('activate', function(event) {
   event.waitUntil(
     caches.keys().then(function(keys) {
       return Promise.all(
-        keys
-          .filter(function(key) {
-            return key !== CACHE_NAME;
-          })
-          .map(function(key) {
-            return caches.delete(key);
-          })
+        keys.map(function(key) {
+          return caches.delete(key);
+        })
       );
     }).then(function() {
       return self.clients.claim();
@@ -39,11 +21,24 @@ self.addEventListener('activate', function(event) {
 self.addEventListener('fetch', function(event) {
   if (event.request.method !== 'GET') return;
 
+  const url = new URL(event.request.url);
+
+  if (url.hostname.includes('script.google.com')) {
+    return;
+  }
+
+  if (event.request.mode === 'navigate') {
+    event.respondWith(
+      fetch(event.request).catch(function() {
+        return fetch('./id.html');
+      })
+    );
+    return;
+  }
+
   event.respondWith(
     fetch(event.request).catch(function() {
-      return caches.match(event.request).then(function(response) {
-        return response || caches.match('./id');
-      });
+      return caches.match(event.request);
     })
   );
 });
