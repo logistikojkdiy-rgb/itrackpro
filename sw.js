@@ -1,4 +1,4 @@
-const CACHE_NAME = 'itrack-pwa-safe-v5';
+const CACHE_NAME = 'itrack-pwa-android-ios-v7';
 
 self.addEventListener('install', function(event) {
   self.skipWaiting();
@@ -23,12 +23,21 @@ self.addEventListener('fetch', function(event) {
 
   const url = new URL(event.request.url);
 
-  // Jangan cache Google Apps Script/API agar data absensi, laporan, peserta, dan aksi admin selalu fresh.
-  if (url.hostname.includes('script.google.com')) {
+  /*
+   * Jangan cache Google Apps Script/API.
+   * Supaya data absensi, laporan, revisi, izin, peserta, dan admin selalu fresh.
+   */
+  if (
+    url.hostname.includes('script.google.com') ||
+    url.pathname.includes('/macros/s/')
+  ) {
     return;
   }
 
-  // Network-first untuk halaman utama supaya iPhone/Android tidak nyangkut cache lama.
+  /*
+   * Halaman utama pakai network-first.
+   * Ini penting supaya update id.html cepat terbaca di Android dan iPhone.
+   */
   if (event.request.mode === 'navigate') {
     event.respondWith(
       fetch(event.request).catch(function() {
@@ -38,7 +47,10 @@ self.addEventListener('fetch', function(event) {
     return;
   }
 
-  // Asset lain: network-first, fallback cache jika tersedia.
+  /*
+   * Asset lain pakai network-first,
+   * fallback ke cache jika offline.
+   */
   event.respondWith(
     fetch(event.request).catch(function() {
       return caches.match(event.request);
