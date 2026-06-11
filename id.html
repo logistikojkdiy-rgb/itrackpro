@@ -3889,4 +3889,282 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
    */
 })();
 </script>
+<!-- PATCH CAMERA MIRROR - iTrack Android/iPhone -->
+<style id="itrack-camera-mirror-style">
+  /*
+   * Mirror preview kamera selfie.
+   * Ini hanya memengaruhi tampilan video kamera,-mirror="1"],   * Ini hanya memengaruhi tampilan video kamera, bukan seluruh UI.
+  #cameraVideo,
+  #attendanceVideo,
+  #selfieVideo,
+  #liveCamera,
+  #videoPreview,
+  .camera-video,
+  .attendance-video,
+  .selfie-video,
+  .itrack-camera-video {
+    transform: scaleX(-1) !important;
+    -webkit-transform: scaleX(-1) !important;
+  }
+
+  /*
+   * Kalau ada wrapper camera preview.
+   */
+  .camera-preview video,
+  .attendance-preview video,
+  .selfie-preview video,
+  .itrack-camera-preview video {
+    transform: scaleX(-1) !important;
+    -webkit-transform: scaleX(-1) !important;
+  }
+
+  /*
+   * Jangan mirror map/foto hasil preview yang bukan video.
+   */
+  iframe,
+  canvas,
+  img {
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+</style>
+
+<script id="itrack-camera-mirror-script">
+(function(){
+  /*
+   * PATCH CAMERA MIRROR
+   * - Mirror live preview kamera.
+   * - Mirror hasil capture canvas dari video kamera.
+   * - Aman Android/iPhone.
+   */
+
+  var MIRROR_PREVIEW = true;
+  var MIRROR_CAPTURED_PHOTO = true;
+
+  function isCameraVideo(video){
+    if(!video || video.tagName !== 'VIDEO') return false;
+
+    var id = String(video.id || '').toLowerCase();
+    var cls = String(video.className || '').toLowerCase();
+    var parentText = '';
+
+    try{
+      parentText = String(video.closest('.view,.card,.modal,.camera-preview,.attendance-preview')?.innerText || '').toLowerCase();
+    }catch(e){}
+
+    return (
+      id.indexOf('camera') !== -1 ||
+      id.indexOf('video') !== -1 ||
+      id.indexOf('selfie') !== -1 ||
+      id.indexOf('attendance') !== -1 ||
+      cls.indexOf('camera') !== -1 ||
+      cls.indexOf('video') !== -1 ||
+      cls.indexOf('selfie') !== -1 ||
+      cls.indexOf('attendance') !== -1 ||
+      parentText.indexOf('absensi') !== -1 ||
+      parentText.indexOf('selfie') !== -1 ||
+      parentText.indexOf('kamera') !== -1
+    );
+  }
+
+  function shouldMirrorVideo(video){
+    if(!video || !isCameraVideo(video)) return false;
+
+    /*
+     * Kalau bisa baca facingMode, mirror khusus front camera/user.
+     * Kalau tidak bisa dibaca, tetap mirror karena modul iTrack ini dipakai untuk selfie absensi.
+     */
+    try{
+      var stream = video.srcObject;
+      var track = stream && stream.getVideoTracks ? stream.getVideoTracks()[0] : null;
+      var settings = track && track.getSettings ? track.getSettings() : {};
+      var facingMode = String(settings.facingMode || '').toLowerCase();
+
+      if(facingMode === 'environment') return false;
+      if(facingMode === 'user') return true;
+    }catch(e){}
+
+    return true;
+  }
+
+  function markVideo(video){
+    if(!video || !MIRROR_PREVIEW) return;
+
+    if(shouldMirrorVideo(video)){
+      video.setAttribute('data-itrack-mirror','1');
+      video.style.transform = 'scaleX(-1)';
+      video.style.webkitTransform = 'scaleX(-1)';
+      video.style.objectFit = video.style.objectFit || 'cover';
+    }
+  }
+
+  function scanVideos(){
+    document.querySelectorAll('video').forEach(markVideo);
+  }
+
+  /*
+   * Pantau video baru yang dibuat dinamis.
+   */
+  var observer = new MutationObserver(function(){
+    scanVideos();
+  });
+
+  document.addEventListener('DOMContentLoaded', function(){
+    scanVideos();
+
+    try{
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }catch(e){}
+
+    setInterval(scanVideos, 1200);
+  });
+
+  if(document.readyState !== 'loading'){
+    scanVideos();
+
+    try{
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }catch(e){}
+
+    setInterval(scanVideos, 1200);
+  }
+
+  /*
+   * Patch hasil capture canvas.
+   * Ini penting karena banyak kamera web app mengambil foto dengan:
+   * canvas.getContext('2d').drawImage(video,...)
+   *
+   * Kalau hanya CSS video yang di-mirror, hasil foto bisa tetap kebalik.
+   * Maka drawImage dari video ikut kita mirror.
+   */
+  if(MIRROR_CAPTURED_PHOTO && window.CanvasRenderingContext2D){
+    var originalDrawImage = CanvasRenderingContext2D.prototype.drawImage;
+
+    if(!originalDrawImage.__itrackMirrorPatched){
+      var patchedDrawImage = function(image){
+        try{
+          var isVideo =
+            image &&
+            image.tagName &&
+            String(image.tagName).toUpperCase() === 'VIDEO';
+
+          if(isVideo && shouldMirrorVideo(image)){
+            var args = Array.prototype.slice.call(arguments);
+            var canvas = this.canvas;
+            var cw = canvas.width;
+
+            this.save();
+
+            /*
+             * drawImage overload:
+             * 1. drawImage(image, dx, dy)
+             * 2. drawImage(image, dx, dy, dw, dh)
+             * 3. drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)
+             */
+
+            if(args.length === 3){
+              var dx = Number(args[1]) || 0;
+              var dy = Number(args[2]) || 0;
+              var dw =
+                image.videoWidth ||
+                image.naturalWidth ||
+                image.width ||
+                canvas.width;
+              var dh =
+                image.videoHeight ||
+                image.naturalHeight ||
+                image.height ||
+                canvas.height;
+
+              originalDrawImage.call(
+                this,
+                image,
+                cw - dx - dw,
+                dy,
+                dw,
+                dh
+              );
+
+              this.restore();
+              return;
+            }
+
+            if(args.length === 5){
+              var dx5 = Number(args[1]) || 0;
+              var dy5 = Number(args[2]) || 0;
+              var dw5 = Number(args[3]) || canvas.width;
+              var dh5 = Number(args[4]) || canvas.height;
+
+              originalDrawImage.call(
+                this,
+                image,
+                cw - dx5 - dw5,
+                dy5,
+                dw5,
+                dh5
+              );
+
+              this.restore();
+              return;
+            }
+
+            if(args.length === 9){
+              var sx = Number(args[1]) || 0;
+              var sy = Number(args[2]) || 0;
+              var sw = Number(args[3]) || image.videoWidth || canvas.width;
+              var sh = Number(args[4]) || image.videoHeight || canvas.height;
+              var dx9 = Number(args[5]) || 0;
+              var dy9 = Number(args[6]) || 0;
+              var dw9 = Number(args[7]) || canvas.width;
+              var dh9 = Number(args[8]) || canvas.height;
+
+              originalDrawImage.call(
+                this,
+                image,
+                sx,
+                sy,
+                sw,
+                sh,
+                cw - dx9 - dw9,
+                dy9,
+                dw9,
+                dh9
+              );
+
+              this.restore();
+              return;
+            }
+
+            this.restore();
+          }
+        }catch(e){
+          try{
+            this.restore();
+          }catch(_){}
+        }
+
+        return originalDrawImage.apply(this, arguments);
+      };
+
+      patchedDrawImage.__itrackMirrorPatched = true;
+      CanvasRenderingContext2D.prototype.drawImage = patchedDrawImage;
+    }
+  }
+
+  /*
+   * Debug manual di console:
+   * iTrackCameraMirrorRefresh()
+   */
+  window.iTrackCameraMirrorRefresh = scanVideos;
+
+  console.warn('[iTrack] Camera mirror patch aktif.');
+})();
+</script>
+   */
 </body></html>
