@@ -77,7 +77,7 @@
 
 <div id="splash" class="splash"><div style="text-align:center"><div class="splash-logo"></div><h1>iTrack</h1><p>Internship Tracker</p></div></div><div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loading-card"><div class="loader"></div><h3 id="loadingTitle">Memproses...</h3><p id="loadingText">Mohon tunggu sebentar.</p><div class="progress-line"><span></span></div></div></div><div id="authPage" class="auth-page"></div><div id="appPage" class="app hidden"></div><div id="outsideAttendanceModal" class="modal"></div><div id="detailModal" class="modal"></div><div id="itStage1Modal" class="it-stage1-modal"><div class="it-stage1-card" id="itStage1ModalCard"></div></div>
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbzxw845lI9SIHZhUreedatazvGzYGupbehK6HwOP5QpKOvEkQW0vJ177VEhhuj8805akg/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
+const API_URL='https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
 let currentUser=null,currentRoleIsAdmin=false,settings={APP_NAME:'iTrack Internship OJK DIY',APP_SHORT_NAME:'iTrack',APP_LOGO_URL:DEFAULT_LOGO,OFFICE_NAME:'Kantor OJK DIY',OFFICE_ADDRESS:'Jalan Jenderal Sudirman No. 22, Gowongan, Jetis, Yogyakarta 55232',OFFICE_LATITUDE:-7.7830584,OFFICE_LONGITUDE:110.3687544,OFFICE_RADIUS_METER:100,LATE_AFTER:'08:15',WORK_END_TIME:'17:00',ADMIN_NOTIFICATION_EMAIL:''};let currentCameraMode='in',cameraStream=null,capturedBase64='',currentLocation=null,currentDistance=null,serverTimeData=null,workItemCounter=0,isSubmittingAttendance=false;let state={today:null,adminAttendance:[],attendanceFilter:'SEMUA',retryPayload:null,retryAction:'',retryMode:'',recent:[],calendar:[],exportLogs:[],alerts:{}};
 const META={'user-home':['Dashboard','Hari ini'],'user-attendance':['Riwayat Absensi','Data saya'],'user-work':['Laporan','Catat kegiatan'],'user-leave':['Izin','Ajukan izin'],'user-profile':['Profil','Data akun'],'user-calendar':['Kalender','Kehadiran'],'user-progress':['Progress','Magang'],'admin-home':['Dashboard Admin','Monitoring'],'admin-attendance':['Absensi','Monitoring'],'admin-reports':['Laporan','Validasi'],'admin-leaves':['Izin','Approval'],'admin-menu':['Menu Admin','Akses lainnya'],'admin-registrations':['Registrasi','Verifikasi'],'admin-users':['Peserta','Data akun'],'admin-export':['Export','Unduh data'],'admin-export-logs':['Log Export','Riwayat export'],'admin-settings':['Pengaturan','Sistem']};
 const USER_MENUS=[['user-home','Home','home'],['user-attendance','Absensi','camera'],['user-work','Laporan','file'],['user-leave','Izin','calendar'],['user-profile','Profil','user']];const ADMIN_MENUS=[['admin-home','Home','home'],['admin-attendance','Absensi','camera'],['admin-reports','Laporan','file'],['admin-leaves','Izin','calendar'],['admin-registrations','Registrasi','user-plus'],['admin-users','Peserta','users'],['admin-export','Export','download'],['admin-export-logs','Log Export','file'],['admin-settings','Pengaturan','settings']];
@@ -3621,6 +3621,954 @@ window.iTrackDebugApi = async function(){
       });
     }
   };
+})();
+</script>
+<script id="itrack-force-api-url-and-data-restore">
+(function(){
+  /*
+   * HOTFIX:
+   * Memaksa semua request frontend memakai Web App exec yang benar.
+   * Dipakai saat data absensi/laporan/peserta tidak muncul karena API_URL lama/cache.
+   */
+
+  var ITRACK_FIXED_EXEC_URL = 'https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';
+
+  window.ITRACK_FIXED_EXEC_URL = ITRACK_FIXED_EXEC_URL;
+
+  function getCurrentUserSafe(){
+    try{
+      if(typeof currentUser !== 'undefined' && currentUser){
+        return currentUser;
+      }
+    }catch(e){}
+
+    try{
+      return JSON.parse(localStorage.getItem('iTrack_user') || localStorage.getItem('itrack_current_user') || '{}');
+    }catch(e){
+      return {};
+    }
+  }
+
+  async function fixedApi(action, payload){
+    payload = payload || {};
+
+    var body = {
+      action: action,
+      payload: payload
+    };
+
+    var response = await fetch(ITRACK_FIXED_EXEC_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify(body)
+    });
+
+    var text = await response.text();
+
+    if(!text){
+      throw new Error('Response API kosong untuk action: ' + action);
+    }
+
+    var json;
+
+    try{
+      json = JSON.parse(text);
+    }catch(parseError){
+      console.error('[iTrack] Response bukan JSON:', text);
+      throw new Error('Response API bukan JSON. Kemungkinan URL exec salah / deployment belum aktif.');
+    }
+
+    return json;
+  }
+
+  /*
+   * Override global api.
+   * Semua fungsi lama yang memanggil api(action,payload) akan diarahkan ke exec ini.
+   */
+  window.api = fixedApi;
+  window.iTrackApi = fixedApi;
+
+  /*
+   * Beberapa script lama mungkin membaca window.API_URL.
+   * Kalau API_URL dideklarasikan const, tidak bisa diubah.
+   * Tapi window.API_URL tetap kita set untuk fallback fungsi lain.
+   */
+  try{
+    window.API_URL = ITRACK_FIXED_EXEC_URL;
+  }catch(e){}
+
+  /*
+   * Popup ringan.
+   */
+  function notify(type, title, message){
+    if(typeof window.showAppPopup === 'function'){
+      window.showAppPopup(type || 'info', title || 'Informasi', message || '');
+      return;
+    }
+
+    if(typeof window.showToast === 'function'){
+      window.showToast(type || 'info', title || 'Informasi', message || '');
+      return;
+    }
+
+    console.log('[iTrack]', title, message);
+  }
+
+  /*
+   * Clear cache browser/PWA sekali agar tidak nyangkut API lama.
+   */
+  async function clearOldCachesOnce(){
+    try{
+      var key = 'itrack_force_api_cache_clear_v1';
+
+      if(localStorage.getItem(key) === '1'){
+        return;
+      }
+
+      if('caches' in window){
+        var names = await caches.keys();
+
+        await Promise.all(
+          names.map(function(name){
+            return caches.delete(name);
+          })
+        );
+      }
+
+      localStorage.setItem(key, '1');
+
+      console.warn('[iTrack] Cache lama dibersihkan sekali untuk force API URL.');
+    }catch(e){
+      console.warn('[iTrack] Gagal clear cache:', e);
+    }
+  }
+
+  /*
+   * Refresh semua loader yang mungkin ada di aplikasi.
+   */
+  function refreshAllPanels(){
+    var loaders = [
+      'loadDashboardSummary',
+      'loadAdminDashboard',
+      'loadDashboard',
+
+      'loadAdminAttendance',
+      'loadAttendanceMonitoring',
+      'loadMyAttendance',
+      'loadAttendanceToday',
+
+      'loadAdminReports',
+      'loadWorkReportsForAdmin',
+      'loadMyReports',
+      'loadRecentActivities',
+
+      'loadUsersForAdmin',
+      'loadAdminUsers',
+      'loadParticipants',
+      'loadAdminParticipants',
+      'loadAdminData',
+
+      'loadMyLeaves',
+      'loadLeavesForAdmin',
+      'loadAdminLeaves'
+    ];
+
+    loaders.forEach(function(fn){
+      try{
+        if(typeof window[fn] === 'function'){
+          window[fn]();
+        }
+      }catch(error){
+        console.warn('[iTrack] Loader gagal:', fn, error);
+      }
+    });
+
+    try{
+      if(typeof window.iTrackAdminInlineActionsRefresh === 'function'){
+        setTimeout(window.iTrackAdminInlineActionsRefresh, 700);
+      }
+    }catch(e){}
+
+    try{
+      if(typeof window.iTrackAdminUserActionsRefresh === 'function'){
+        setTimeout(window.iTrackAdminUserActionsRefresh, 700);
+      }
+    }catch(e){}
+  }
+
+  /*
+   * Test API dari console.
+   * Jalankan:
+   * iTrackApiSelfTest()
+   */
+  window.iTrackApiSelfTest = async function(){
+    var user = getCurrentUserSafe();
+
+    var tests = [
+      {
+        action: 'ping',
+        payload: {}
+      },
+      {
+        action: 'getAttendanceMonitoring',
+        payload: {}
+      },
+      {
+        action: 'getWorkReportsForAdmin',
+        payload: {}
+      },
+      {
+        action: 'getUsersForAdmin',
+        payload: {}
+      },
+      {
+        action: 'getMyAttendance',
+        payload: {
+          userId: user.USER_ID || user.userId || '',
+          username: user.USERNAME || user.username || ''
+        }
+      },
+      {
+        action: 'getMyWorkReports',
+        payload: {
+          userId: user.USER_ID || user.userId || '',
+          username: user.USERNAME || user.username || ''
+        }
+      }
+    ];
+
+    var results = [];
+
+    for(var i = 0; i < tests.length; i++){
+      var test = tests[i];
+
+      try{
+        var res = await fixedApi(test.action, test.payload);
+
+        results.push({
+          action: test.action,
+          success: !!(res && res.success),
+          message: res && res.message,
+          dataType: res && Array.isArray(res.data) ? 'array' : typeof (res && res.data),
+          dataLength: res && Array.isArray(res.data) ? res.data.length : undefined,
+          raw: res
+        });
+      }catch(error){
+        results.push({
+          action: test.action,
+          success: false,
+          message: error.message
+        });
+      }
+    }
+
+    console.log('[iTrack] API SELF TEST:', results);
+
+    alert(
+      'API Self Test selesai.\n' +
+      'Cek Console untuk detail.\n\n' +
+      results.map(function(r){
+        return r.action + ': ' + (r.success ? 'OK' : 'GAGAL') + (r.dataLength !== undefined ? ' (' + r.dataLength + ' data)' : '');
+      }).join('\n')
+    );
+
+    return results;
+  };
+
+  /*
+   * Hook openView supaya setiap pindah panel data dimuat ulang.
+   */
+  var oldOpenView = window.openView;
+
+  if(typeof oldOpenView === 'function' && !oldOpenView.__forceApiWrapped){
+    var wrappedOpenView = function(id){
+      oldOpenView(id);
+
+      setTimeout(function(){
+        refreshAllPanels();
+      }, 350);
+
+      setTimeout(function(){
+        refreshAllPanels();
+      }, 1200);
+    };
+
+    wrappedOpenView.__forceApiWrapped = true;
+    window.openView = wrappedOpenView;
+  }
+
+  /*
+   * Init.
+   */
+  document.addEventListener('DOMContentLoaded', function(){
+    clearOldCachesOnce();
+
+    console.warn('[iTrack] Force API URL aktif:', ITRACK_FIXED_EXEC_URL);
+
+    setTimeout(function(){
+      refreshAllPanels();
+    }, 900);
+
+    setTimeout(function(){
+      refreshAllPanels();
+    }, 2200);
+  });
+
+  /*
+   * Kalau script ini dipaste di bawah dan DOM sudah loaded.
+   */
+  if(document.readyState !== 'loading'){
+    clearOldCachesOnce();
+
+    setTimeout(function(){
+      refreshAllPanels();
+    }, 700);
+
+    setTimeout(function(){
+      refreshAllPanels();
+    }, 1800);
+  }
+
+})();
+</script>
+<script id="itrack-final-data-panel-restore-v2">
+(function(){
+  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';
+
+  window.ITRACK_ACTIVE_EXEC_URL = EXEC_URL;
+
+  function log(){
+    try{
+      console.log.apply(console, ['[iTrack Restore]'].concat([].slice.call(arguments)));
+    }catch(e){}
+  }
+
+  function esc(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
+
+  function getAny(row, keys, fallback){
+    row = row || {};
+    keys = keys || [];
+
+    for(var i = 0; i < keys.length; i++){
+      var key = keys[i];
+
+      if(row[key] !== undefined && row[key] !== null && row[key] !== ''){
+        return row[key];
+      }
+    }
+
+    return fallback === undefined ? '' : fallback;
+  }
+
+  function currentUserSafe(){
+    try{
+      if(typeof currentUser !== 'undefined' && currentUser) return currentUser;
+    }catch(e){}
+
+    try{
+      return JSON.parse(
+        localStorage.getItem('iTrack_user') ||
+        localStorage.getItem('itrack_current_user') ||
+        localStorage.getItem('currentUser') ||
+        '{}'
+      );
+    }catch(e){
+      return {};
+    }
+  }
+
+  async function fixedApi(action, payload){
+    payload = payload || {};
+
+    var res = await fetch(EXEC_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'text/plain;charset=utf-8'
+      },
+      body: JSON.stringify({
+        action: action,
+        payload: payload
+      })
+    });
+
+    var text = await res.text();
+
+    if(!text){
+      throw new Error('Response API kosong untuk action ' + action);
+    }
+
+    try{
+      return JSON.parse(text);
+    }catch(error){
+      console.error('[iTrack Restore] Response mentah:', text);
+      throw new Error('Response API bukan JSON untuk action ' + action);
+    }
+  }
+
+  /*
+   * Override API global.
+   */
+  window.api = fixedApi;
+  window.iTrackApi = fixedApi;
+
+  try{
+    window.API_URL = EXEC_URL;
+  }catch(e){}
+
+  function normalizeRows(res, preferredKey){
+    if(!res) return [];
+
+    if(Array.isArray(res)) return res;
+
+    if(Array.isArray(res.data)) return res.data;
+
+    if(res.data && Array.isArray(res.data.rows)) return res.data.rows;
+    if(res.data && Array.isArray(res.data.data)) return res.data.data;
+    if(res.data && Array.isArray(res.data.items)) return res.data.items;
+
+    if(preferredKey && res.data && Array.isArray(res.data[preferredKey])) {
+      return res.data[preferredKey];
+    }
+
+    if(res.data && Array.isArray(res.data.attendances)) return res.data.attendances;
+    if(res.data && Array.isArray(res.data.attendance)) return res.data.attendance;
+    if(res.data && Array.isArray(res.data.reports)) return res.data.reports;
+    if(res.data && Array.isArray(res.data.users)) return res.data.users;
+    if(res.data && Array.isArray(res.data.participants)) return res.data.participants;
+    if(res.data && Array.isArray(res.data.peserta)) return res.data.peserta;
+
+    return [];
+  }
+
+  async function tryActions(actions, payload, preferredKey){
+    var lastError = null;
+
+    for(var i = 0; i < actions.length; i++){
+      var action = actions[i];
+
+      try{
+        var res = await fixedApi(action, payload || {});
+        log(action, res);
+
+        if(res && res.success === false){
+          lastError = new Error(res.message || ('Action gagal: ' + action));
+          continue;
+        }
+
+        var rows = normalizeRows(res, preferredKey);
+
+        return {
+          action: action,
+          response: res,
+          rows: rows
+        };
+      }catch(error){
+        lastError = error;
+        log('Action error:', action, error.message);
+      }
+    }
+
+    throw lastError || new Error('Semua action gagal.');
+  }
+
+  function findTbody(candidates, headingText){
+    for(var i = 0; i < candidates.length; i++){
+      var el = document.querySelector(candidates[i]);
+
+      if(el){
+        if(el.tagName && el.tagName.toLowerCase() === 'tbody') return el;
+
+        var tbody = el.querySelector('tbody');
+        if(tbody) return tbody;
+      }
+    }
+
+    /*
+     * Fallback: cari table dari judul/header halaman.
+     */
+    var tables = Array.from(document.querySelectorAll('table'));
+
+    for(var t = 0; t < tables.length; t++){
+      var table = tables[t];
+      var text = (table.innerText || '').toLowerCase();
+
+      if(headingText && text.indexOf(headingText.toLowerCase()) !== -1){
+        return table.querySelector('tbody') || table;
+      }
+    }
+
+    /*
+     * Fallback terakhir: table aktif pertama.
+     */
+    var activeView = document.querySelector('.view.active') || document.body;
+    var tableActive = activeView.querySelector('table');
+
+    if(tableActive){
+      return tableActive.querySelector('tbody') || tableActive;
+    }
+
+    return null;
+  }
+
+  function setEmpty(tbody, colspan, message){
+    if(!tbody) return;
+
+    tbody.innerHTML = ''
+      + '<tr>'
+      + '<td colspan="' + colspan + '" style="text-align:center;padding:18px;color:#74869A;">'
+      + esc(message || 'Tidak ada data.')
+      + '</td>'
+      + '</tr>';
+  }
+
+  function badge(text){
+    text = String(text || '-');
+
+    var upper = text.toUpperCase();
+    var bg = '#F1F5F9';
+    var color = '#475569';
+
+    if(['VALID','HADIR','DISETUJUI','AKTIF'].indexOf(upper) !== -1){
+      bg = '#DCFCE7';
+      color = '#166534';
+    }
+
+    if(['MENUNGGU','PERLU_REVIEW','REVISI','TERLAMBAT'].indexOf(upper) !== -1){
+      bg = '#FEF3C7';
+      color = '#92400E';
+    }
+
+    if(['INVALID','DITOLAK','NONAKTIF','ALPHA','DIBLOKIR'].indexOf(upper) !== -1){
+      bg = '#FEE2E2';
+      color = '#991B1B';
+    }
+
+    return '<span style="display:inline-flex;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:800;background:' + bg + ';color:' + color + ';">' + esc(text) + '</span>';
+  }
+
+  function mapLink(url){
+    url = String(url || '').trim();
+
+    if(!url) return '-';
+
+    return '<a href="' + esc(url) + '" target="_blank" style="color:#2F8FC4;font-weight:800;text-decoration:none;">Maps</a>';
+  }
+
+  /*
+   * ABSENSI ADMIN
+   */
+  async function restoreAttendance(){
+    var tbody = findTbody([
+      '#adminAttendanceRows',
+      '#attendanceRows',
+      '#adminHomeAttendanceRows',
+      '#view-admin-attendance tbody',
+      '#view-admin-home tbody'
+    ]);
+
+    if(!tbody) {
+      log('tbody absensi tidak ditemukan');
+      return;
+    }
+
+    setEmpty(tbody, 10, 'Memuat data absensi...');
+
+    try{
+      var result = await tryActions([
+        'getAttendanceMonitoring',
+        'getAttendanceData',
+        'getUserAttendance'
+      ], {
+        tanggalMulai: document.querySelector('#attendanceStart,#filterStart,#attStart')?.value || '',
+        tanggalSelesai: document.querySelector('#attendanceEnd,#filterEnd,#attEnd')?.value || '',
+        status: ''
+      }, 'attendances');
+
+      var rows = result.rows || [];
+
+      if(!rows.length){
+        setEmpty(tbody, 10, 'Belum ada data absensi pada filter ini.');
+        return;
+      }
+
+      tbody.innerHTML = rows.map(function(row, index){
+        var id = getAny(row, ['ID Absensi','ATTENDANCE_ID','idAbsensi','attendanceId','id']);
+        var tanggal = getAny(row, ['Tanggal','TANGGAL','tanggal','date']);
+        var nama = getAny(row, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','fullName','nama']);
+        var divisi = getAny(row, ['Divisi','DIVISI','divisi']);
+        var masuk = getAny(row, ['Jam Masuk','JAM_MASUK','jamMasuk','checkIn']);
+        var pulang = getAny(row, ['Jam Pulang','JAM_PULANG','jamPulang','checkOut']);
+        var total = getAny(row, ['Total Jam Kerja','TOTAL_JAM_KERJA','totalJamKerja','total']);
+        var status = getAny(row, ['Status Kehadiran','STATUS_KEHADIRAN','statusKehadiran','status']);
+        var validasi = getAny(row, ['Status Validasi','STATUS_VALIDASI','statusValidasi']);
+        var maps = getAny(row, ['Peta Masuk','MAPS_MASUK','mapsMasuk','maps','mapUrl']);
+
+        return ''
+          + '<tr data-attendance-id="' + esc(id) + '">'
+          + '<td data-label="No">' + (index + 1) + '</td>'
+          + '<td data-label="Tanggal">' + esc(tanggal || '-') + '</td>'
+          + '<td data-label="Nama">' + esc(nama || '-') + '</td>'
+          + '<td data-label="Divisi">' + esc(divisi || '-') + '</td>'
+          + '<td data-label="Masuk">' + esc(masuk || '-') + '</td>'
+          + '<td data-label="Pulang">' + esc(pulang || '-') + '</td>'
+          + '<td data-label="Total">' + esc(total || '-') + '</td>'
+          + '<td data-label="Status">' + badge(status || validasi || '-') + '</td>'
+          + '<td data-label="Maps">' + mapLink(maps) + '</td>'
+          + '<td data-label="Aksi">'
+          + '<button type="button" class="btn btn-secondary btn-mini" onclick="window.iTrackOpenAttendanceAction ? window.iTrackOpenAttendanceAction(\'' + esc(id) + '\') : alert(\'ID Absensi: ' + esc(id) + '\')">Aksi</button>'
+          + '</td>'
+          + '</tr>';
+      }).join('');
+
+      log('Absensi rendered:', rows.length);
+    }catch(error){
+      setEmpty(tbody, 10, 'Gagal memuat absensi: ' + error.message);
+      console.error('[iTrack Restore] Absensi gagal:', error);
+    }
+  }
+
+  /*
+   * LAPORAN ADMIN
+   */
+  async function restoreReports(){
+    var tbody = findTbody([
+      '#adminReportRows',
+      '#workReportRows',
+      '#reportRows',
+      '#view-admin-reports tbody',
+      '#view-admin-report tbody'
+    ]);
+
+    if(!tbody) {
+      log('tbody laporan tidak ditemukan');
+      return;
+    }
+
+    setEmpty(tbody, 8, 'Memuat data laporan...');
+
+    try{
+      var result = await tryActions([
+        'getWorkReportsForAdmin',
+        'getFilteredReports',
+        'getUserReports'
+      ], {}, 'reports');
+
+      var rows = result.rows || [];
+
+      if(!rows.length){
+        setEmpty(tbody, 8, 'Belum ada data laporan.');
+        return;
+      }
+
+      tbody.innerHTML = rows.map(function(row, index){
+        var id = getAny(row, ['ID Laporan','REPORT_ID','idLaporan','reportId','id']);
+        var tanggal = getAny(row, ['Tanggal','TANGGAL','tanggal','date']);
+        var nama = getAny(row, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','nama']);
+        var divisi = getAny(row, ['Divisi','DIVISI','divisi']);
+        var kegiatan = getAny(row, ['Total Kegiatan','TOTAL_KEGIATAN','totalKegiatan'], 0);
+        var durasi = getAny(row, ['Total Durasi','TOTAL_DURASI','totalDurasi'], '-');
+        var status = getAny(row, ['Status Laporan','STATUS_LAPORAN','statusLaporan','status']);
+
+        return ''
+          + '<tr data-report-id="' + esc(id) + '">'
+          + '<td data-label="No">' + (index + 1) + '</td>'
+          + '<td data-label="Tanggal">' + esc(tanggal || '-') + '</td>'
+          + '<td data-label="Nama">' + esc(nama || '-') + '</td>'
+          + '<td data-label="Divisi">' + esc(divisi || '-') + '</td>'
+          + '<td data-label="Kegiatan">' + esc(kegiatan) + '</td>'
+          + '<td data-label="Durasi">' + esc(durasi) + '</td>'
+          + '<td data-label="Status">' + badge(status || '-') + '</td>'
+          + '<td data-label="Aksi">'
+          + '<button type="button" class="btn btn-secondary btn-mini" onclick="window.iTrackOpenReportAction ? window.iTrackOpenReportAction(\'' + esc(id) + '\') : alert(\'ID Laporan: ' + esc(id) + '\')">Aksi</button>'
+          + '</td>'
+          + '</tr>';
+      }).join('');
+
+      log('Laporan rendered:', rows.length);
+    }catch(error){
+      setEmpty(tbody, 8, 'Gagal memuat laporan: ' + error.message);
+      console.error('[iTrack Restore] Laporan gagal:', error);
+    }
+  }
+
+  /*
+   * PESERTA ADMIN
+   */
+  async function restoreUsers(){
+    var tbody = findTbody([
+      '#adminUserRows',
+      '#userRows',
+      '#participantRows',
+      '#pesertaRows',
+      '#view-admin-users tbody',
+      '#view-admin-participants tbody'
+    ]);
+
+    if(!tbody) {
+      log('tbody peserta tidak ditemukan');
+      return;
+    }
+
+    setEmpty(tbody, 8, 'Memuat data peserta...');
+
+    try{
+      var result = await tryActions([
+        'getUsersForAdmin',
+        'getAdminData'
+      ], {}, 'users');
+
+      var rows = result.rows || [];
+
+      /*
+       * getAdminData kadang membungkus users di response.data.users.
+       */
+      if(!rows.length && result.response && result.response.data && Array.isArray(result.response.data.users)){
+        rows = result.response.data.users;
+      }
+
+      if(!rows.length){
+        setEmpty(tbody, 8, 'Belum ada data peserta.');
+        return;
+      }
+
+      tbody.innerHTML = rows.map(function(row, index){
+        var id = getAny(row, ['ID Pengguna','USER_ID','userId','idPengguna','id']);
+        var username = getAny(row, ['Nama Pengguna','USERNAME','username']);
+        var nama = getAny(row, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','nama']);
+        var email = getAny(row, ['Email','EMAIL','email']);
+        var divisi = getAny(row, ['Divisi','DIVISI','divisi']);
+        var role = getAny(row, ['Peran','ROLE','role']);
+        var status = getAny(row, ['Status Akun','STATUS_AKUN','statusAkun','status']);
+
+        return ''
+          + '<tr data-user-id="' + esc(id) + '" data-username="' + esc(username) + '">'
+          + '<td data-label="No">' + (index + 1) + '</td>'
+          + '<td data-label="Nama">' + esc(nama || '-') + '</td>'
+          + '<td data-label="Username">' + esc(username || '-') + '</td>'
+          + '<td data-label="Email">' + esc(email || '-') + '</td>'
+          + '<td data-label="Divisi">' + esc(divisi || '-') + '</td>'
+          + '<td data-label="Role">' + esc(role || '-') + '</td>'
+          + '<td data-label="Status">' + badge(status || '-') + '</td>'
+          + '<td data-label="Aksi">'
+          + '<button type="button" class="btn btn-secondary btn-mini" onclick="alert(\'User: ' + esc(username || id) + '\')">Aksi</button>'
+          + '</td>'
+          + '</tr>';
+      }).join('');
+
+      log('Peserta rendered:', rows.length);
+    }catch(error){
+      setEmpty(tbody, 8, 'Gagal memuat peserta: ' + error.message);
+      console.error('[iTrack Restore] Peserta gagal:', error);
+    }
+  }
+
+  /*
+   * Panggil loader lama dengan benar.
+   */
+  function callOldLoaders(){
+    [
+      'loadDashboardSummary',
+      'loadAdminDashboard',
+      'loadDashboard',
+
+      'loadAdminAttendance',
+      'loadAttendanceMonitoring',
+      'loadMyAttendance',
+      'loadAttendanceToday',
+
+      'loadAdminReports',
+      'loadWorkReportsForAdmin',
+      'loadMyReports',
+      'loadRecentActivities',
+
+      'loadUsersForAdmin',
+      'loadAdminUsers',
+      'loadParticipants',
+      'loadAdminParticipants',
+      'loadAdminData'
+    ].forEach(function(fn){
+      try{
+        if(typeof window[fn] === 'function'){
+          window[fn]();
+        }
+      }catch(error){
+        console.warn('[iTrack Restore] Loader lama gagal:', fn, error);
+      }
+    });
+  }
+
+  function restoreActivePanel(){
+    var activeText = '';
+
+    try{
+      activeText = (
+        document.querySelector('.view.active') ||
+        document.querySelector('main') ||
+        document.body
+      ).innerText.toLowerCase();
+    }catch(e){}
+
+    callOldLoaders();
+
+    /*
+     * Render fallback berdasarkan halaman yang sedang aktif.
+     */
+    if(activeText.indexOf('absensi') !== -1){
+      setTimeout(restoreAttendance, 500);
+      setTimeout(restoreAttendance, 1600);
+    }
+
+    if(activeText.indexOf('laporan') !== -1){
+      setTimeout(restoreReports, 500);
+      setTimeout(restoreReports, 1600);
+    }
+
+    if(
+      activeText.indexOf('peserta') !== -1 ||
+      activeText.indexOf('pengguna') !== -1 ||
+      activeText.indexOf('user') !== -1
+    ){
+      setTimeout(restoreUsers, 500);
+      setTimeout(restoreUsers, 1600);
+    }
+  }
+
+  /*
+   * Debug manual:
+   * Jalankan di console:
+   * iTrackRestoreAll()
+   */
+  window.iTrackRestoreAll = function(){
+    callOldLoaders();
+    restoreAttendance();
+    restoreReports();
+    restoreUsers();
+  };
+
+  window.iTrackRestoreAttendance = restoreAttendance;
+  window.iTrackRestoreReports = restoreReports;
+  window.iTrackRestoreUsers = restoreUsers;
+
+  /*
+   * Debug API:
+   * Jalankan:
+   * iTrackRestoreSelfTest()
+   */
+  window.iTrackRestoreSelfTest = async function(){
+    var tests = [
+      'ping',
+      'getAttendanceMonitoring',
+      'getWorkReportsForAdmin',
+      'getUsersForAdmin',
+      'getMyAttendance',
+      'getMyWorkReports'
+    ];
+
+    var user = currentUserSafe();
+
+    var output = [];
+
+    for(var i = 0; i < tests.length; i++){
+      var action = tests[i];
+      var payload = {};
+
+      if(action.indexOf('My') !== -1){
+        payload = {
+          userId: user.USER_ID || user.userId || '',
+          username: user.USERNAME || user.username || ''
+        };
+      }
+
+      try{
+        var res = await fixedApi(action, payload);
+        output.push({
+          action: action,
+          success: !!(res && res.success),
+          message: res && res.message,
+          rows: normalizeRows(res).length,
+          raw: res
+        });
+      }catch(error){
+        output.push({
+          action: action,
+          success: false,
+          message: error.message
+        });
+      }
+    }
+
+    console.log('[iTrack Restore] SelfTest:', output);
+
+    alert(
+      output.map(function(x){
+        return x.action + ': ' + (x.success ? 'OK' : 'GAGAL') + ' ' + (x.rows !== undefined ? '(' + x.rows + ' rows)' : '');
+      }).join('\n')
+    );
+
+    return output;
+  };
+
+  /*
+   * Hook openView.
+   */
+  var oldOpenView = window.openView;
+
+  if(typeof oldOpenView === 'function' && !oldOpenView.__itrackRestoreWrapped){
+    var wrappedOpenView = function(id){
+      oldOpenView(id);
+
+      setTimeout(restoreActivePanel, 400);
+      setTimeout(restoreActivePanel, 1500);
+    };
+
+    wrappedOpenView.__itrackRestoreWrapped = true;
+    window.openView = wrappedOpenView;
+  }
+
+  /*
+   * Hook tombol filter.
+   */
+  document.addEventListener('click', function(e){
+    var target = e.target;
+
+    if(!target) return;
+
+    var text = String(target.innerText || target.textContent || '').toLowerCase();
+
+    if(
+      text.indexOf('filter') !== -1 ||
+      text.indexOf('refresh') !== -1 ||
+      text.indexOf('muat') !== -1
+    ){
+      setTimeout(restoreActivePanel, 600);
+    }
+  });
+
+  /*
+   * Init.
+   */
+  document.addEventListener('DOMContentLoaded', function(){
+    log('Patch aktif. Exec:', EXEC_URL);
+
+    setTimeout(restoreActivePanel, 900);
+    setTimeout(restoreActivePanel, 2400);
+  });
+
+  if(document.readyState !== 'loading'){
+    log('Patch aktif late. Exec:', EXEC_URL);
+
+    setTimeout(restoreActivePanel, 700);
+    setTimeout(restoreActivePanel, 1800);
+  }
 })();
 </script>
 </body></html>
