@@ -1,41 +1,20 @@
 <!doctype html>
 <html lang="id">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
-
-  <title>iTrack Internship OJK DIY</title>
-
-  <!-- Theme / PWA -->
-  <meta name="theme-color" content="#4BA9D9">
-  <meta name="mobile-web-app-capable" content="yes">
-
-  <!-- iOS Safari Web App -->
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-title" content="iTrack">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-  <!-- Mobile behavior -->
-  <meta name="format-detection" content="telephone=no">
-  <meta name="application-name" content="iTrack">
-  <meta name="msapplication-TileColor" content="#4BA9D9">
-  <meta name="msapplication-tap-highlight" content="no">
-
-  <!-- Manifest -->
-  <link rel="manifest" href="./manifest.webmanifest">
-
-  <!-- Icons from ImageKit -->
-  <link rel="icon" type="image/png" sizes="192x192" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
-  <link rel="icon" type="image/png" sizes="512x512" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
-  <link rel="apple-touch-icon" sizes="180x180" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
-
-  <!-- Font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-  <style>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#4BA9D9">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="iTrack">
+<title>iTrack Internship OJK DIY</title>
+<link rel="manifest" href="./manifest.webmanifest">
+<link rel="icon" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
+<link rel="apple-touch-icon" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
 :root{--blue:#4BA9D9;--blue2:#2F8FC4;--blue3:#EAF7FD;--navy:#172A45;--ink:#26384F;--muted:#74869A;--bg:#F6FAFD;--line:#E6EEF4;--green:#3DBB86;--orange:#F59B45;--red:#E85D5D;--purple:#8B7CF6;--shadow:0 28px 80px rgba(30,70,98,.14);--soft:0 12px 32px rgba(30,70,98,.08);--safe:env(safe-area-inset-bottom,0px);--logo:url('https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938')}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font-family:inherit}button{cursor:pointer}a{color:var(--blue2);font-weight:600;text-decoration:none}.hidden{display:none!important}.logo{background:var(--logo) center/contain no-repeat}.mono-icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}@keyframes spin{to{transform:rotate(360deg)}}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes shimmer{0%{background-position:-220% 0}100%{background-position:220% 0}}
 .splash{position:fixed;inset:0;z-index:5000;display:grid;place-items:center;background:linear-gradient(145deg,#F5FCFF,#E5F6FC);transition:.5s}.splash.hide{opacity:0;visibility:hidden;pointer-events:none}.splash-logo{width:108px;height:108px;margin:auto;border-radius:32px;background:#fff var(--logo) center/74% no-repeat;box-shadow:var(--shadow);position:relative}.splash-logo:after{content:"";position:absolute;inset:-8px;border-radius:40px;border:3px solid rgba(75,169,217,.18);border-top-color:var(--blue);animation:spin .8s linear infinite}.splash h1{margin:18px 0 5px;color:var(--navy);font-size:34px}.splash p{margin:0;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.loading{position:fixed;inset:0;z-index:4500;display:none;place-items:center;background:rgba(23,42,69,.36);backdrop-filter:blur(14px);padding:18px}.loading.show{display:grid}.loading-card{width:min(380px,100%);background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:0 28px 82px rgba(23,42,69,.22);padding:26px;text-align:center;animation:rise .2s}.loader{width:70px;height:70px;margin:0 auto 15px;border-radius:24px;background:linear-gradient(145deg,var(--blue3),#fff);display:grid;place-items:center}.loader:before{content:"";width:44px;height:44px;border-radius:999px;border:4px solid rgba(75,169,217,.17);border-top-color:var(--blue);animation:spin .75s linear infinite}.loading h3{margin:0 0 7px;color:var(--navy);font-size:17px}.loading p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}.progress-line{height:7px;background:#EEF6FA;border-radius:999px;margin-top:16px;overflow:hidden}.progress-line span{display:block;width:50%;height:100%;border-radius:999px;background:linear-gradient(90deg,transparent,var(--blue),transparent);background-size:220% 100%;animation:shimmer 1.1s linear infinite}.toast{position:fixed;z-index:4600;left:50%;top:18px;transform:translateX(-50%);width:min(440px,calc(100% - 28px));display:none}.toast.show{display:block}.toast-card{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:14px 16px;display:flex;gap:12px;animation:rise .18s}.toast-ico{width:36px;height:36px;border-radius:14px;display:grid;place-items:center;background:var(--blue3);color:var(--blue2);font-weight:700;flex:0 0 auto}.toast-card.success .toast-ico{background:#DCFCE7;color:#166534}.toast-card.error .toast-ico{background:#FEE2E2;color:#991B1B}.toast-card.warning .toast-ico{background:#FEF3C7;color:#92400E}.toast h3{margin:0 0 3px;color:var(--navy);font-size:13px}.toast p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.btn{border:0;min-height:48px;border-radius:16px;padding:11px 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600;transition:.16s;white-space:nowrap}.btn:active{transform:scale(.985)}.btn:disabled{opacity:.56;cursor:not-allowed}.btn-primary{background:linear-gradient(135deg,var(--blue),#62B9E3);color:#fff;box-shadow:0 16px 30px rgba(75,169,217,.22)}.btn-secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}.btn-green{background:#E5F8EF;color:#217A58}.btn-orange{background:#FFF0DF;color:#996018}.btn-red{background:#FEEAEA;color:#9C2A2A}.btn-full{width:100%}.btn-mini{min-height:34px;border-radius:12px;padding:7px 10px;font-size:11px}.text-btn{border:0;background:transparent;color:var(--blue2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:0}.field{position:relative}.field input,.field select,.field textarea{width:100%;min-height:58px;border:1.35px solid var(--line);background:#fff;border-radius:16px;outline:0;color:var(--ink);padding:21px 14px 7px;font-size:13px;font-weight:400;transition:.16s;box-shadow:0 7px 18px rgba(30,70,98,.025)}.field textarea{min-height:118px;resize:vertical;line-height:1.55}.field label{position:absolute;left:14px;top:17px;color:#9AABBB;font-size:12px;font-weight:400;pointer-events:none;transition:.15s}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(75,169,217,.13)}.field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label,.field select:focus+label,.field select:valid+label{top:6px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--blue2)}.pw input{padding-right:50px}.pw button{position:absolute;right:9px;top:9px;width:40px;height:40px;border:0;border-radius:14px;background:#F7FAFC;color:#8A99AB}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stack{display:grid;gap:12px}
 .auth-page{min-height:100dvh;padding:18px;display:grid;place-items:center;background:radial-gradient(circle at top left,rgba(75,169,217,.16),transparent 30%),radial-gradient(circle at bottom right,rgba(47,143,196,.13),transparent 34%),#F6FAFD}.auth-shell{width:min(1320px,100%);min-height:735px;display:grid;grid-template-columns:1.13fr .87fr;overflow:hidden;border-radius:34px;background:#fff;border:1px solid rgba(226,238,244,.95);box-shadow:var(--shadow)}.video-panel{position:relative;overflow:hidden;background:linear-gradient(160deg,#7ECBEF,#3EA2D0)}.video-card{position:relative;height:100%;min-height:735px;overflow:hidden}.video-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.30;filter:saturate(1.03) contrast(1.02)}.video-card:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 18% 14%,rgba(255,255,255,.25),transparent 20%),radial-gradient(circle at 88% 90%,rgba(255,255,255,.16),transparent 30%),linear-gradient(160deg,rgba(102,188,229,.82),rgba(47,143,196,.78))}.login-left-content{position:relative;z-index:4;min-height:735px;padding:46px 48px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}.login-brand{display:flex;align-items:center;gap:14px}.login-brand-logo{width:60px;height:60px;border-radius:18px;background:rgba(255,255,255,.96) var(--logo) center/74% no-repeat;box-shadow:0 16px 34px rgba(20,70,98,.14)}.login-brand-title strong{display:block;font-size:20px;font-weight:700}.login-brand-title span{display:block;margin-top:4px;font-size:12px;opacity:.82}.login-hero-copy{max-width:520px;margin-top:58px}.login-hero-line{width:46px;height:4px;border-radius:999px;background:rgba(255,255,255,.86);margin-bottom:22px}.login-hero-copy h1{margin:0;font-size:clamp(42px,4.4vw,62px);line-height:.99;letter-spacing:-2.2px;font-weight:700}.login-hero-copy p{margin:22px 0 0;max-width:465px;font-size:14px;line-height:1.8;color:rgba(255,255,255,.86)}.login-feature-list{display:grid;gap:13px;margin-top:34px;max-width:520px}.login-feature{display:grid;grid-template-columns:48px 1fr;gap:13px;align-items:center;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px)}.login-feature-icon{width:40px;height:40px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center;color:#fff}.login-feature-icon svg{width:21px;height:21px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.login-feature b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;font-weight:700}.login-feature span{display:block;margin-top:4px;font-size:11px;line-height:1.45;color:rgba(255,255,255,.78)}.auth-panel{padding:52px 76px;display:grid;align-items:center;background:radial-gradient(circle at top right,rgba(75,169,217,.08),transparent 24%),#fff}.auth-form{width:100%;max-width:480px;margin:auto;display:none;animation:rise .24s}.auth-form.active{display:block}.auth-kicker{width:max-content;margin-bottom:16px;padding:8px 13px;border-radius:999px;background:var(--blue3);color:var(--blue2);font-size:11px;font-weight:600}.heading h1,.heading h2{margin:0;color:var(--navy);font-size:34px;line-height:1.08;letter-spacing:-1.2px;font-weight:700}.heading p{margin:12px 0 24px;color:var(--muted);font-size:14px;line-height:1.75}.workspace-btn{width:100%;min-height:50px;border-radius:16px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:500;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 22px rgba(30,70,98,.035);margin-bottom:18px}.workspace-btn span{width:23px;height:23px;display:grid;place-items:center;border-radius:999px;background:#F2F7FA;color:#4285F4;font-weight:700}.auth-divider{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:13px;margin:16px 0 18px;color:#B1BDCA;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#E8EFF4}.login-actions-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:10px 0 14px}.auth-note{margin-top:18px;border-radius:18px;border:1px solid #E8EFF4;background:#F8FAFC;padding:15px 16px;color:var(--muted);font-size:12px;line-height:1.65}
@@ -50,31 +29,7 @@
 @media(max-width:1080px){.app{grid-template-columns:1fr}.quick-card{min-height:112px!important}.map-preview-grid{grid-template-columns:1fr}.mini-map-card iframe{height:145px}.gps-toolbox{grid-template-columns:1fr}.preview-actions{grid-template-columns:1fr}.preview-actions .btn-primary{grid-column:auto}}
 
 </style>
-
-<style id="itrack-final-mobile-pwa-safety-css">
-  #itaAdminFab,#itaMiniToolbar{display:none!important;}
-  th.itadm-action-th + th.itadm-action-th,
-  td.itadm-action-td + td.itadm-action-td{display:none!important;}
-  @supports (-webkit-touch-callout:none){
-    input,select,textarea,button{font-size:16px;}
-    html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
-  }
-</style>
 </head><body>
-<script id="itrack-ios-safe-boot">
-(function(){
-  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  if (!isIOS) return;
-  try {
-    Object.keys(localStorage).forEach(function(key){
-      var value = localStorage.getItem(key) || '';
-      if (key.indexOf('iTrack_workDraft_') === 0 && value.length > 250000) localStorage.removeItem(key);
-    });
-  } catch(e) {}
-  window.__ITRACK_IOS_SAFE_MODE__ = true;
-})();
-</script>
-
 <div id="splash" class="splash"><div style="text-align:center"><div class="splash-logo"></div><h1>iTrack</h1><p>Internship Tracker</p></div></div><div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loading-card"><div class="loader"></div><h3 id="loadingTitle">Memproses...</h3><p id="loadingText">Mohon tunggu sebentar.</p><div class="progress-line"><span></span></div></div></div><div id="authPage" class="auth-page"></div><div id="appPage" class="app hidden"></div><div id="outsideAttendanceModal" class="modal"></div><div id="detailModal" class="modal"></div><div id="itStage1Modal" class="it-stage1-modal"><div class="it-stage1-card" id="itStage1ModalCard"></div></div>
 <script>
 const API_URL='https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
@@ -107,10 +62,33 @@ function viewAdminSettings(){return `<section id="view-admin-settings" class="vi
 function buildModals(){document.getElementById('outsideAttendanceModal').innerHTML=`<div class="modal-card"><div class="panel-head"><div><h2>Luar Lokasi</h2><p>Dinas atau tugas</p></div></div><form class="stack" id="formOutside"><div class="field"><select id="outsideType" required><option value="CHECK_IN_LUAR_LOKASI">Check-in Luar Lokasi</option><option value="CHECK_OUT_LUAR_LOKASI">Check-out Luar Lokasi</option><option value="DINAS_LUAR">Dinas Luar</option></select><label>Jenis</label></div><div class="field"><textarea id="outsideReason" placeholder=" " required></textarea><label>Alasan</label></div><label class="btn btn-secondary btn-full">Ambil Foto / Galeri<input id="outsidePhoto" type="file" accept="image/*" capture="user" class="file-hidden" required></label><div class="grid2"><button type="button" class="btn btn-secondary" id="btnCloseOutside">Batal</button><button class="btn btn-primary">Kirim</button></div></form></div>`;document.getElementById('detailModal').innerHTML=`<div class="modal-card" style="width:min(860px,100%)"><div class="panel-head"><div><h2>Detail</h2><p>Kegiatan</p></div><button class="btn btn-red" id="btnCloseDetail">Tutup</button></div><div class="table-wrap"><table class="responsive"><thead><tr><th>No</th><th>Jam</th><th>Durasi</th><th>Uraian</th><th>Dokumentasi</th></tr></thead><tbody id="detailRows"></tbody></table></div></div>`}
 function bindEvents(){document.querySelectorAll('[data-auth]').forEach(el=>el.addEventListener('click',()=>switchAuth(el.getAttribute('data-auth'))));document.querySelectorAll('[data-toggle]').forEach(el=>el.addEventListener('click',()=>togglePassword(el.getAttribute('data-toggle'))));document.querySelectorAll('[data-open]').forEach(el=>el.addEventListener('click',()=>openView(el.getAttribute('data-open'))));on('btnGoogle','click',()=>toast('Info','Login Google Workspace belum aktif. Gunakan akses manual.','warning'));on('formLogin','submit',handleLogin);on('formRegister','submit',handleRegister);on('formStatus','submit',handleCheckStatus);on('formForgot','submit',handleRequestReset);on('formReset','submit',handlePerformReset);on('btnLogoutMobile','click',logout);on('btnLogoutSide','click',logout);on('btnCheckIn','click',()=>openInlineCamera('in'));on('btnCheckOut','click',()=>openInlineCamera('out'));on('btnOutside','click',openOutsideAttendanceModal);on('btnRefreshAdminHome','click',loadAdminAttendance);on('btnAdminAlerts','click',loadAdminAlerts);on('btnRecentRefresh','click',loadRecentActivities);on('btnCalendarRefresh','click',loadAttendanceCalendar);on('btnMyAttendance','click',loadMyAttendance);on('btnAddWork','click',addWorkItem);on('formWork','submit',submitWorkReportForm);on('btnClearDraft','click',clearWorkDraft);on('btnMyReports','click',loadMyReports);on('formLeave','submit',submitLeaveForm);on('btnMyLeaves','click',loadMyLeaves);on('profilePhotoGallery','change',handleProfilePhoto);on('profilePhotoCamera','change',handleProfilePhoto);on('formProfile','submit',submitProfileDetails);on('formPassword','submit',submitChangePassword);on('btnLoadAdminAttendance','click',loadAdminAttendance);on('btnExportAttendancePdf','click',()=>exportAttendancePdf(false));on('btnLoadAdminReports','click',loadAdminReports);on('btnFilterReports','click',loadAdminReports);on('btnExportReportsPdf','click',()=>exportWorkReportPdf(false));on('btnLoadAdminLeaves','click',loadAdminLeaves);on('btnLoadRegs','click',loadPendingRegistrations);on('btnLoadUsers','click',loadUsers);on('btnExpAttPdf','click',()=>exportAttendancePdf(true));on('btnExpAttCsv','click',exportAttendanceCsv);on('btnExpRepPdf','click',()=>exportWorkReportPdf(true));on('btnExpRepCsv','click',exportWorkCsv);on('btnExportLogs','click',loadExportLogs);on('btnLoadSettings','click',()=>loadSystemSettings(false));on('formSettings','submit',saveSystemSettings);on('btnCloseOutside','click',closeOutsideAttendanceModal);on('formOutside','submit',submitOutsideAttendance);on('btnCloseDetail','click',closeDetailModal);document.addEventListener('input',e=>{if(e.target.closest('#formWork'))saveWorkDraftDebounced()});document.querySelectorAll('#itAttendanceFilter button').forEach(btn=>btn.addEventListener('click',()=>{state.attendanceFilter=btn.dataset.filter;document.querySelectorAll('#itAttendanceFilter button').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderAdminAttendance(state.adminAttendance)}))}
 function hydrateIcons(){document.querySelectorAll('[data-icon]').forEach(el=>{el.innerHTML=ICONS[el.getAttribute('data-icon')]||ICONS.home})}function on(id,evt,fn){const el=document.getElementById(id);if(el)el.addEventListener(evt,fn)}
-async function api(action,payload){const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,payload:payload===undefined?{}:payload})});const txt=await res.text();let raw;try{raw=JSON.parse(txt)}catch(e){throw new Error('Respons backend tidak valid. Pastikan Web App sudah deploy terbaru.')}return unwrap(raw)}function unwrap(raw){if(raw&&raw.success===true&&raw.data&&typeof raw.data==='object'&&raw.data.hasOwnProperty('success'))return raw.data;if(raw&&raw.success===true&&raw.meta&&raw.hasOwnProperty('data'))return raw.data;return raw}
+async function api(action,payload){const res=await fetch(API_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action,payload:payload===undefined?{}:payload})});const txt=await res.text();let raw;try{raw=JSON.parse(txt)}catch(e){throw new Error('Respons backend tidak valid. Pastikan Web App sudah deploy terbaru.')}return unwrap(raw)}function unwrap(raw){if(raw&&raw.success===true&&raw.data&&typeof raw.data==='object'&&raw.data.hasOwnProperty('success'))return raw.data;return raw}
 async function fetchServerTime(silent){try{const res=await api('getServerTime',{});if(res&&res.success){serverTimeData=res.data||{};return serverTimeData}throw new Error(res.message||'Server time tidak tersedia')}catch(e){if(!silent)toast('Jam backend gagal','Preview memakai waktu perangkat sementara.','warning');serverTimeData={serverDate:toDateInput(new Date()),serverTime:onlyTime(formatDateTimeID(new Date())),serverNowDisplay:formatDateTimeID(new Date())+' WIB',timezone:'Asia/Jakarta',source:'DEVICE_FALLBACK'};return serverTimeData}}
 function showLoading(t,d){text('loadingTitle',t||'Memproses...');text('loadingText',d||'Mohon tunggu.');document.getElementById('loading').classList.add('show')}function hideLoading(){document.getElementById('loading').classList.remove('show')}function toast(t,m,type){const layer=document.getElementById('toast'),cls=type||'info',ico=cls==='success'?'✓':cls==='error'?'×':cls==='warning'?'!':'i';layer.innerHTML='<div class="toast-card '+cls+'"><div class="toast-ico">'+ico+'</div><div><h3>'+esc(t)+'</h3><p>'+esc(m||'')+'</p></div></div>';layer.classList.add('show');clearTimeout(layer._t);layer._t=setTimeout(()=>layer.classList.remove('show'),3600)}function switchAuth(id){document.querySelectorAll('.auth-form').forEach(x=>x.classList.remove('active'));const tab=document.getElementById(id);if(tab)tab.classList.add('active')}function togglePassword(id){const el=document.getElementById(id);if(el)el.type=el.type==='password'?'text':'password'}
-async function handleLogin(e){e.preventDefault();showLoading('Memverifikasi akun...','Menghubungkan ke backend.');try{const res=await api('loginUser',{email:val('loginEmail'),password:document.getElementById('loginPassword').value});if(!res.success)throw new Error(res.message);openApp(res.data.user);toast('Login berhasil',isAdminRole(res.data.user.ROLE)?'Mode admin aktif.':'Mode peserta aktif.','success')}catch(err){toast('Login gagal',err.message,'error')}finally{hideLoading();clearSensitive()}}
+
+function normalizeLoginResponse(res){
+  if(!res) return null;
+  const src=(res.data&&(res.data.user||res.data.profile||res.data.account||res.data.pengguna))||res.user||res.profile||res.account||res.data||res;
+  const u=src&&src.user?src.user:(src||{});
+  const user={
+    USER_ID:u.USER_ID||u.userId||u.idPengguna||u['ID Pengguna']||'',
+    USERNAME:u.USERNAME||u.username||u.namaPengguna||u['Nama Pengguna']||u.EMAIL||u.email||'',
+    NAMA_LENGKAP:u.NAMA_LENGKAP||u.namaLengkap||u.fullName||u.nama||u['Nama Lengkap']||u.USERNAME||u.username||'',
+    ROLE:u.ROLE||u.role||u.PERAN||u.peran||u['Peran']||'PESERTA',
+    STATUS_AKUN:u.STATUS_AKUN||u.statusAkun||u.status||u['Status Akun']||'AKTIF',
+    PHOTO_URL:u.PHOTO_URL||u.photoUrl||u['URL Foto Profil']||'',
+    EMAIL:u.EMAIL||u.email||u.Email||'',
+    DIVISI:u.DIVISI||u.divisi||u.Divisi||'',
+    JABATAN:u.JABATAN||u.jabatan||u.Jabatan||'',
+    NO_HP:u.NO_HP||u.noHp||u.nomorHp||u['Nomor HP']||'',
+    TANGGAL_MULAI_MAGANG:u.TANGGAL_MULAI_MAGANG||u.tanggalMulaiMagang||u['Tanggal Mulai Magang']||'',
+    TANGGAL_SELESAI_MAGANG:u.TANGGAL_SELESAI_MAGANG||u.tanggalSelesaiMagang||u['Tanggal Selesai Magang']||''
+  };
+  user.userId=user.USER_ID;user.username=user.USERNAME;user.namaLengkap=user.NAMA_LENGKAP;user.role=user.ROLE;user.statusAkun=user.STATUS_AKUN;
+  return user;
+}
+
+async function handleLogin(e){e.preventDefault();showLoading('Memverifikasi akun...','Menghubungkan ke backend.');try{const res=await api('loginUser',{email:val('loginEmail'),username:val('loginEmail'),password:document.getElementById('loginPassword').value});if(!res||res.success===false)throw new Error((res&&res.message)||'Login gagal.');const user=normalizeLoginResponse(res);if(!user)throw new Error('Data user tidak ditemukan dari backend.');openApp(user);toast('Login berhasil',isAdminRole(user.ROLE)?'Mode admin aktif.':'Mode peserta aktif.','success')}catch(err){toast('Login gagal',err.message,'error')}finally{hideLoading();clearSensitive()}}
 async function handleRegister(e){e.preventDefault();const p1=document.getElementById('regPassword').value,p2=document.getElementById('regPassword2').value;if(p1!==p2)return toast('Password tidak cocok','Konfirmasi password harus sama.','error');showLoading('Mengirim pendaftaran...','Mohon tunggu.');try{const res=await api('registerUserWithEmail',{namaLengkap:val('regName'),username:val('regUsername'),email:val('regEmail'),noHp:val('regPhone'),divisi:val('regDivision'),jabatan:val('regPosition'),password:p1});if(!res.success)throw new Error(res.message);e.target.reset();switchAuth('tabLogin');toast('Pendaftaran terkirim',res.message,'success')}catch(err){toast('Pendaftaran gagal',err.message,'error')}finally{hideLoading();clearSensitive()}}
 async function handleCheckStatus(e){e.preventDefault();showLoading('Memeriksa status...','Mengambil data.');try{const res=await api('checkRegistrationStatus',{email:val('statusEmail')});toast(res.success?'Status ditemukan':'Tidak ditemukan',res.message,res.success?'success':'warning')}catch(err){toast('Error',err.message,'error')}finally{hideLoading()}}
 async function handleRequestReset(e){e.preventDefault();showLoading('Mengirim OTP...','Cek email akun.');try{const identity=val('resetIdentity'),res=await api('requestPasswordReset',identity);if(!res.success)throw new Error(res.message);document.getElementById('otpUsername').value=identity.indexOf('@')>-1?'':identity;switchAuth('tabReset');toast('OTP dikirim',res.message,'success')}catch(err){toast('Gagal kirim OTP',err.message,'error')}finally{hideLoading()}}
@@ -1620,222 +1598,79 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
   window.iTrackForceStableReportDate = init;
 })();
 </script>
-<style id="itrack-ios-mobile-fix">
-  @supports (-webkit-touch-callout: none) {
-    html, body {
-      width: 100%;
-      min-height: 100%;
-      overflow-x: hidden;
-      -webkit-text-size-adjust: 100%;
-    }
 
-    body {
-      padding-bottom: env(safe-area-inset-bottom, 0px);
-    }
-
-    input,
-    select,
-    textarea,
-    button {
-      font-size: 16px !important;
-    }
-
-    .content {
-      padding-left: 14px !important;
-      padding-right: 14px !important;
-      padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)) !important;
-    }
-
-    .itr-report-page,
-    .itx-export-shell {
-      display: block !important;
-    }
-
-    .itr-report-card,
-    .itx-panel {
-      border-radius: 24px !important;
-      padding: 16px !important;
-      margin-bottom: 14px !important;
-    }
-
-    .itr-report-head {
-      flex-direction: column !important;
-      gap: 8px !important;
-    }
-
-    .itr-report-grid2 {
-      grid-template-columns: 1fr !important;
-      gap: 10px !important;
-    }
-
-    .itr-side-card {
-      position: static !important;
-    }
-
-    .itr-activity-top {
-      grid-template-columns: 40px minmax(0,1fr) 34px !important;
-      padding: 13px !important;
-    }
-
-    .itr-activity-title b {
-      font-size: 14px !important;
-    }
-
-    .itr-activity-title span {
-      font-size: 10.5px !important;
-      white-space: normal !important;
-      display: -webkit-box;
-      -webkit-line-clamp: 2;
-      -webkit-box-orient: vertical;
-    }
-
-    .itr-photo-zone {
-      grid-template-columns: 82px 1fr !important;
-      gap: 10px !important;
-    }
-
-    .itr-photo-thumb {
-      width: 82px !important;
-      height: 82px !important;
-      border-radius: 18px !important;
-    }
-
-    .itr-report-actions,
-    .itr-activity-actions,
-    .itx-actions {
-      grid-template-columns: 1fr !important;
-    }
-
-    .itr-report-actions .full,
-    .itx-actions .full {
-      grid-column: auto !important;
-    }
-
-    .itr-preview-card {
-      width: calc(100vw - 24px) !important;
-      max-height: calc(100dvh - 24px) !important;
-      border-radius: 26px !important;
-      padding: 18px !important;
-    }
-
-    .itx-preview-frame,
-    .itx-preview-empty {
-      height: 62dvh !important;
-      border-radius: 20px !important;
-    }
-
-    .bottom-nav {
-      bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
-    }
-  }
-
-  @media (max-width: 430px) {
-    .hero h1,
-    .itr-report-head h2,
-    .itx-head h2 {
-      font-size: 20px !important;
-    }
-
-    .field input,
-    .field select,
-    .field textarea {
-      min-height: 56px !important;
-    }
-
-    .itr-summary-list {
-      grid-template-columns: 1fr !important;
-    }
-
-    .itr-preview-item img {
-      max-height: 150px !important;
-    }
-  }
-</style>
-<script id="itrack-ios-photo-input-fix">
+<script id="itrack-ios-safe-boot-final">
 (function(){
-  function isIOS(){
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
-      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-  }
-
-  function enhancePhotoInputs(){
-    if(!isIOS()) return;
-
-    document.querySelectorAll('[data-work-photo]').forEach(function(input){
-      if(input.getAttribute('data-ios-enhanced') === '1') return;
-
-      input.setAttribute('data-ios-enhanced','1');
-
-      var id = input.getAttribute('data-work-photo');
-      var parentLabel = input.closest('label');
-
-      if(!parentLabel || !id) return;
-
-      var wrapper = document.createElement('div');
-      wrapper.style.display = 'grid';
-      wrapper.style.gridTemplateColumns = '1fr 1fr';
-      wrapper.style.gap = '8px';
-
-      var cameraLabel = document.createElement('label');
-      cameraLabel.className = 'btn btn-secondary btn-full';
-      cameraLabel.innerHTML = 'Ambil Foto';
-
-      var cameraInput = document.createElement('input');
-      cameraInput.type = 'file';
-      cameraInput.accept = 'image/*';
-      cameraInput.capture = 'environment';
-      cameraInput.className = 'file-hidden';
-      cameraInput.setAttribute('data-work-photo', id);
-
-      var galleryLabel = document.createElement('label');
-      galleryLabel.className = 'btn btn-secondary btn-full';
-      galleryLabel.innerHTML = 'Galeri';
-
-      var galleryInput = document.createElement('input');
-      galleryInput.type = 'file';
-      galleryInput.accept = 'image/*';
-      galleryInput.className = 'file-hidden';
-      galleryInput.setAttribute('data-work-photo', id);
-
-      cameraLabel.appendChild(cameraInput);
-      galleryLabel.appendChild(galleryInput);
-      wrapper.appendChild(cameraLabel);
-      wrapper.appendChild(galleryLabel);
-
-      parentLabel.replaceWith(wrapper);
-
-      /*
-       * Trigger ulang binding lama jika fungsi refresh tersedia.
-       */
-      setTimeout(function(){
-        if(typeof window.iTrackReportExportFullUpdateRefresh === 'function'){
-          // Jangan refresh penuh karena bisa reset form; cukup event bubbling native akan dipakai kalau render ulang berikutnya.
-        }
-      }, 50);
-    });
-  }
-
-  var observer = new MutationObserver(function(){
-    enhancePhotoInputs();
-  });
-
-  document.addEventListener('DOMContentLoaded',function(){
-    enhancePhotoInputs();
-
-    observer.observe(document.body,{
-      childList:true,
-      subtree:true
-    });
-  });
+  var isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
+  if(!isIOS) return;
+  try{Object.keys(localStorage).forEach(function(k){var v=localStorage.getItem(k)||'';if(k.indexOf('iTrack_workDraft_')===0&&v.length>250000)localStorage.removeItem(k);});}catch(e){}
 })();
 </script>
-<style id="itrack-native-ux-admin-style">
-  .it-native-popup-backdrop,
-  .it-native-loader-backdrop,
-  .it-image-preview-backdrop {
+
+<!-- iTrack FULL ADMIN ACTION UPGRADE - PRESERVE ORIGINAL UI -->
+<style id="itrack-preserve-ui-admin-upgrade-style">
+  .itx-admin-actions{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+  .itx-admin-actions .btn{min-height:34px;border-radius:12px;padding:7px 10px;font-size:11px}
+  .itx-admin-select{min-height:38px;border:1px solid var(--line,#E6EEF4);border-radius:12px;background:#fff;color:var(--ink,#26384F);font-size:12px;padding:6px 8px}
+  .itx-admin-modal-bg{position:fixed;inset:0;z-index:9000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(23,42,69,.42);backdrop-filter:blur(12px)}
+  .itx-admin-modal-bg.show{display:flex}
+  .itx-admin-modal-card{width:min(920px,100%);max-height:92dvh;overflow:auto;background:#fff;border:1px solid var(--line,#E6EEF4);border-radius:30px;box-shadow:0 30px 90px rgba(23,42,69,.25);padding:22px}
+  .itx-admin-modal-head{display:flex;justify-content:space-between;gap:12px;align-items:flex-start;margin-bottom:14px}.itx-admin-modal-head h2{margin:0;color:var(--navy,#172A45);font-size:20px}.itx-admin-modal-head p{margin:5px 0 0;color:var(--muted,#74869A);font-size:12px;line-height:1.5}
+  .itx-admin-pre{white-space:pre-wrap;background:#F8FAFC;border:1px solid var(--line,#E6EEF4);border-radius:18px;padding:12px;font-size:12px;color:var(--ink,#26384F)}
+  .itx-admin-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.itx-admin-grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}.itx-admin-grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  @media(max-width:720px){.itx-admin-actions{display:grid;grid-template-columns:1fr 1fr}.itx-admin-actions .btn{width:100%}.itx-admin-grid2,.itx-admin-grid3,.itx-admin-grid4{grid-template-columns:1fr}.itx-admin-modal-card{border-radius:24px;padding:18px}}
+</style>
+<script id="itrack-preserve-ui-admin-upgrade-script">
+(function(){
+  var ADMIN_UPGRADE_EXEC_URL = 'https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';
+  function itxAny(row, keys, fallback){ row=row||{}; for(var i=0;i<keys.length;i++){var k=keys[i]; if(row[k]!==undefined && row[k]!==null && row[k] !== '') return row[k];} return fallback===undefined?'':fallback; }
+  function itxEsc(v){ return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
+  function itxEscAttr(v){ return itxEsc(v).replace(/`/g,'&#096;'); }
+  function itxRows(res){ if(!res)return[]; if(Array.isArray(res))return res; if(Array.isArray(res.data))return res.data; var keys=['rows','items','data','users','participants','peserta','reports','laporan','workReports','attendances','attendance','leaves','registrations']; for(var i=0;i<keys.length;i++){ if(res.data && Array.isArray(res.data[keys[i]])) return res.data[keys[i]]; } return []; }
+  function itxReportId(r){ return itxAny(r,['REPORT_ID','reportId','idLaporan','ID Laporan','ID_LAPORAN','Report ID','ID','id']); }
+  function itxAttendanceId(r){ return itxAny(r,['ATTENDANCE_ID','attendanceId','idAbsensi','ID Absensi','ID_ABSENSI','Attendance ID','ID','id']); }
+  function itxUserId(r){ return itxAny(r,['USER_ID','userId','idPengguna','ID Pengguna','ID_PENGGUNA','User ID','ID','id']); }
+  function itxLeaveId(r){ return itxAny(r,['LEAVE_ID','leaveId','idIzin','ID Izin','ID_IZIN','Leave ID','ID','id']); }
+  function itxRegId(r){ return itxAny(r,['REGISTRATION_ID','registrationId','idRegistrasi','ID Registrasi','ID_REGISTRASI','ID','id']); }
+  function itxUsername(r){ return itxAny(r,['USERNAME','username','Nama Pengguna','namaPengguna','EMAIL','email']); }
+  async function itxDirectApi(action,payload){ var res=await fetch(ADMIN_UPGRADE_EXEC_URL,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify({action:action,payload:payload||{}})}); var text=await res.text(); if(!text) throw new Error('Response API kosong.'); try{return JSON.parse(text);}catch(e){console.error('[iTrack Admin Upgrade] Response bukan JSON:',text);throw new Error('Response API bukan JSON.');} }
+  async function itxApi(action,payload){ if(typeof window.api==='function'){ try{return await window.api(action,payload||{});}catch(e){console.warn('[iTrack Admin Upgrade] api lama gagal, fallback direct:', e.message);} } return await itxDirectApi(action,payload||{}); }
+  function itxToast(title,msg,type){ if(typeof window.toast==='function') return window.toast(title,msg,type||'info'); if(typeof window.showToast==='function') return window.showToast(type||'info',title,msg); alert((title||'Info')+'\n'+(msg||'')); }
+  function itxLoading(t,m,on){ try{ if(on && typeof window.showLoading==='function') return window.showLoading(t,m); if(!on && typeof window.hideLoading==='function') return window.hideLoading(); }catch(e){} }
+  function itxBadge(v){ if(typeof window.badge==='function') return window.badge(v); return '<span class="badge">'+itxEsc(v||'-')+'</span>'; }
+  function itxDate(v){ if(typeof window.formatDateID==='function') return window.formatDateID(v); return v||'-'; }
+  function itxTime(v){ if(typeof window.onlyTime==='function') return window.onlyTime(v); return v||'--:--'; }
+  function itxRow(values,labels){ if(typeof window.rowHtml==='function') return window.rowHtml(values,labels); return '<tr>'+values.map(function(v,i){return '<td data-label="'+itxEsc(labels[i])+'">'+(v==null?'':v)+'</td>';}).join('')+'</tr>'; }
+  function itxCurrentAdmin(){ try{return window.currentUser||JSON.parse(localStorage.getItem('iTrack_user')||'{}');}catch(e){return{};} }
+  function itxAdminName(){ var u=itxCurrentAdmin(); return itxAny(u,['USERNAME','username','NAMA_LENGKAP','namaLengkap'],'Admin'); }
+  function itxAskNote(title, def){ var v=prompt(title||'Catatan admin:', def||''); return v; }
+  function itxEnsureModal(){ if(document.getElementById('itxAdminUpgradeModal')) return; var bg=document.createElement('div'); bg.id='itxAdminUpgradeModal'; bg.className='itx-admin-modal-bg'; bg.innerHTML='<div class="itx-admin-modal-card"><div class="itx-admin-modal-head"><div><h2 id="itxAdminUpgradeTitle">Detail</h2><p id="itxAdminUpgradeSub"></p></div><button type="button" class="btn btn-secondary btn-mini" id="itxAdminUpgradeClose">Tutup</button></div><div id="itxAdminUpgradeBody"></div></div>'; document.body.appendChild(bg); document.getElementById('itxAdminUpgradeClose').onclick=function(){bg.classList.remove('show');}; }
+  function itxShowModal(title,sub,html){ itxEnsureModal(); document.getElementById('itxAdminUpgradeTitle').textContent=title||'Detail'; document.getElementById('itxAdminUpgradeSub').textContent=sub||''; document.getElementById('itxAdminUpgradeBody').innerHTML=html||''; document.getElementById('itxAdminUpgradeModal').classList.add('show'); }
+  async function itxCallActions(actions,payload){ var last; for(var i=0;i<actions.length;i++){ try{ var res=await itxApi(actions[i],payload); if(res && res.success===false){last=new Error(res.message||('Action gagal: '+actions[i])); continue;} return res; }catch(e){last=e;} } throw last||new Error('Semua action gagal.'); }
+  function itxAddActionHeader(table){ if(!table) return; var tr=table.querySelector('thead tr'); if(!tr) return; var texts=[].map.call(tr.children,function(th){return String(th.textContent||'').trim().toLowerCase();}); if(texts.indexOf('aksi')===-1){ var th=document.createElement('th'); th.textContent='Aksi'; tr.appendChild(th); } }
+  function itxActionButtons(type,id,username){ id=itxEscAttr(id||''); username=itxEscAttr(username||''); if(type==='report') return '<div class="itx-admin-actions"><button class="btn btn-green btn-mini itx-report-action" data-id="'+id+'" data-status="DISETUJUI">Setujui</button><button class="btn btn-orange btn-mini itx-report-action" data-id="'+id+'" data-status="REVISI">Revisi</button><button class="btn btn-red btn-mini itx-report-action" data-id="'+id+'" data-status="DITOLAK">Tolak</button><button class="btn btn-secondary btn-mini itx-report-detail" data-id="'+id+'">Detail</button></div>'; if(type==='attendance') return '<div class="itx-admin-actions"><button class="btn btn-secondary btn-mini itx-att-detail" data-id="'+id+'">Detail</button><button class="btn btn-green btn-mini itx-att-action" data-id="'+id+'" data-status="VALID">Valid</button><button class="btn btn-orange btn-mini itx-att-action" data-id="'+id+'" data-status="PERLU_REVIEW">Review</button><button class="btn btn-red btn-mini itx-att-action" data-id="'+id+'" data-status="INVALID">Tolak</button></div>'; if(type==='user') return '<div class="itx-admin-actions"><button class="btn btn-secondary btn-mini itx-user-detail" data-id="'+id+'" data-username="'+username+'">Detail</button><button class="btn btn-green btn-mini itx-user-status" data-id="'+id+'" data-username="'+username+'" data-status="AKTIF">Aktif</button><button class="btn btn-orange btn-mini itx-user-status" data-id="'+id+'" data-username="'+username+'" data-status="NONAKTIF">Nonaktif</button><button class="btn btn-red btn-mini itx-user-status" data-id="'+id+'" data-username="'+username+'" data-status="DIBLOKIR">Blokir</button></div>'; if(type==='leave') return '<div class="itx-admin-actions"><button class="btn btn-green btn-mini itx-leave-action" data-id="'+id+'" data-status="DISETUJUI">Setujui</button><button class="btn btn-red btn-mini itx-leave-action" data-id="'+id+'" data-status="DITOLAK">Tolak</button></div>'; if(type==='registration') return '<div class="itx-admin-actions"><button class="btn btn-green btn-mini itx-reg-action" data-id="'+id+'" data-status="APPROVE">Setujui</button><button class="btn btn-red btn-mini itx-reg-action" data-id="'+id+'" data-status="REJECT">Tolak</button></div>'; return '-'; }
+  window.renderAdminReports=function(rows){ rows=rows||[]; var tb=document.getElementById('adminReportRows'); if(!tb)return; if(!rows.length){tb.innerHTML='<tr><td colspan="8"><div class="empty">Tidak ada laporan.</div></td></tr>';return;} tb.innerHTML=rows.map(function(r,i){ var id=itxReportId(r); var act=itxActionButtons('report',id); return itxRow([i+1,itxDate(itxAny(r,['TANGGAL','Tanggal','tanggal','date'])),itxAny(r,['NAMA_LENGKAP','Nama Lengkap','namaLengkap','nama'],'-'),itxAny(r,['DIVISI','Divisi','divisi'],'-'),itxAny(r,['TOTAL_KEGIATAN','Total Kegiatan','totalKegiatan'],0),itxAny(r,['TOTAL_DURASI','Total Durasi','totalDurasi'],'-'),itxBadge(itxAny(r,['STATUS_LAPORAN','Status Laporan','statusLaporan','status'],'MENUNGGU')),act],['No','Tanggal','Nama','Divisi','Kegiatan','Durasi','Status','Aksi']); }).join(''); document.querySelectorAll('.itx-report-action').forEach(function(b){b.addEventListener('click',function(){window.validateReport(b.getAttribute('data-id'),b.getAttribute('data-status'));});}); document.querySelectorAll('.itx-report-detail').forEach(function(b){b.addEventListener('click',function(){itxDetailReport(b.getAttribute('data-id'));});}); };
+  window.validateReport=async function(id,status){ if(!id){itxToast('ID Laporan kosong','Backend belum mengirim ID laporan pada data ini. Pastikan getWorkReportsForAdmin mengirim REPORT_ID / ID Laporan.','error');return;} var note=status==='DISETUJUI'?'Disetujui admin.':itxAskNote(status==='REVISI'?'Catatan revisi:':'Catatan penolakan:', ''); if(note===null)return; itxLoading('Memvalidasi laporan...','Memperbarui status.',true); try{ var payload={reportId:id,idLaporan:id,status:status,statusLaporan:status,validatedBy:itxAdminName(),catatanAdmin:note,catatan:note}; var res=await itxCallActions(['adminUpdateWorkReportStatus','validateWorkReport'],payload); itxToast('Berhasil', (res&&res.message)||'Status laporan diperbarui.','success'); if(typeof window.loadAdminReports==='function') window.loadAdminReports(); if(typeof window.loadDashboardSummary==='function') window.loadDashboardSummary(); if(typeof window.loadAdminAlerts==='function') window.loadAdminAlerts(); }catch(e){itxToast('Gagal',e.message,'error');} finally{itxLoading('', '', false);} };
+  async function itxDetailReport(id){ if(!id){itxToast('ID Laporan kosong','Tidak bisa memuat detail tanpa ID.','error');return;} itxLoading('Memuat detail laporan...','Mengambil data.',true); try{var res=await itxCallActions(['adminGetWorkReportFullDetail','getWorkReportItems'],{reportId:id,idLaporan:id}); itxShowModal('Detail Laporan','ID '+id,'<pre class="itx-admin-pre">'+itxEsc(JSON.stringify(res.data||res,null,2))+'</pre><div class="itx-admin-grid3" style="margin-top:12px">'+itxActionButtons('report',id)+'</div>');}catch(e){itxToast('Gagal detail',e.message,'error');}finally{itxLoading('', '', false);} }
+  window.renderAdminAttendance=function(rows){ window.state=window.state||{}; window.state.adminAttendance=rows||[]; var filtered=(typeof window.filterAdminAttendanceRows==='function')?window.filterAdminAttendanceRows(rows||[]):(rows||[]); var full=document.getElementById('adminAttendanceRows'),home=document.getElementById('adminHomeAttendanceRows'); var html=filtered.slice(0,150).map(function(r,i){ var maps=itxAny(r,['MAPS_MASUK','Maps Masuk','mapsMasuk'])?'<a target="_blank" href="'+itxEscAttr(itxAny(r,['MAPS_MASUK','Maps Masuk','mapsMasuk']))+'">Masuk</a>':'-'; var mp=itxAny(r,['MAPS_PULANG','Maps Pulang','mapsPulang']); if(mp)maps+=' / <a target="_blank" href="'+itxEscAttr(mp)+'">Pulang</a>'; var id=itxAttendanceId(r); return itxRow([i+1,itxDate(itxAny(r,['TANGGAL','Tanggal','tanggal'])),itxAny(r,['NAMA_LENGKAP','Nama Lengkap','namaLengkap','nama'],'-'),itxAny(r,['DIVISI','Divisi','divisi'],'-'),itxTime(itxAny(r,['JAM_MASUK','Jam Masuk','jamMasuk'])),itxTime(itxAny(r,['JAM_PULANG','Jam Pulang','jamPulang'])),itxAny(r,['TOTAL_JAM_KERJA','Total Jam Kerja','totalJamKerja'],'-'),itxBadge(itxAny(r,['STATUS_VALIDASI','Status Validasi','statusValidasi','STATUS_KEHADIRAN','Status Kehadiran','status'])),maps,itxActionButtons('attendance',id)],['No','Tanggal','Nama','Divisi','Masuk','Pulang','Total','Status','Maps','Aksi']); }).join(''); if(full)full.innerHTML=html||'<tr><td colspan="10"><div class="empty">Tidak ada data.</div></td></tr>'; if(home)home.innerHTML=(rows||[]).slice(0,8).map(function(r,i){return itxRow([i+1,itxDate(itxAny(r,['TANGGAL','Tanggal','tanggal'])),itxAny(r,['NAMA_LENGKAP','Nama Lengkap','namaLengkap'],'-'),itxTime(itxAny(r,['JAM_MASUK','Jam Masuk','jamMasuk'])),itxTime(itxAny(r,['JAM_PULANG','Jam Pulang','jamPulang'])),itxBadge(itxAny(r,['STATUS_KEHADIRAN','Status Kehadiran','status']))],['No','Tanggal','Nama','Masuk','Pulang','Status']);}).join('')||'<tr><td colspan="6"><div class="empty">Tidak ada data.</div></td></tr>'; document.querySelectorAll('.itx-att-action').forEach(function(b){b.addEventListener('click',function(){window.validateAttendanceAdmin(b.getAttribute('data-id'),b.getAttribute('data-status'));});}); document.querySelectorAll('.itx-att-detail').forEach(function(b){b.addEventListener('click',function(){itxDetailAttendance(b.getAttribute('data-id'));});}); };
+  window.validateAttendanceAdmin=async function(attendanceId,status){ if(!attendanceId){itxToast('Data tidak valid','Attendance ID tidak ditemukan dari backend.','error');return;} var note=(status==='PERLU_REVIEW'||status==='INVALID')?itxAskNote('Catatan validasi:', ''):''; if(note===null)return; itxLoading('Memvalidasi absensi...','Memperbarui status.',true); try{ var payload={attendanceId:attendanceId,idAbsensi:attendanceId,status:status,statusValidasi:status,note:note,catatanValidasi:note,validatedBy:itxAdminName()}; var res=await itxCallActions(['adminUpdateAttendance','validateAttendanceRecord','validateAttendanceReview'],payload); itxToast('Absensi diperbarui',(res&&res.message)||'Status absensi diperbarui.','success'); if(typeof window.loadAdminAttendance==='function') window.loadAdminAttendance(); if(typeof window.loadDashboardSummary==='function') window.loadDashboardSummary(); if(typeof window.loadAdminAlerts==='function') window.loadAdminAlerts(); }catch(e){itxToast('Validasi gagal',e.message,'error');} finally{itxLoading('', '', false);} };
+  async function itxDetailAttendance(id){ if(!id){itxToast('ID Absensi kosong','Tidak bisa memuat detail tanpa ID.','error');return;} itxLoading('Memuat detail absensi...','Mengambil data.',true); try{var res=await itxCallActions(['adminGetAttendanceDetail'],{attendanceId:id,idAbsensi:id}); itxShowModal('Detail Absensi','ID '+id,'<pre class="itx-admin-pre">'+itxEsc(JSON.stringify(res.data||res,null,2))+'</pre><div class="itx-admin-grid4" style="margin-top:12px">'+itxActionButtons('attendance',id)+'</div>');}catch(e){itxToast('Gagal detail',e.message,'error');}finally{itxLoading('', '', false);} }
+  window.viewAdminUsers=function(){ return window.tableSection?window.tableSection('admin-users','Peserta','Data akun',['No','Nama','Username','Email','Role','Divisi','Status','Aksi'],'userRows','<button class="btn btn-secondary" id="btnLoadUsers">Refresh</button>'):''; };
+  window.renderUsers=function(rows){ var tb=document.getElementById('userRows'); if(!tb)return; rows=rows||[]; itxAddActionHeader(tb.closest('table')); if(!rows.length){tb.innerHTML='<tr><td colspan="8"><div class="empty">Tidak ada peserta.</div></td></tr>';return;} tb.innerHTML=rows.map(function(r,i){var id=itxUserId(r), un=itxUsername(r); return itxRow([i+1,itxAny(r,['NAMA_LENGKAP','Nama Lengkap','namaLengkap','nama'],'-'),un||'-',itxAny(r,['EMAIL','Email','email'],'-'),itxAny(r,['ROLE','Peran','role'],'-'),itxAny(r,['DIVISI','Divisi','divisi'],'-'),itxBadge(itxAny(r,['STATUS_AKUN','Status Akun','statusAkun','status'],'-')),itxActionButtons('user',id,un)],['No','Nama','Username','Email','Role','Divisi','Status','Aksi']);}).join(''); document.querySelectorAll('.itx-user-status').forEach(function(b){b.addEventListener('click',function(){itxUpdateUserStatus(b.getAttribute('data-id'),b.getAttribute('data-username'),b.getAttribute('data-status'));});}); document.querySelectorAll('.itx-user-detail').forEach(function(b){b.addEventListener('click',function(){itxDetailUser(b.getAttribute('data-id'),b.getAttribute('data-username'));});}); };
+  async function itxUpdateUserStatus(id,username,status){ var note=itxAskNote('Catatan admin:', ''); if(note===null)return; itxLoading('Memperbarui peserta...','Menyimpan status akun.',true); try{var res=await itxCallActions(['adminUpdateUserStatus'],{userId:id,idPengguna:id,username:username,statusAkun:status,status:status,catatanAdmin:note}); itxToast('Peserta diperbarui',(res&&res.message)||'Status akun diperbarui.','success'); if(typeof window.loadUsers==='function') window.loadUsers();}catch(e){itxToast('Gagal',e.message,'error');}finally{itxLoading('', '', false);} }
+  async function itxDetailUser(id,username){ itxLoading('Memuat peserta...','Mengambil data peserta.',true); try{var res=await itxCallActions(['adminGetUserDetail'],{userId:id,idPengguna:id,username:username}); itxShowModal('Detail Peserta',username||id,'<pre class="itx-admin-pre">'+itxEsc(JSON.stringify(res.data||res,null,2))+'</pre><div class="itx-admin-grid4" style="margin-top:12px">'+itxActionButtons('user',id,username)+'</div>');}catch(e){itxToast('Gagal detail',e.message,'error');}finally{itxLoading('', '', false);} }
+  window.renderAdminLeaves=function(rows){ var tb=document.getElementById('adminLeaveRows'); if(!tb)return; rows=rows||[]; if(!rows.length){tb.innerHTML='<tr><td colspan="8"><div class="empty">Tidak ada izin.</div></td></tr>';return;} tb.innerHTML=rows.map(function(r,i){var id=itxLeaveId(r); var status=itxAny(r,['STATUS_APPROVAL','Status Approval','statusApproval','STATUS','Status','status'],''); var act=String(status).toUpperCase()==='MENUNGGU'?itxActionButtons('leave',id):'-'; return itxRow([i+1,itxDate(itxAny(r,['TANGGAL_PENGAJUAN','Tanggal Pengajuan','tanggalPengajuan','tanggal'])),itxAny(r,['NAMA_LENGKAP','Nama Lengkap','namaLengkap','nama'],'-'),itxAny(r,['JENIS_IZIN','Jenis Izin','jenisIzin','jenis'],'-'),itxDate(itxAny(r,['TANGGAL_MULAI','Tanggal Mulai','tanggalMulai']))+' s.d. '+itxDate(itxAny(r,['TANGGAL_SELESAI','Tanggal Selesai','tanggalSelesai'])),itxAny(r,['ALASAN','Alasan','alasan'],'-'),itxBadge(status),act],['No','Tanggal','Nama','Jenis','Periode','Alasan','Status','Aksi']);}).join(''); document.querySelectorAll('.itx-leave-action').forEach(function(b){b.addEventListener('click',function(){itxLeaveAction(b.getAttribute('data-id'),b.getAttribute('data-status'));});}); };
+  async function itxLeaveAction(id,status){ var note=status==='DISETUJUI'?'Disetujui admin.':itxAskNote('Catatan izin:', ''); if(note===null)return; itxLoading('Memperbarui izin...','Menyimpan status.',true); try{var action=status==='DISETUJUI'?'approveLeave':'rejectLeave'; var res=await itxCallActions([action],{leaveId:id,idIzin:id,catatanAdmin:note}); itxToast('Izin diperbarui',(res&&res.message)||'Status izin diperbarui.','success'); if(typeof window.loadAdminLeaves==='function') window.loadAdminLeaves(); if(typeof window.loadDashboardSummary==='function') window.loadDashboardSummary();}catch(e){itxToast('Gagal',e.message,'error');}finally{itxLoading('', '', false);} }
+  var oldOpenView=window.openView; if(typeof oldOpenView==='function'&&!oldOpenView.__itxFullUpgrade){ window.openView=function(id){ oldOpenView(id); if(id==='admin-users'){ setTimeout(function(){ if(typeof window.loadUsers==='function') window.loadUsers();},200); } }; window.openView.__itxFullUpgrade=true; }
+  console.warn('[iTrack] Admin full action upgrade aktif tanpa mengubah UI.');
+})();
+</script>
+<!-- PATCH DETAIL LAPORAN RAPI - PRESERVE UI -->
+<style id="itrack-pretty-report-detail-style">
+  .itp-modal-bg {
     position: fixed;
     inset: 0;
-    z-index: 9000;
+    z-index: 120000;
     display: none;
     align-items: center;
     justify-content: center;
@@ -1844,611 +1679,30 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
     backdrop-filter: blur(14px);
   }
 
-  .it-native-popup-backdrop.show,
-  .it-native-loader-backdrop.show,
-  .it-image-preview-backdrop.show {
+  .itp-modal-bg.show {
     display: flex;
   }
 
-  .it-native-popup-card {
-    width: min(420px, 100%);
-    background: #fff;
-    border: 1px solid var(--line,#E6EEF4);
-    border-radius: 30px;
-    box-shadow: 0 28px 90px rgba(23,42,69,.24);
-    padding: 24px;
-    text-align: center;
-    animation: itPop .18s ease-out;
-  }
-
-  @keyframes itPop {
-    from { opacity: 0; transform: translateY(10px) scale(.98); }
-    to { opacity: 1; transform: none; }
-  }
-
-  .it-popup-icon {
-    width: 62px;
-    height: 62px;
-    border-radius: 24px;
-    display: grid;
-    place-items: center;
-    margin: 0 auto 14px;
-    font-size: 26px;
-    font-weight: 900;
-  }
-
-  .it-popup-icon.success { background: #DCFCE7; color: #166534; }
-  .it-popup-icon.error { background: #FEE2E2; color: #991B1B; }
-  .it-popup-icon.warning { background: #FEF3C7; color: #92400E; }
-  .it-popup-icon.info { background: #EAF7FD; color: #2F8FC4; }
-
-  .it-native-popup-card h3 {
-    margin: 0 0 8px;
-    color: var(--navy,#172A45);
-    font-size: 19px;
-    font-weight: 850;
-  }
-
-  .it-native-popup-card p {
-    margin: 0;
-    color: var(--muted,#74869A);
-    font-size: 13px;
-    line-height: 1.65;
-  }
-
-  .it-popup-actions {
-    display: grid;
-    gap: 10px;
-    margin-top: 18px;
-  }
-
-  .it-loader-card {
-    width: min(360px, 100%);
-    background: #fff;
-    border: 1px solid var(--line,#E6EEF4);
-    border-radius: 30px;
-    box-shadow: 0 28px 90px rgba(23,42,69,.24);
-    padding: 24px;
-    text-align: center;
-  }
-
-  .it-loader-spinner {
-    width: 62px;
-    height: 62px;
-    margin: 0 auto 16px;
-    border-radius: 22px;
-    background: linear-gradient(145deg,#EAF7FD,#fff);
-    display: grid;
-    place-items: center;
-  }
-
-  .it-loader-spinner:before {
-    content: "";
-    width: 38px;
-    height: 38px;
-    border-radius: 999px;
-    border: 4px solid rgba(75,169,217,.18);
-    border-top-color: #4BA9D9;
-    animation: itSpin .75s linear infinite;
-  }
-
-  @keyframes itSpin {
-    to { transform: rotate(360deg); }
-  }
-
-  .it-loader-card h3 {
-    margin: 0 0 7px;
-    color: var(--navy,#172A45);
-    font-size: 17px;
-  }
-
-  .it-loader-card p {
-    margin: 0;
-    color: var(--muted,#74869A);
-    font-size: 12px;
-    line-height: 1.55;
-  }
-
-  .it-image-preview-card {
-    width: min(760px, 100%);
+  .itp-modal {
+    width: min(980px,100%);
     max-height: 92dvh;
-    background: #fff;
-    border-radius: 30px;
-    overflow: hidden;
-    box-shadow: 0 28px 90px rgba(23,42,69,.24);
-    display: grid;
-  }
-
-  .it-image-preview-head {
-    padding: 14px 16px;
-    border-bottom: 1px solid var(--line,#E6EEF4);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .it-image-preview-head b {
-    color: var(--navy,#172A45);
-  }
-
-  .it-image-preview-body {
-    padding: 14px;
-    background: #F8FAFC;
-    overflow: auto;
-  }
-
-  .it-image-preview-body img {
-    width: 100%;
-    max-height: 72dvh;
-    object-fit: contain;
-    border-radius: 18px;
-    background: #fff;
-  }
-
-  .it-detail-photo-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px;
-    margin: 12px 0;
-  }
-
-  .it-detail-photo-box {
-    border: 1px solid var(--line,#E6EEF4);
-    background: #F8FAFC;
-    border-radius: 18px;
-    overflow: hidden;
-    min-height: 130px;
-  }
-
-  .it-detail-photo-box img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    display: block;
-    cursor: pointer;
-  }
-
-  .it-detail-photo-box div {
-    padding: 9px 10px;
-    font-size: 12px;
-    color: var(--muted,#74869A);
-  }
-
-  @media(max-width:720px){
-    .it-detail-photo-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>
-
-<script id="itrack-native-ux-admin-script">
-(function(){
-  let loaderTimer = null;
-  let activeRequests = 0;
-
-  function ensurePopupDom(){
-    if(document.getElementById('itNativePopup')) return;
-
-    var el = document.createElement('div');
-    el.id = 'itNativePopup';
-    el.className = 'it-native-popup-backdrop';
-    el.innerHTML = ''
-      + '<div class="it-native-popup-card">'
-      + '<div id="itPopupIcon" class="it-popup-icon info">i</div>'
-      + '<h3 id="itPopupTitle">Informasi</h3>'
-      + '<p id="itPopupMessage">-</p>'
-      + '<div class="it-popup-actions">'
-      + '<button type="button" class="btn btn-primary" id="itPopupOk">Mengerti</button>'
-      + '</div>'
-      + '</div>';
-
-    document.body.appendChild(el);
-
-    document.getElementById('itPopupOk').addEventListener('click',function(){
-      el.classList.remove('show');
-    });
-  }
-
-  function ensureLoaderDom(){
-    if(document.getElementById('itNativeLoader')) return;
-
-    var el = document.createElement('div');
-    el.id = 'itNativeLoader';
-    el.className = 'it-native-loader-backdrop';
-    el.innerHTML = ''
-      + '<div class="it-loader-card">'
-      + '<div class="it-loader-spinner"></div>'
-      + '<h3 id="itLoaderTitle">Memproses...</h3>'
-      + '<p id="itLoaderText">Mohon tunggu sebentar.</p>'
-      + '</div>';
-
-    document.body.appendChild(el);
-  }
-
-  function ensureImagePreviewDom(){
-    if(document.getElementById('itImagePreview')) return;
-
-    var el = document.createElement('div');
-    el.id = 'itImagePreview';
-    el.className = 'it-image-preview-backdrop';
-    el.innerHTML = ''
-      + '<div class="it-image-preview-card">'
-      + '<div class="it-image-preview-head">'
-      + '<b>Preview Foto</b>'
-      + '<button type="button" class="btn btn-secondary btn-mini" id="itImagePreviewClose">Tutup</button>'
-      + '</div>'
-      + '<div class="it-image-preview-body">'
-      + '<img id="itImagePreviewImg" src="" alt="Preview Foto">'
-      + '</div>'
-      + '</div>';
-
-    document.body.appendChild(el);
-
-    document.getElementById('itImagePreviewClose').addEventListener('click',function(){
-      el.classList.remove('show');
-    });
-  }
-
-  function popup(type,title,message){
-    ensurePopupDom();
-
-    type = type || 'info';
-
-    var icon = document.getElementById('itPopupIcon');
-    icon.className = 'it-popup-icon ' + type;
-    icon.textContent =
-      type === 'success' ? '✓' :
-      type === 'error' ? '×' :
-      type === 'warning' ? '!' : 'i';
-
-    document.getElementById('itPopupTitle').textContent = title || 'Informasi';
-    document.getElementById('itPopupMessage').textContent = message || '';
-
-    document.getElementById('itNativePopup').classList.add('show');
-  }
-
-  function loadingText(action){
-    action = String(action || '').toLowerCase();
-
-    if(action.indexOf('submitworkreport') !== -1 || action.indexOf('savereport') !== -1){
-      return ['Mengirim Laporan', 'Laporan dan dokumentasi sedang disiapkan.'];
-    }
-
-    if(action.indexOf('attendance') !== -1 || action.indexOf('absensi') !== -1){
-      return ['Memproses Absensi', 'Data waktu, lokasi, dan foto sedang diperiksa.'];
-    }
-
-    if(action.indexOf('export') !== -1 || action.indexOf('preview') !== -1){
-      return ['Menyiapkan Dokumen', 'Preview atau file laporan sedang dibuat.'];
-    }
-
-    if(action.indexOf('login') !== -1){
-      return ['Masuk ke iTrack', 'Akun sedang diverifikasi.'];
-    }
-
-    return ['Memproses Permintaan', 'Mohon tunggu sebentar.'];
-  }
-
-  function showAppLoading(action){
-    ensureLoaderDom();
-
-    var text = loadingText(action);
-
-    document.getElementById('itLoaderTitle').textContent = text[0];
-    document.getElementById('itLoaderText').textContent = text[1];
-    document.getElementById('itNativeLoader').classList.add('show');
-  }
-
-  function hideAppLoading(){
-    var el = document.getElementById('itNativeLoader');
-    if(el) el.classList.remove('show');
-  }
-
-  /*
-   * Override toast/showToast jadi popup tengah.
-   */
-  window.showAppPopup = popup;
-
-  window.showToast = function(type,title,message){
-    popup(type || 'info', title || 'Informasi', message || '');
-  };
-
-  window.toast = function(title,message,type){
-    popup(type || 'info', title || 'Informasi', message || '');
-  };
-
-  /*
-   * Loading otomatis kalau request lebih dari 2 detik.
-   */
-  const oldApi = window.api;
-
-  if(typeof oldApi === 'function' && !oldApi.__nativeWrapped){
-    const wrapped = async function(action,payload){
-      activeRequests++;
-
-      var shown = false;
-
-      var timer = setTimeout(function(){
-        shown = true;
-        showAppLoading(action);
-      },2000);
-
-      try{
-        return await oldApi(action,payload);
-      }finally{
-        clearTimeout(timer);
-        activeRequests--;
-
-        if(shown && activeRequests <= 0){
-          hideAppLoading();
-        }
-      }
-    };
-
-    wrapped.__nativeWrapped = true;
-    window.api = wrapped;
-  }
-
-  /*
-   * Manual compatibility untuk fungsi loading lama.
-   */
-  window.showLoading = function(title,text){
-    ensureLoaderDom();
-    document.getElementById('itLoaderTitle').textContent = title || 'Memproses Permintaan';
-    document.getElementById('itLoaderText').textContent = text || 'Mohon tunggu sebentar.';
-    document.getElementById('itNativeLoader').classList.add('show');
-  };
-
-  window.hideLoading = hideAppLoading;
-
-  /*
-   * Fix URL gambar Drive agar bisa tampil di detail.
-   */
-  function normalizeImageUrl(url){
-    url = String(url || '').trim();
-
-    if(!url) return '';
-
-    if(url.indexOf('data:image') === 0) return url;
-
-    var match =
-      url.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
-      url.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
-      url.match(/open\?id=([a-zA-Z0-9_-]+)/);
-
-    if(match && match[1]){
-      return 'https://drive.google.com/uc?export=view&id=' + match[1];
-    }
-
-    return url;
-  }
-
-  window.iTrackNormalizeImageUrl = normalizeImageUrl;
-
-  window.iTrackOpenImagePreview = function(url){
-    ensureImagePreviewDom();
-
-    var finalUrl = normalizeImageUrl(url);
-
-    if(!finalUrl){
-      popup('warning','Foto tidak tersedia','URL foto tidak ditemukan.');
-      return;
-    }
-
-    document.getElementById('itImagePreviewImg').src = finalUrl;
-    document.getElementById('itImagePreview').classList.add('show');
-  };
-
-  /*
-   * Scan modal/detail dan ubah link foto menjadi preview gambar.
-   */
-  function enhanceDetailPhotos(){
-    var root = document.getElementById('detailModal') || document.body;
-
-    if(!root) return;
-
-    root.querySelectorAll('img').forEach(function(img){
-      if(img.getAttribute('data-img-fixed') === '1') return;
-
-      img.setAttribute('data-img-fixed','1');
-      img.src = normalizeImageUrl(img.getAttribute('src'));
-
-      img.addEventListener('click',function(){
-        window.iTrackOpenImagePreview(img.src);
-      });
-    });
-
-    root.querySelectorAll('a').forEach(function(a){
-      var href = a.getAttribute('href') || '';
-      var text = (a.textContent || '').toLowerCase();
-
-      if(a.getAttribute('data-photo-enhanced') === '1') return;
-
-      var looksImage =
-        href.indexOf('drive.google.com') !== -1 ||
-        href.match(/\.(jpg|jpeg|png|webp)(\?|$)/i) ||
-        text.indexOf('foto') !== -1 ||
-        text.indexOf('gambar') !== -1;
-
-      if(!looksImage) return;
-
-      a.setAttribute('data-photo-enhanced','1');
-
-      var imgUrl = normalizeImageUrl(href);
-
-      var box = document.createElement('div');
-      box.className = 'it-detail-photo-box';
-      box.innerHTML = ''
-        + '<img src="' + imgUrl + '" alt="Foto Detail">'
-        + '<div>Tap foto untuk melihat lebih besar</div>';
-
-      box.querySelector('img').addEventListener('click',function(){
-        window.iTrackOpenImagePreview(imgUrl);
-      });
-
-      a.insertAdjacentElement('afterend', box);
-    });
-  }
-
-  const observer = new MutationObserver(function(){
-    enhanceDetailPhotos();
-  });
-
-  document.addEventListener('DOMContentLoaded',function(){
-    ensurePopupDom();
-    ensureLoaderDom();
-    ensureImagePreviewDom();
-
-    observer.observe(document.body,{
-      childList:true,
-      subtree:true
-    });
-
-    setInterval(enhanceDetailPhotos,1200);
-  });
-})();
-</script>
-<style id="itrack-admin-inline-action-style">
-  /* Hide floating action center lama */
-  #itaAdminFab,
-  #itaMiniToolbar {
-    display: none !important;
-  }
-
-  .itadm-action-th,
-  .itadm-action-td {
-    width: 138px;
-    min-width: 138px;
-    text-align: center !important;
-    white-space: nowrap;
-  }
-
-  .itadm-action-wrap {
-    position: relative;
-    display: inline-flex;
-  }
-
-  .itadm-action-btn {
-    border: 0;
-    min-height: 34px;
-    border-radius: 13px;
-    padding: 8px 12px;
-    background: var(--blue3,#EAF7FD);
-    color: var(--blue2,#2F8FC4);
-    font-size: 11px;
-    font-weight: 850;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-    cursor: pointer;
-    box-shadow: 0 8px 18px rgba(30,70,98,.06);
-  }
-
-  .itadm-action-btn:hover {
-    filter: brightness(.98);
-  }
-
-  .itadm-action-btn.report {
-    background: #F0EDFF;
-    color: #6955D8;
-  }
-
-  .itadm-action-btn.attendance {
-    background: #EAF7FD;
-    color: #2F8FC4;
-  }
-
-  .itadm-action-menu {
-    position: fixed;
-    z-index: 9200;
-    min-width: 190px;
-    background: #fff;
-    border: 1px solid var(--line,#E6EEF4);
-    border-radius: 18px;
-    box-shadow: 0 24px 80px rgba(23,42,69,.20);
-    padding: 8px;
-    display: none;
-  }
-
-  .itadm-action-menu.show {
-    display: grid;
-    gap: 6px;
-  }
-
-  .itadm-menu-item {
-    border: 0;
-    background: #fff;
-    color: var(--ink,#26384F);
-    border-radius: 13px;
-    padding: 10px 11px;
-    text-align: left;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  .itadm-menu-item:hover {
-    background: #F8FBFD;
-  }
-
-  .itadm-menu-item.success {
-    color: #166534;
-  }
-
-  .itadm-menu-item.warning {
-    color: #92400E;
-  }
-
-  .itadm-menu-item.danger {
-    color: #991B1B;
-  }
-
-  .itadm-modal-backdrop {
-    position: fixed;
-    inset: 0;
-    z-index: 9300;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    background: rgba(23,42,69,.42);
-    backdrop-filter: blur(14px);
-  }
-
-  .itadm-modal-backdrop.show {
-    display: flex;
-  }
-
-  .itadm-modal {
-    width: min(920px,100%);
-    max-height: 94dvh;
     overflow: auto;
     background: #fff;
     border: 1px solid var(--line,#E6EEF4);
     border-radius: 32px;
     box-shadow: 0 32px 100px rgba(23,42,69,.26);
     padding: 22px;
-    animation: itadmPop .18s ease-out;
   }
 
-  @keyframes itadmPop {
-    from { opacity: 0; transform: translateY(10px) scale(.98); }
-    to { opacity: 1; transform: none; }
-  }
-
-  .itadm-modal-head {
+  .itp-head {
     display: flex;
     justify-content: space-between;
-    align-items: flex-start;
     gap: 12px;
+    align-items: flex-start;
     margin-bottom: 16px;
   }
 
-  .itadm-modal-head h2 {
+  .itp-head h2 {
     margin: 0;
     color: var(--navy,#172A45);
     font-size: 22px;
@@ -2456,14 +1710,14 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
     letter-spacing: -.4px;
   }
 
-  .itadm-modal-head p {
+  .itp-head p {
     margin: 5px 0 0;
     color: var(--muted,#74869A);
     font-size: 12px;
     line-height: 1.55;
   }
 
-  .itadm-close {
+  .itp-close {
     border: 1px solid var(--line,#E6EEF4);
     background: #fff;
     color: var(--ink,#26384F);
@@ -2473,97 +1727,62 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
     font-weight: 850;
   }
 
-  .itadm-grid2 {
+  .itp-summary {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-
-  .itadm-grid3 {
-    display: grid;
-    grid-template-columns: repeat(3,1fr);
-    gap: 12px;
-  }
-
-  .itadm-photo-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin: 12px 0 16px;
-  }
-
-  .itadm-photo-card {
-    border: 1px solid var(--line,#E6EEF4);
-    background: #F8FAFC;
-    border-radius: 22px;
-    overflow: hidden;
-  }
-
-  .itadm-photo-card img {
-    width: 100%;
-    height: 210px;
-    object-fit: cover;
-    display: block;
-    cursor: pointer;
-    background: #fff;
-  }
-
-  .itadm-photo-empty {
-    height: 210px;
-    display: grid;
-    place-items: center;
-    color: var(--muted,#74869A);
-    font-size: 12px;
-  }
-
-  .itadm-photo-card div {
-    padding: 10px 11px;
-    color: var(--muted,#74869A);
-    font-size: 12px;
-  }
-
-  .itadm-actions {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(4,1fr);
     gap: 10px;
-    margin-top: 14px;
+    margin-bottom: 14px;
   }
 
-  .itadm-actions .full {
-    grid-column: 1/3;
+  .itp-info {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #FBFEFF;
+    border-radius: 20px;
+    padding: 13px;
   }
 
-  .itadm-section-card {
+  .itp-info small {
+    display: block;
+    color: var(--muted,#74869A);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-weight: 850;
+    margin-bottom: 5px;
+  }
+
+  .itp-info b {
+    display: block;
+    color: var(--navy,#172A45);
+    font-size: 13px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .itp-section {
     border: 1px solid var(--line,#E6EEF4);
     border-radius: 24px;
-    background: #FBFEFF;
-    padding: 14px;
-    margin-bottom: 12px;
+    background: #fff;
+    padding: 15px;
+    margin-top: 12px;
   }
 
-  .itadm-section-card h3 {
-    margin: 0 0 6px;
+  .itp-section h3 {
+    margin: 0 0 8px;
     color: var(--navy,#172A45);
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 850;
   }
 
-  .itadm-section-card p {
-    margin: 0 0 10px;
-    color: var(--muted,#74869A);
-    font-size: 12px;
-    line-height: 1.55;
-  }
-
-  .itadm-report-item {
+  .itp-item {
     border: 1px solid var(--line,#E6EEF4);
-    border-radius: 20px;
-    background: #fff;
-    padding: 13px;
+    background: #FBFEFF;
+    border-radius: 22px;
+    padding: 14px;
     margin-bottom: 10px;
   }
 
-  .itadm-report-item-head {
+  .itp-item-head {
     display: flex;
     justify-content: space-between;
     gap: 10px;
@@ -2571,17 +1790,18 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
     margin-bottom: 10px;
   }
 
-  .itadm-report-item-head b {
+  .itp-item-head b {
     color: var(--navy,#172A45);
-    font-size: 14px;
+    font-size: 15px;
   }
 
-  .itadm-report-item-head small {
+  .itp-item-head small {
     color: var(--muted,#74869A);
     font-size: 11px;
+    line-height: 1.5;
   }
 
-  .itadm-badge {
+  .itp-badge {
     display: inline-flex;
     border-radius: 999px;
     padding: 5px 9px;
@@ -2589,1361 +1809,94 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
     color: #475569;
     font-size: 10px;
     font-weight: 850;
+    white-space: nowrap;
   }
 
-  .itadm-note-modal {
-    position: fixed;
-    inset: 0;
-    z-index: 9400;
-    display: none;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    background: rgba(23,42,69,.42);
-    backdrop-filter: blur(14px);
+  .itp-badge.good {
+    background: #DCFCE7;
+    color: #166534;
   }
 
-  .itadm-note-modal.show {
-    display: flex;
+  .itp-badge.warn {
+    background: #FEF3C7;
+    color: #92400E;
   }
 
-  .itadm-note-card {
-    width: min(440px,100%);
+  .itp-badge.bad {
+    background: #FEE2E2;
+    color: #991B1B;
+  }
+
+  .itp-desc {
+    color: var(--ink,#26384F);
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
     background: #fff;
-    border-radius: 28px;
     border: 1px solid var(--line,#E6EEF4);
-    box-shadow: 0 32px 100px rgba(23,42,69,.26);
-    padding: 20px;
+    border-radius: 16px;
+    padding: 12px;
   }
 
-  .itadm-note-card h3 {
-    margin: 0 0 6px;
-    color: var(--navy,#172A45);
-    font-size: 18px;
+  .itp-doc {
+    margin-top: 10px;
   }
 
-  .itadm-note-card p {
-    margin: 0 0 12px;
-    color: var(--muted,#74869A);
+  .itp-doc a {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--blue2,#2F8FC4);
+    background: var(--blue3,#EAF7FD);
+    border-radius: 999px;
+    padding: 8px 11px;
     font-size: 12px;
-    line-height: 1.55;
+    font-weight: 850;
+    text-decoration: none;
   }
 
-  @media(max-width: 720px) {
-    .itadm-modal {
+  .itp-actions {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .itp-empty {
+    text-align: center;
+    color: var(--muted,#74869A);
+    border: 1px dashed #D6E5EE;
+    border-radius: 18px;
+    padding: 18px;
+    font-size: 13px;
+  }
+
+  @media(max-width: 760px) {
+    .itp-modal {
+      border-radius: 26px;
       padding: 18px;
-      border-radius: 28px;
     }
 
-    .itadm-grid2,
-    .itadm-grid3,
-    .itadm-photo-grid,
-    .itadm-actions {
+    .itp-summary,
+    .itp-actions {
       grid-template-columns: 1fr;
     }
 
-    .itadm-actions .full {
-      grid-column: auto;
+    .itp-item-head {
+      display: block;
     }
 
-    .itadm-photo-card img,
-    .itadm-photo-empty {
-      height: 170px;
+    .itp-badge {
+      margin-top: 8px;
     }
   }
 </style>
 
-<script id="itrack-admin-inline-action-script">
-(function(){
-  let activeMenu = null;
-  let noteResolve = null;
-
-  function isAdmin(){
-    try{
-      if(typeof currentRoleIsAdmin !== 'undefined' && currentRoleIsAdmin) return true;
-    }catch(e){}
-
-    try{
-      const u = typeof currentUser !== 'undefined'
-        ? currentUser
-        : JSON.parse(localStorage.getItem('iTrack_user') || '{}');
-
-      const role = String(u.ROLE || u.role || '').toUpperCase();
-      return role.indexOf('ADMIN') !== -1 || role.indexOf('SUPERVISOR') !== -1;
-    }catch(e){
-      return false;
-    }
-  }
-
-  function esc(v){
-    return String(v == null ? '' : v)
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;')
-      .replace(/'/g,'&#039;');
-  }
-
-  function escAttr(v){
-    return esc(v).replace(/`/g,'&#096;');
-  }
-
-  function popup(type,title,msg){
-    if(window.showAppPopup){
-      window.showAppPopup(type,title,msg);
-      return;
-    }
-
-    if(window.showToast){
-      window.showToast(type,title,msg);
-      return;
-    }
-
-    alert((title || '') + '\n' + (msg || ''));
-  }
-
-  async function apiCall(action,payload){
-    if(typeof api === 'function'){
-      return await api(action,payload || {});
-    }
-
-    if(typeof API_URL === 'undefined'){
-      throw new Error('API_URL tidak ditemukan.');
-    }
-
-    const res = await fetch(API_URL,{
-      method:'POST',
-      headers:{
-        'Content-Type':'text/plain;charset=utf-8'
-      },
-      body:JSON.stringify({
-        action:action,
-        payload:payload || {}
-      })
-    });
-
-    return await res.json();
-  }
-
-  function normalizeImg(url){
-    if(window.iTrackNormalizeImageUrl){
-      return window.iTrackNormalizeImageUrl(url);
-    }
-
-    url = String(url || '').trim();
-
-    const m =
-      url.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
-      url.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
-      url.match(/open\?id=([a-zA-Z0-9_-]+)/);
-
-    if(m && m[1]){
-      return 'https://drive.google.com/uc?export=view&id=' + m[1];
-    }
-
-    return url;
-  }
-
-  function openImage(url){
-    url = normalizeImg(url);
-
-    if(window.iTrackOpenImagePreview){
-      window.iTrackOpenImagePreview(url);
-    }else{
-      window.open(url,'_blank');
-    }
-  }
-
-  function getAny(row,keys){
-    row = row || {};
-
-    for(let i=0;i<keys.length;i++){
-      if(row[keys[i]] !== undefined && row[keys[i]] !== null && row[keys[i]] !== ''){
-        return row[keys[i]];
-      }
-    }
-
-    return '';
-  }
-
-  function findIdFromText(text,type){
-    text = String(text || '');
-
-    const patterns = type === 'attendance'
-      ? [
-          /(ABSROW-[A-Z0-9\-]+)/i,
-          /(ABS-[A-Z0-9\-]+)/i,
-          /(ATT-[A-Z0-9\-]+)/i,
-          /(ATTENDANCE-[A-Z0-9\-]+)/i
-        ]
-      : [
-          /(LAPROW-[A-Z0-9\-]+)/i,
-          /(LAP\/ITRACK\/OJKDIY\/[A-Z0-9\/\-]+)/i,
-          /(LAP-[A-Z0-9\-]+)/i,
-          /(REPORT-[A-Z0-9\-]+)/i
-        ];
-
-    for(let i=0;i<patterns.length;i++){
-      const m = text.match(patterns[i]);
-      if(m && m[1]) return m[1];
-    }
-
-    return '';
-  }
-
-  function extractRowId(row,type){
-    if(!row) return '';
-
-    const ds = type === 'attendance'
-      ? ['attendanceId','idAbsensi','attId','id']
-      : ['reportId','idLaporan','lapId','id'];
-
-    for(let i=0;i<ds.length;i++){
-      if(row.dataset && row.dataset[ds[i]]) return row.dataset[ds[i]];
-    }
-
-    const attrs = type === 'attendance'
-      ? ['data-attendance-id','data-id-absensi','data-att-id','data-id']
-      : ['data-report-id','data-id-laporan','data-lap-id','data-id'];
-
-    for(let i=0;i<attrs.length;i++){
-      const v = row.getAttribute(attrs[i]);
-      if(v) return v;
-    }
-
-    /*
-     * Coba cari dari tombol detail yang sudah ada.
-     */
-    const detailBtn = row.querySelector('[data-id], [data-report-id], [data-attendance-id], .detail-report, .detail-attendance');
-    if(detailBtn){
-      const v =
-        detailBtn.getAttribute('data-id') ||
-        detailBtn.getAttribute('data-report-id') ||
-        detailBtn.getAttribute('data-attendance-id');
-
-      if(v) return v;
-    }
-
-    return findIdFromText(row.innerText || row.textContent || '', type);
-  }
-
-  function ensureModal(){
-    if(document.getElementById('itadmModal')) return;
-
-    const el = document.createElement('div');
-    el.id = 'itadmModal';
-    el.className = 'itadm-modal-backdrop';
-    el.innerHTML = `
-      <div class="itadm-modal">
-        <div class="itadm-modal-head">
-          <div>
-            <h2 id="itadmModalTitle">Detail Admin</h2>
-            <p id="itadmModalSub">Kelola data operasional.</p>
-          </div>
-          <button type="button" class="itadm-close" id="itadmCloseModal">Tutup</button>
-        </div>
-        <div id="itadmModalBody"></div>
-      </div>
-    `;
-
-    document.body.appendChild(el);
-
-    document.getElementById('itadmCloseModal').addEventListener('click',function(){
-      el.classList.remove('show');
-    });
-  }
-
-  function showModal(title,sub,html){
-    ensureModal();
-
-    document.getElementById('itadmModalTitle').textContent = title || 'Detail Admin';
-    document.getElementById('itadmModalSub').textContent = sub || '';
-    document.getElementById('itadmModalBody').innerHTML = html || '';
-    document.getElementById('itadmModal').classList.add('show');
-  }
-
-  function ensureNoteModal(){
-    if(document.getElementById('itadmNoteModal')) return;
-
-    const el = document.createElement('div');
-    el.id = 'itadmNoteModal';
-    el.className = 'itadm-note-modal';
-    el.innerHTML = `
-      <div class="itadm-note-card">
-        <h3 id="itadmNoteTitle">Catatan Admin</h3>
-        <p id="itadmNoteSub">Tambahkan catatan jika diperlukan.</p>
-        <div class="field">
-          <textarea id="itadmNoteText" placeholder=" "></textarea>
-          <label>Catatan</label>
-        </div>
-        <div class="itadm-actions">
-          <button type="button" class="btn btn-secondary" id="itadmNoteCancel">Batal</button>
-          <button type="button" class="btn btn-primary" id="itadmNoteOk">Lanjutkan</button>
-        </div>
-      </div>
-    `;
-
-    document.body.appendChild(el);
-
-    document.getElementById('itadmNoteCancel').addEventListener('click',function(){
-      el.classList.remove('show');
-      if(noteResolve) noteResolve(null);
-      noteResolve = null;
-    });
-
-    document.getElementById('itadmNoteOk').addEventListener('click',function(){
-      const text = document.getElementById('itadmNoteText').value || '';
-      el.classList.remove('show');
-      if(noteResolve) noteResolve(text);
-      noteResolve = null;
-    });
-  }
-
-  function askNote(title,sub){
-    ensureNoteModal();
-
-    document.getElementById('itadmNoteTitle').textContent = title || 'Catatan Admin';
-    document.getElementById('itadmNoteSub').textContent = sub || 'Tambahkan catatan jika diperlukan.';
-    document.getElementById('itadmNoteText').value = '';
-    document.getElementById('itadmNoteModal').classList.add('show');
-
-    return new Promise(function(resolve){
-      noteResolve = resolve;
-    });
-  }
-
-  function ensureMenu(){
-    if(document.getElementById('itadmActionMenu')) return;
-
-    const menu = document.createElement('div');
-    menu.id = 'itadmActionMenu';
-    menu.className = 'itadm-action-menu';
-    document.body.appendChild(menu);
-
-    document.addEventListener('click',function(e){
-      if(activeMenu && !menu.contains(e.target) && !e.target.closest('.itadm-action-btn')){
-        closeMenu();
-      }
-    });
-  }
-
-  function closeMenu(){
-    const menu = document.getElementById('itadmActionMenu');
-    if(menu) menu.classList.remove('show');
-    activeMenu = null;
-  }
-
-  function openMenu(btn,type,id){
-    ensureMenu();
-
-    if(!id){
-      popup(
-        'warning',
-        'ID tidak ditemukan',
-        type === 'attendance'
-          ? 'ID Absensi tidak ditemukan pada baris ini.'
-          : 'ID Laporan tidak ditemukan pada baris ini.'
-      );
-      return;
-    }
-
-    const menu = document.getElementById('itadmActionMenu');
-
-    if(type === 'attendance'){
-      menu.innerHTML = `
-        <button type="button" class="itadm-menu-item" data-act="att-detail">📷 Detail/Edit Absensi</button>
-        <button type="button" class="itadm-menu-item success" data-act="att-valid">✓ Tandai Valid</button>
-        <button type="button" class="itadm-menu-item warning" data-act="att-review">! Perlu Review</button>
-        <button type="button" class="itadm-menu-item danger" data-act="att-reject">× Tolak</button>
-      `;
-    }else{
-      menu.innerHTML = `
-        <button type="button" class="itadm-menu-item" data-act="rep-detail">📄 Detail/Edit Laporan</button>
-        <button type="button" class="itadm-menu-item success" data-act="rep-approve">✓ Setujui</button>
-        <button type="button" class="itadm-menu-item warning" data-act="rep-revision">! Minta Revisi</button>
-        <button type="button" class="itadm-menu-item danger" data-act="rep-reject">× Tolak</button>
-      `;
-    }
-
-    menu.querySelectorAll('[data-act]').forEach(function(item){
-      item.addEventListener('click',function(){
-        handleAction(item.getAttribute('data-act'), id);
-        closeMenu();
-      });
-    });
-
-    const rect = btn.getBoundingClientRect();
-
-    menu.style.left = Math.min(rect.left, window.innerWidth - 210) + 'px';
-    menu.style.top = Math.min(rect.bottom + 8, window.innerHeight - 240) + 'px';
-    menu.classList.add('show');
-    activeMenu = menu;
-  }
-
-  async function handleAction(action,id){
-    if(action === 'att-detail') return loadAttendanceDetail(id);
-    if(action === 'att-valid') return quickAttendance(id,'VALID');
-    if(action === 'att-review') return quickAttendance(id,'PERLU_REVIEW');
-    if(action === 'att-reject') return quickAttendance(id,'DITOLAK');
-
-    if(action === 'rep-detail') return loadReportDetail(id);
-    if(action === 'rep-approve') return quickReport(id,'DISETUJUI');
-    if(action === 'rep-revision') return quickReport(id,'REVISI');
-    if(action === 'rep-reject') return quickReport(id,'DITOLAK');
-  }
-
-  async function quickAttendance(id,status){
-    let note = '';
-
-    if(status !== 'VALID'){
-      note = await askNote(
-        status === 'PERLU_REVIEW' ? 'Catatan Review Absensi' : 'Catatan Penolakan Absensi',
-        'Catatan ini akan disimpan sebagai catatan validasi.'
-      );
-
-      if(note === null) return;
-    }
-
-    try{
-      const res = await apiCall('adminUpdateAttendance',{
-        idAbsensi:id,
-        statusValidasi:status,
-        catatanValidasi:note || (status === 'VALID' ? 'Divalidasi admin.' : '')
-      });
-
-      if(!res || !res.success){
-        throw new Error(res && res.message ? res.message : 'Aksi absensi gagal.');
-      }
-
-      popup('success','Absensi diperbarui','Status validasi absensi berhasil diperbarui.');
-
-      safeRefreshAdminTables();
-    }catch(error){
-      popup('error','Aksi gagal',error.message);
-    }
-  }
-
-  async function quickReport(id,status){
-    let note = '';
-
-    if(status !== 'DISETUJUI'){
-      note = await askNote(
-        status === 'REVISI' ? 'Catatan Revisi Laporan' : 'Catatan Penolakan Laporan',
-        'Catatan ini akan tampil sebagai catatan admin.'
-      );
-
-      if(note === null) return;
-    }
-
-    try{
-      const res = await apiCall('adminUpdateWorkReportStatus',{
-        reportId:id,
-        statusLaporan:status,
-        catatanAdmin:note || (status === 'DISETUJUI' ? 'Disetujui admin.' : ''),
-        validatedBy:'Admin'
-      });
-
-      if(!res || !res.success){
-        throw new Error(res && res.message ? res.message : 'Aksi laporan gagal.');
-      }
-
-      popup('success','Laporan diperbarui','Status laporan berhasil diperbarui.');
-
-      safeRefreshAdminTables();
-    }catch(error){
-      popup('error','Aksi gagal',error.message);
-    }
-  }
-
-  function safeRefreshAdminTables(){
-    [
-      'loadAdminAttendance',
-      'loadAttendanceMonitoring',
-      'loadAdminReports',
-      'loadWorkReportsForAdmin',
-      'loadDashboardSummary'
-    ].forEach(function(fn){
-      try{
-        if(typeof window[fn] === 'function') window[fn]();
-      }catch(e){}
-    });
-  }
-
-  async function loadAttendanceDetail(id){
-    try{
-      const res = await apiCall('adminGetAttendanceDetail',{
-        idAbsensi:id
-      });
-
-      if(!res || !res.success){
-        throw new Error(res && res.message ? res.message : 'Detail absensi gagal dimuat.');
-      }
-
-      renderAttendanceModal(res.data);
-    }catch(error){
-      popup('error','Gagal memuat absensi',error.message);
-    }
-  }
-
-  function photoCard(label,url){
-    url = normalizeImg(url);
-
-    if(!url){
-      return `
-        <div class="itadm-photo-card">
-          <div class="itadm-photo-empty">Foto tidak tersedia</div>
-          <div>${esc(label)}</div>
-        </div>
-      `;
-    }
-
-    return `
-      <div class="itadm-photo-card">
-        <img src="${escAttr(url)}" alt="${escAttr(label)}" data  `;
-  }
-
-  function renderAttendanceModal(data){
-    showModal(
-      'Detail/Edit Absensi',
-      (data.namaLengkap || '-') + ' · ' + (data.tanggal || '-') + ' · ' + (data.divisi || '-'),
-      `
-        <div class="itadm-photo-grid">
-          ${photoCard('Foto Masuk', data.fotoMasukUrl)}
-          ${photoCard('Foto Pulang', data.fotoPulangUrl)}
-        </div>
-
-        <div class="itadm-section-card">
-          <h3>Koreksi Absensi</h3>
-          <p>Edit jam/status jika ada koreksi dari admin.</p>
-
-          <div class="itadm-grid2">
-            <div class="field">
-              <input id="itadmAttIn" type="time" placeholder=" " value="${escAttr(data.jamMasuk || '')}">
-              <label>Jam Masuk</label>
-            </div>
-            <div class="field">
-              <input id="itadmAttOut" type="time" placeholder=" " value="${escAttr(data.jamPulang || '')}">
-              <label>Jam Pulang</label>
-            </div>
-          </div>
-
-          <div class="itadm-grid2">
-            <div class="field">
-              <select id="itadmAttStatus">
-                ${options(['HADIR','TERLAMBAT','LUAR_LOKASI','DINAS_LUAR','IZIN','SAKIT','CUTI','ALPHA'], data.statusKehadiran)}
-              </select>
-              <label>Status Kehadiran</label>
-            </div>
-            <div class="field">
-              <select id="itadmAttValidation">
-                ${options(['VALID','PERLU_REVIEW','INVALID','DITOLAK'], data.statusValidasi)}
-              </select>
-              <label>Status Validasi</label>
-            </div>
-          </div>
-
-          <div class="field">
-            <textarea id="itadmAttNote" placeholder=" ">${esc(data.catatanValidasi || '')}</textarea>
-            <label>Catatan Validasi</label>
-          </div>
-
-          <div class="field">
-            <textarea id="itadmAttDesc" placeholder=" ">${esc(data.keterangan || '')}</textarea>
-            <label>Keterangan</label>
-          </div>
-
-          <div class="itadm-actions">
-            <button type="button" class="btn btn-primary full" id="itadmSaveAttendance">Simpan Perubahan</button>
-          </div>
-        </div>
-      `
-    );
-
-    document.querySelectorAll('[data-itadm-img]').forEach(function(img){
-      img.addEventListener('click',function(){
-        openImage(img.getAttribute('data-itadm-img'));
-      });
-    });
-
-    document.getElementById('itadmSaveAttendance').addEventListener('click',async function(){
-      try{
-        const res = await apiCall('adminUpdateAttendance',{
-          idAbsensi:data.idAbsensi,
-          jamMasuk:document.getElementById('itadmAttIn').value,
-          jamPulang:document.getElementById('itadmAttOut').value,
-          statusKehadiran:document.getElementById('itadmAttStatus').value,
-          statusValidasi:document.getElementById('itadmAttValidation').value,
-          catatanValidasi:document.getElementById('itadmAttNote').value,
-          keterangan:document.getElementById('itadmAttDesc').value
-        });
-
-        if(!res || !res.success){
-          throw new Error(res && res.message ? res.message : 'Absensi gagal diperbarui.');
-        }
-
-        popup('success','Absensi diperbarui','Perubahan absensi berhasil disimpan.');
-        document.getElementById('itadmModal').classList.remove('show');
-        safeRefreshAdminTables();
-      }catch(error){
-        popup('error','Gagal menyimpan',error.message);
-      }
-    });
-  }
-
-  function options(list,selected){
-    selected = String(selected || '').toUpperCase();
-
-    return list.map(function(item){
-      const s = String(item).toUpperCase() === selected ? 'selected' : '';
-      return `<option value="${escAttr(item)}" ${s}>${esc(item)}</option>`;
-    }).join('');
-  }
-
-  async function loadReportDetail(id){
-    try{
-      const res = await apiCall('adminGetWorkReportFullDetail',{
-        reportId:id
-      });
-
-      if(!res || !res.success){
-        throw new Error(res && res.message ? res.message : 'Detail laporan gagal dimuat.');
-      }
-
-      renderReportModal(res.data);
-    }catch(error){
-      popup('error','Gagal memuat laporan',error.message);
-    }
-  }
-
-  function renderReportModal(data){
-    const report = data.report || {};
-    const items = data.items || [];
-
-    const reportId = getAny(report,['ID Laporan','REPORT_ID']);
-    const nama = getAny(report,['Nama Lengkap','NAMA_LENGKAP']);
-    const tanggal = getAny(report,['Tanggal','TANGGAL']);
-    const status = getAny(report,['Status Laporan','STATUS_LAPORAN']);
-    const note = getAny(report,['Catatan Admin','CATATAN_ADMIN']);
-
-    showModal(
-      'Detail/Edit Laporan Kerja',
-      (nama || '-') + ' · ' + (tanggal || '-') + ' · Status: ' + (status || '-'),
-      `
-        <div class="itadm-section-card">
-          <h3>Validasi Laporan</h3>
-          <p>Setujui, revisi, atau tolak laporan kerja peserta.</p>
-
-          <div class="itadm-grid3">
-            <div class="field">
-              <select id="itadmRepStatus">
-                ${options(['MENUNGGU','DISETUJUI','REVISI','DITOLAK'], status)}
-              </select>
-              <label>Status Laporan</label>
-            </div>
-            <div class="field">
-              <input id="itadmRepBy" type="text" placeholder=" " value="Admin">
-              <label>Divalidasi Oleh</label>
-            </div>
-            <div class="field">
-              <input type="text" placeholder=" " readonly value="${escAttr(reportId)}">
-              <label>ID Laporan</label>
-            </div>
-          </div>
-
-          <div class="field">
-            <textarea id="itadmRepNote" placeholder=" ">${esc(note || '')}</textarea>
-            <label>Catatan Admin</label>
-          </div>
-
-          <div class="itadm-actions">
-            <button type="button" class="btn btn-primary full" id="itadmSaveReportStatus">Simpan Status Laporan</button>
-          </div>
-        </div>
-
-        <div class="itadm-section-card">
-          <h3>Detail Kegiatan</h3>
-          <p>Edit detail kegiatan jika ada koreksi.</p>
-
-          ${items.length ? items.map(function(item,index){
-            return renderReportItem(item,index);
-          }).join('') : '<div class="empty">Belum ada detail kegiatan.</div>'}
-        </div>
-      `
-    );
-
-    document.getElementById('itadmSaveReportStatus').addEventListener('click',async function(){
-      try{
-        const res = await apiCall('adminUpdateWorkReportStatus',{
-          reportId:reportId,
-          statusLaporan:document.getElementById('itadmRepStatus').value,
-          catatanAdmin:document.getElementById('itadmRepNote').value,
-          validatedBy:document.getElementById('itadmRepBy').value || 'Admin'
-        });
-
-        if(!res || !res.success){
-          throw new Error(res && res.message ? res.message : 'Status laporan gagal diperbarui.');
-        }
-
-        popup('success','Laporan diperbarui','Status laporan berhasil disimpan.');
-        safeRefreshAdminTables();
-      }catch(error){
-        popup('error','Gagal menyimpan',error.message);
-      }
-    });
-
-    document.querySelectorAll('[data-itadm-save-item]').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        saveReportItem(btn.getAttribute('data-itadm-save-item'));
-      });
-    });
-
-    document.querySelectorAll('[data-itadm-delete-item]').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        deleteReportItem(btn.getAttribute('data-itadm-delete-item'));
-      });
-    });
-
-    document.querySelectorAll('[data-itadm-img]').forEach(function(img){
-      img.addEventListener('click',function(){
-        openImage(img.getAttribute('data-itadm-img'));
-      });
-    });
-  }
-
-  function renderReportItem(item,index){
-    const itemId = getAny(item,['ID Kegiatan','ITEM_ID']);
-    const start = normalizeTime(getAny(item,['Jam Mulai','JAM_MULAI']));
-    const end = normalizeTime(getAny(item,['Jam Selesai','JAM_SELESAI']));
-    const durasi = getAny(item,['Durasi','DURASI']);
-    const desc = getAny(item,['Uraian Kegiatan','URAIAN_KEGIATAN']);
-    const doc = normalizeImg(getAny(item,['URL Dokumentasi','DOKUMENTASI_URL']));
-
-    return `
-      <div class="itadm-report-item">
-        <div class="itadm-report-item-head">
-          <div>
-            <b>Kegiatan ${index + 1}</b><br>
-            <small>${esc(start || '-')} - ${esc(end || '-')} · ${esc(durasi || '-')}</small>
-          </div>
-          <span class="itadm-badge">${esc(itemId)}</span>
-        </div>
-
-        <div class="itadm-grid2">
-          <div class="field">
-            <input id="itadmItemStart_${escAttr(itemId)}" type="time" placeholder=" " value="${escAttr(start)}">
-            <label>Jam Mulai</label>
-          </div>
-          <div class="field">
-            <input id="itadmItemEnd_${escAttr(itemId)}" type="time" placeholder=" " value="${escAttr(end)}">
-            <label>Jam Selesai</label>
-          </div>
-        </div>
-
-        <div class="field">
-          <textarea id="itadmItemDesc_${escAttr(itemId)}" placeholder=" ">${esc(desc || '')}</textarea>
-          <label>Uraian Kegiatan</label>
-        </div>
-
-        <div class="field">
-          <input id="itadmItemDoc_${escAttr(itemId)}" type="text" placeholder=" " value="${escAttr(doc || '')}">
-          <label>URL Dokumentasi</label>
-        </div>
-
-        ${doc ? `
-          <div class="itadm-photo-grid">
-            <div class="itadm-photo-card">
-              ${escAttr(doc)}
-              <div>Dokumentasi kegiatan · Tap untuk perbesar</div>
-            </div>
-          </div>
-        ` : ''}
-
-        <div class="itadm-actions">
-          <button type="button" class="btn btn-primary" data-itadm-save-item="${escAttr(itemId)}">Simpan Detail</button>
-          <button type="button" class="btn btn-red" data-itadm-delete-item="${escAttr(itemId)}">Hapus Detail</button>
-        </div>
-      </div>
-    `;
-  }
-
-  function normalizeTime(value){
-    value = String(value || '');
-    const m = value.match(/(\d{1,2}):(\d{2})/);
-
-    if(m){
-      return String(m[1]).padStart(2,'0') + ':' + m[2];
-    }
-
-    return value;
-  }
-
-  async function saveReportItem(itemId){
-    try{
-      const res = await apiCall('adminUpdateWorkReportDetail',{
-        itemId:itemId,
-        jamMulai:document.getElementById('itadmItemStart_' + itemId).value,
-        jamSelesai:document.getElementById('itadmItemEnd_' + itemId).value,
-        uraianKegiatan:document.getElementById('itadmItemDesc_' + itemId).value,
-        dokumentasiUrl:document.getElementById('itadmItemDoc_' + itemId).value
-      });
-
-      if(!res || !res.success){
-        throw new Error(res && res.message ? res.message : 'Detail kegiatan gagal diperbarui.');
-      }
-
-      popup('success','Detail diperbarui','Detail kegiatan berhasil disimpan.');
-      safeRefreshAdminTables();
-    }catch(error){
-      popup('error','Gagal menyimpan detail',error.message);
-    }
-  }
-
-  async function deleteReportItem(itemId){
-    const note = await askNote(
-      'Hapus Detail Kegiatan',
-      'Tambahkan alasan penghapusan detail kegiatan jika diperlukan.'
-    );
-
-    if(note === null) return;
-
-    try{
-      const res = await apiCall('adminDeleteWorkReportDetail',{
-        itemId:itemId,
-        note:note
-      });
-
-      if(!res || !res.success){
-        throw new Error(res && res.message ? res.message : 'Detail kegiatan gagal dihapus.');
-      }
-
-      popup('success','Detail dihapus','Detail kegiatan berhasil dihapus.');
-      safeRefreshAdminTables();
-
-      const modal = document.getElementById('itadmModal');
-      if(modal) modal.classList.remove('show');
-    }catch(error){
-      popup('error','Gagal menghapus detail',error.message);
-    }
-  }
-
-  function askNote(title,sub){
-    return new Promise(function(resolve){
-      if(!document.getElementById('itadmInlineNote')){
-        const el = document.createElement('div');
-        el.id = 'itadmInlineNote';
-        el.className = 'itadm-note-modal';
-        el.innerHTML = `
-          <div class="itadm-note-card">
-            <h3 id="itadmInlineNoteTitle">Catatan Admin</h3>
-            <p id="itadmInlineNoteSub">Tambahkan catatan jika diperlukan.</p>
-            <div class="field">
-              <textarea id="itadmInlineNoteText" placeholder=" "></textarea>
-              <label>Catatan</label>
-            </div>
-            <div class="itadm-actions">
-              <button type="button" class="btn btn-secondary" id="itadmInlineNoteCancel">Batal</button>
-              <button type="button" class="btn btn-primary" id="itadmInlineNoteOk">Lanjutkan</button>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(el);
-      }
-
-      const modal = document.getElementById('itadmInlineNote');
-
-      document.getElementById('itadmInlineNoteTitle').textContent = title || 'Catatan Admin';
-      document.getElementById('itadmInlineNoteSub').textContent = sub || 'Tambahkan catatan jika diperlukan.';
-      document.getElementById('itadmInlineNoteText').value = '';
-
-      modal.classList.add('show');
-
-      document.getElementById('itadmInlineNoteCancel').onclick = function(){
-        modal.classList.remove('show');
-        resolve(null);
-      };
-
-      document.getElementById('itadmInlineNoteOk').onclick = function(){
-        const text = document.getElementById('itadmInlineNoteText').value || '';
-        modal.classList.remove('show');
-        resolve(text);
-      };
-    });
-  }
-
-  function addHeaderIfNeeded(table){
-    if(!table) return;
-
-    const headRow = table.querySelector('thead tr');
-    if(!headRow) return;
-
-    if(headRow.querySelector('.itadm-action-th')) return;
-
-    const th = document.createElement('th');
-    th.className = 'itadm-action-th';
-    th.textContent = 'Aksi';
-
-    headRow.appendChild(th);
-  }
-
-  function enhanceRows(){
-    if(!isAdmin()) return;
-
-    const configs = [
-      {
-        type:'attendance',
-        selectors:[
-          '#adminAttendanceRows tr',
-          '#adminHomeAttendanceRows tr',
-          '#attendanceRows tr',
-          'table[data-admin-attendance] tbody tr'
-        ]
-      },
-      {
-        type:'report',
-        selectors:[
-          '#adminReportRows tr',
-          '#workReportRows tr',
-          '#reportRows tr',
-          'table[data-admin-report] tbody tr'
-        ]
-      }
-    ];
-
-    configs.forEach(function(config){
-      config.selectors.forEach(function(selector){
-        document.querySelectorAll(selector).forEach(function(row){
-          enhanceRow(row,config.type);
-        });
-      });
-    });
-  }
-
-  function enhanceRow(row,type){
-    if(!row || row.getAttribute('data-itadm-inline-' + type) === '1') return;
-
-    const table = row.closest('table');
-    addHeaderIfNeeded(table);
-
-    const id = extractRowId(row,type);
-
-    row.setAttribute('data-itadm-inline-' + type,'1');
-
-    const td = document.createElement('td');
-    td.className = 'itadm-action-td';
-    td.setAttribute('data-label','Aksi');
-
-    const wrap = document.createElement('div');
-    wrap.className = 'itadm-action-wrap';
-
-    const btn = document.createElement('button');
-    btn.type = 'button';
-    btn.className = 'itadm-action-btn ' + type;
-    btn.innerHTML = type === 'attendance' ? 'Aksi Absensi ▾' : 'Aksi Laporan ▾';
-
-    btn.addEventListener('click',function(e){
-      e.stopPropagation();
-      e.preventDefault();
-
-      const dynamicId = extractRowId(row,type) || id;
-      openMenu(btn,type,dynamicId);
-    });
-
-    wrap.appendChild(btn);
-    td.appendChild(wrap);
-    row.appendChild(td);
-  }
-
-  function safeRefreshAdminTables(){
-    [
-      'loadAdminAttendance',
-      'loadAttendanceMonitoring',
-      'loadAdminReports',
-      'loadWorkReportsForAdmin',
-      'loadDashboardSummary'
-    ].forEach(function(fn){
-      try{
-        if(typeof window[fn] === 'function') window[fn]();
-      }catch(e){}
-    });
-  }
-
-  const observer = new MutationObserver(function(){
-    enhanceRows();
-  });
-
-  document.addEventListener('DOMContentLoaded',function(){
-    ensureModal();
-    ensureMenu();
-
-    observer.observe(document.body,{
-      childList:true,
-      subtree:true
-    });
-
-    setInterval(enhanceRows,1000);
-  });
-
-  window.iTrackAdminInlineActionsRefresh = enhanceRows;
-})();
-</script>
-<script id="itrack-api-debug-helper">
-window.iTrackDebugApi = async function(){
-  try{
-    console.log('[iTrack] API_URL:', typeof API_URL !== 'undefined' ? API_URL : window.API_URL);
-
-    const res = await api('debugApiRoutes',{});
-    console.log('[iTrack] debugApiRoutes:', res);
-
-    alert(
-      'API OK\nTotal action: ' +
-      ((res.data && res.data.total) || '-') +
-      '\nCek console untuk daftar action.'
-    );
-  }catch(e){
-    console.error('[iTrack] API debug gagal:', e);
-    alert('API debug gagal: ' + e.message);
-  }
-};
-</script>
-
-<script id="itrack-final-safe-sw-register">
-(function(){
-  window.registerSW = function(){
-    if(location.protocol !== 'http:' && location.protocol !== 'https:'){
-      console.warn('[iTrack] Service Worker tidak dijalankan karena bukan http/https.');
-      return;
-    }
-    if('serviceWorker' in navigator){
-      navigator.serviceWorker.register('./sw.js').then(function(registration){
-        console.log('[iTrack] Service Worker aktif:', registration.scope);
-      }).catch(function(error){
-        console.warn('[iTrack] Service Worker gagal:', error);
-      });
-    }
-  };
-})();
-</script>
-<script id="itrack-force-api-url-and-data-restore">
-(function(){
-  /*
-   * HOTFIX:
-   * Memaksa semua request frontend memakai Web App exec yang benar.
-   * Dipakai saat data absensi/laporan/peserta tidak muncul karena API_URL lama/cache.
-   */
-
-  var ITRACK_FIXED_EXEC_URL = 'https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';
-
-  window.ITRACK_FIXED_EXEC_URL = ITRACK_FIXED_EXEC_URL;
-
-  function getCurrentUserSafe(){
-    try{
-      if(typeof currentUser !== 'undefined' && currentUser){
-        return currentUser;
-      }
-    }catch(e){}
-
-    try{
-      return JSON.parse(localStorage.getItem('iTrack_user') || localStorage.getItem('itrack_current_user') || '{}');
-    }catch(e){
-      return {};
-    }
-  }
-
-  async function fixedApi(action, payload){
-    payload = payload || {};
-
-    var body = {
-      action: action,
-      payload: payload
-    };
-
-    var response = await fetch(ITRACK_FIXED_EXEC_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify(body)
-    });
-
-    var text = await response.text();
-
-    if(!text){
-      throw new Error('Response API kosong untuk action: ' + action);
-    }
-
-    var json;
-
-    try{
-      json = JSON.parse(text);
-    }catch(parseError){
-      console.error('[iTrack] Response bukan JSON:', text);
-      throw new Error('Response API bukan JSON. Kemungkinan URL exec salah / deployment belum aktif.');
-    }
-
-    return json;
-  }
-
-  /*
-   * Override global api.
-   * Semua fungsi lama yang memanggil api(action,payload) akan diarahkan ke exec ini.
-   */
-  window.api = fixedApi;
-  window.iTrackApi = fixedApi;
-
-  /*
-   * Beberapa script lama mungkin membaca window.API_URL.
-   * Kalau API_URL dideklarasikan const, tidak bisa diubah.
-   * Tapi window.API_URL tetap kita set untuk fallback fungsi lain.
-   */
-  try{
-    window.API_URL = ITRACK_FIXED_EXEC_URL;
-  }catch(e){}
-
-  /*
-   * Popup ringan.
-   */
-  function notify(type, title, message){
-    if(typeof window.showAppPopup === 'function'){
-      window.showAppPopup(type || 'info', title || 'Informasi', message || '');
-      return;
-    }
-
-    if(typeof window.showToast === 'function'){
-      window.showToast(type || 'info', title || 'Informasi', message || '');
-      return;
-    }
-
-    console.log('[iTrack]', title, message);
-  }
-
-  /*
-   * Clear cache browser/PWA sekali agar tidak nyangkut API lama.
-   */
-  async function clearOldCachesOnce(){
-    try{
-      var key = 'itrack_force_api_cache_clear_v1';
-
-      if(localStorage.getItem(key) === '1'){
-        return;
-      }
-
-      if('caches' in window){
-        var names = await caches.keys();
-
-        await Promise.all(
-          names.map(function(name){
-            return caches.delete(name);
-          })
-        );
-      }
-
-      localStorage.setItem(key, '1');
-
-      console.warn('[iTrack] Cache lama dibersihkan sekali untuk force API URL.');
-    }catch(e){
-      console.warn('[iTrack] Gagal clear cache:', e);
-    }
-  }
-
-  /*
-   * Refresh semua loader yang mungkin ada di aplikasi.
-   */
-  function refreshAllPanels(){
-    var loaders = [
-      'loadDashboardSummary',
-      'loadAdminDashboard',
-      'loadDashboard',
-
-      'loadAdminAttendance',
-      'loadAttendanceMonitoring',
-      'loadMyAttendance',
-      'loadAttendanceToday',
-
-      'loadAdminReports',
-      'loadWorkReportsForAdmin',
-      'loadMyReports',
-      'loadRecentActivities',
-
-      'loadUsersForAdmin',
-      'loadAdminUsers',
-      'loadParticipants',
-      'loadAdminParticipants',
-      'loadAdminData',
-
-      'loadMyLeaves',
-      'loadLeavesForAdmin',
-      'loadAdminLeaves'
-    ];
-
-    loaders.forEach(function(fn){
-      try{
-        if(typeof window[fn] === 'function'){
-          window[fn]();
-        }
-      }catch(error){
-        console.warn('[iTrack] Loader gagal:', fn, error);
-      }
-    });
-
-    try{
-      if(typeof window.iTrackAdminInlineActionsRefresh === 'function'){
-        setTimeout(window.iTrackAdminInlineActionsRefresh, 700);
-      }
-    }catch(e){}
-
-    try{
-      if(typeof window.iTrackAdminUserActionsRefresh === 'function'){
-        setTimeout(window.iTrackAdminUserActionsRefresh, 700);
-      }
-    }catch(e){}
-  }
-
-  /*
-   * Test API dari console.
-   * Jalankan:
-   * iTrackApiSelfTest()
-   */
-  window.iTrackApiSelfTest = async function(){
-    var user = getCurrentUserSafe();
-
-    var tests = [
-      {
-        action: 'ping',
-        payload: {}
-      },
-      {
-        action: 'getAttendanceMonitoring',
-        payload: {}
-      },
-      {
-        action: 'getWorkReportsForAdmin',
-        payload: {}
-      },
-      {
-        action: 'getUsersForAdmin',
-        payload: {}
-      },
-      {
-        action: 'getMyAttendance',
-        payload: {
-          userId: user.USER_ID || user.userId || '',
-          username: user.USERNAME || user.username || ''
-        }
-      },
-      {
-        action: 'getMyWorkReports',
-        payload: {
-          userId: user.USER_ID || user.userId || '',
-          username: user.USERNAME || user.username || ''
-        }
-      }
-    ];
-
-    var results = [];
-
-    for(var i = 0; i < tests.length; i++){
-      var test = tests[i];
-
-      try{
-        var res = await fixedApi(test.action, test.payload);
-
-        results.push({
-          action: test.action,
-          success: !!(res && res.success),
-          message: res && res.message,
-          dataType: res && Array.isArray(res.data) ? 'array' : typeof (res && res.data),
-          dataLength: res && Array.isArray(res.data) ? res.data.length : undefined,
-          raw: res
-        });
-      }catch(error){
-        results.push({
-          action: test.action,
-          success: false,
-          message: error.message
-        });
-      }
-    }
-
-    console.log('[iTrack] API SELF TEST:', results);
-
-    alert(
-      'API Self Test selesai.\n' +
-      'Cek Console untuk detail.\n\n' +
-      results.map(function(r){
-        return r.action + ': ' + (r.success ? 'OK' : 'GAGAL') + (r.dataLength !== undefined ? ' (' + r.dataLength + ' data)' : '');
-      }).join('\n')
-    );
-
-    return results;
-  };
-
-  /*
-   * Hook openView supaya setiap pindah panel data dimuat ulang.
-   */
-  var oldOpenView = window.openView;
-
-  if(typeof oldOpenView === 'function' && !oldOpenView.__forceApiWrapped){
-    var wrappedOpenView = function(id){
-      oldOpenView(id);
-
-      setTimeout(function(){
-        refreshAllPanels();
-      }, 350);
-
-      setTimeout(function(){
-        refreshAllPanels();
-      }, 1200);
-    };
-
-    wrappedOpenView.__forceApiWrapped = true;
-    window.openView = wrappedOpenView;
-  }
-
-  /*
-   * Init.
-   */
-  document.addEventListener('DOMContentLoaded', function(){
-    clearOldCachesOnce();
-
-    console.warn('[iTrack] Force API URL aktif:', ITRACK_FIXED_EXEC_URL);
-
-    setTimeout(function(){
-      refreshAllPanels();
-    }, 900);
-
-    setTimeout(function(){
-      refreshAllPanels();
-    }, 2200);
-  });
-
-  /*
-   * Kalau script ini dipaste di bawah dan DOM sudah loaded.
-   */
-  if(document.readyState !== 'loading'){
-    clearOldCachesOnce();
-
-    setTimeout(function(){
-      refreshAllPanels();
-    }, 700);
-
-    setTimeout(function(){
-      refreshAllPanels();
-    }, 1800);
-  }
-
-})();
-</script>
-<script id="itrack-final-data-panel-restore-v2">
+<script id="itrack-pretty-report-detail-script">
 (function(){
   var EXEC_URL = 'https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';
-
-  window.ITRACK_ACTIVE_EXEC_URL = EXEC_URL;
-
-  function log(){
-    try{
-      console.log.apply(console, ['[iTrack Restore]'].concat([].slice.call(arguments)));
-    }catch(e){}
-  }
+  var reportCache = [];
+  var reportCacheAt = 0;
 
   function esc(value){
     return String(value == null ? '' : value)
@@ -3954,9 +1907,12 @@ window.iTrackDebugApi = async function(){
       .replace(/'/g,'&#039;');
   }
 
-  function getAny(row, keys, fallback){
+  function attr(value){
+    return esc(value).replace(/`/g,'&#096;');
+  }
+
+  function any(row, keys, fallback){
     row = row || {};
-    keys = keys || [];
 
     for(var i = 0; i < keys.length; i++){
       var key = keys[i];
@@ -3969,606 +1925,1968 @@ window.iTrackDebugApi = async function(){
     return fallback === undefined ? '' : fallback;
   }
 
-  function currentUserSafe(){
-    try{
-      if(typeof currentUser !== 'undefined' && currentUser) return currentUser;
-    }catch(e){}
+  function rowsOf(res){
+    if(!res) return [];
+    if(Array.isArray(res)) return res;
+    if(Array.isArray(res.data)) return res.data;
 
-    try{
-      return JSON.parse(
-        localStorage.getItem('iTrack_user') ||
-        localStorage.getItem('itrack_current_user') ||
-        localStorage.getItem('currentUser') ||
-        '{}'
-      );
-    }catch(e){
-      return {};
+    var keys = ['rows','items','data','reports','laporan','workReports'];
+
+    for(var i = 0; i < keys.length; i++){
+      if(res.data && Array.isArray(res.data[keys[i]])){
+        return res.data[keys[i]];
+      }
     }
+
+    return [];
   }
 
-  async function fixedApi(action, payload){
+  async function apiCall(action, payload){
     payload = payload || {};
 
-    var res = await fetch(EXEC_URL, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'text/plain;charset=utf-8'
-      },
-      body: JSON.stringify({
-        action: action,
-        payload: payload
+    if(typeof window.api === 'function'){
+      try{
+        return await window.api(action, payload);
+      }catch(e){
+        console.warn('[Pretty Report Detail] api lama gagal, fallback direct:', e.message);
+      }
+    }
+
+    var res = await fetch(EXEC_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({
+        action:action,
+        payload:payload
       })
     });
 
     var text = await res.text();
 
-    if(!text){
-      throw new Error('Response API kosong untuk action ' + action);
-    }
+    if(!text) throw new Error('Response API kosong.');
 
     try{
       return JSON.parse(text);
     }catch(error){
-      console.error('[iTrack Restore] Response mentah:', text);
-      throw new Error('Response API bukan JSON untuk action ' + action);
+      console.error('[Pretty Report Detail] Response bukan JSON:', text);
+      throw new Error('Response API bukan JSON.');
     }
   }
 
-  /*
-   * Override API global.
-   */
-  window.api = fixedApi;
-  window.iTrackApi = fixedApi;
-
-  try{
-    window.API_URL = EXEC_URL;
-  }catch(e){}
-
-  function normalizeRows(res, preferredKey){
-    if(!res) return [];
-
-    if(Array.isArray(res)) return res;
-
-    if(Array.isArray(res.data)) return res.data;
-
-    if(res.data && Array.isArray(res.data.rows)) return res.data.rows;
-    if(res.data && Array.isArray(res.data.data)) return res.data.data;
-    if(res.data && Array.isArray(res.data.items)) return res.data.items;
-
-    if(preferredKey && res.data && Array.isArray(res.data[preferredKey])) {
-      return res.data[preferredKey];
+  function popup(type,title,message){
+    if(typeof window.toast === 'function'){
+      window.toast(title || 'Info', message || '', type || 'info');
+      return;
     }
 
-    if(res.data && Array.isArray(res.data.attendances)) return res.data.attendances;
-    if(res.data && Array.isArray(res.data.attendance)) return res.data.attendance;
-    if(res.data && Array.isArray(res.data.reports)) return res.data.reports;
-    if(res.data && Array.isArray(res.data.users)) return res.data.users;
-    if(res.data && Array.isArray(res.data.participants)) return res.data.participants;
-    if(res.data && Array.isArray(res.data.peserta)) return res.data.peserta;
+    if(typeof window.showToast === 'function'){
+      window.showToast(type || 'info', title || 'Info', message || '');
+      return;
+    }
 
-    return [];
+    alert((title || 'Info') + '\n' + (message || ''));
   }
 
-  async function tryActions(actions, payload, preferredKey){
-    var lastError = null;
+  function statusBadge(status){
+    status = String(status || '-');
+    var upper = status.toUpperCase();
+    var cls = '';
 
-    for(var i = 0; i < actions.length; i++){
-      var action = actions[i];
+    if(['DISETUJUI','VALID','SELESAI','AKTIF'].indexOf(upper) !== -1) cls = 'good';
+    if(['MENUNGGU','REVISI','PERLU_REVIEW','TERLAMBAT'].indexOf(upper) !== -1) cls = 'warn';
+    if(['DITOLAK','INVALID','NONAKTIF','DIBLOKIR'].indexOf(upper) !== -1) cls = 'bad';
 
-      try{
-        var res = await fixedApi(action, payload || {});
-        log(action, res);
+    return '<span class="itp-badge ' + cls + '">' + esc(status) + '</span>';
+  }
 
-        if(res && res.success === false){
-          lastError = new Error(res.message || ('Action gagal: ' + action));
-          continue;
+  function normalizeDate(value){
+    if(!value) return '-';
+
+    var text = String(value);
+
+    if(/^\d{4}-\d{2}-\d{2}/.test(text)){
+      var p = text.substring(0,10).split('-');
+      return p[2] + '/' + p[1] + '/' + p[0];
+    }
+
+    return text;
+  }
+
+  function normalizeTime(value){
+    value = String(value || '');
+    var m = value.match(/(\d{1,2}):(\d{2})/);
+
+    if(m){
+      return String(m[1]).padStart(2,'0') + ':' + m[2];
+    }
+
+    return value || '-';
+  }
+
+  function ensureModal(){
+    if(document.getElementById('itpReportModal')) return;
+
+    var el = document.createElement('div');
+    el.id = 'itpReportModal';
+    el.className = 'itp-modal-bg';
+    el.innerHTML = ''
+      + '<div class="itp-modal">'
+      + '<div class="itp-head">'
+      + '<div>'
+      + '<h2 id="itpReportTitle">Detail Laporan Kerja</h2>'
+      + '<p id="itpReportSub">Ringkasan dan detail kegiatan peserta.</p>'
+      + '</div>'
+      + '<button type="button" class="itp-close" id="itpReportClose">Tutup</button>'
+      + '</div>'
+      + '<div id="itpReportBody"></div>'
+      + '</div>';
+
+    document.body.appendChild(el);
+
+    document.getElementById('itpReportClose').onclick = function(){
+      el.classList.remove('show');
+    };
+  }
+
+  function showModal(title, sub, html){
+    ensureModal();
+
+    document.getElementById('itpReportTitle').textContent = title || 'Detail Laporan Kerja';
+    document.getElementById('itpReportSub').textContent = sub || '';
+    document.getElementById('itpReportBody').innerHTML = html || '';
+    document.getElementById('itpReportModal').classList.add('show');
+  }
+
+  function getReportId(row){
+    return any(row, [
+      'REPORT_ID',
+      'reportId',
+      'idLaporan',
+      'ID Laporan',
+      'ID_LAPORAN',
+      'Report ID',
+      'ID',
+      'id'
+    ]);
+  }
+
+  async function fetchReportList(force){
+    if(!force && reportCache.length && Date.now() - reportCacheAt < 15000){
+      return reportCache;
+    }
+
+    var res;
+
+    try{
+      res = await apiCall('getWorkReportsForAdmin',{});
+    }catch(e){
+      res = await apiCall('getFilteredReports',{});
+    }
+
+    reportCache = rowsOf(res);
+    reportCacheAt = Date.now();
+
+    return reportCache;
+  }
+
+  function visibleReportRows(){
+    var selectors = [
+      '#adminReportRows tr',
+      '#workReportRows tr',
+      '#reportRows tr',
+      'table[data-admin-report] tbody tr'
+    ];
+
+    var rows = [];
+
+    selectors.forEach(function(selector){
+      document.querySelectorAll(selector).forEach(function(row){
+        if(row && row.innerText && row.innerText.trim() && !row.querySelector('.empty')){
+          rows.push(row);
         }
-
-        var rows = normalizeRows(res, preferredKey);
-
-        return {
-          action: action,
-          response: res,
-          rows: rows
-        };
-      }catch(error){
-        lastError = error;
-        log('Action error:', action, error.message);
-      }
-    }
-
-    throw lastError || new Error('Semua action gagal.');
-  }
-
-  function findTbody(candidates, headingText){
-    for(var i = 0; i < candidates.length; i++){
-      var el = document.querySelector(candidates[i]);
-
-      if(el){
-        if(el.tagName && el.tagName.toLowerCase() === 'tbody') return el;
-
-        var tbody = el.querySelector('tbody');
-        if(tbody) return tbody;
-      }
-    }
-
-    /*
-     * Fallback: cari table dari judul/header halaman.
-     */
-    var tables = Array.from(document.querySelectorAll('table'));
-
-    for(var t = 0; t < tables.length; t++){
-      var table = tables[t];
-      var text = (table.innerText || '').toLowerCase();
-
-      if(headingText && text.indexOf(headingText.toLowerCase()) !== -1){
-        return table.querySelector('tbody') || table;
-      }
-    }
-
-    /*
-     * Fallback terakhir: table aktif pertama.
-     */
-    var activeView = document.querySelector('.view.active') || document.body;
-    var tableActive = activeView.querySelector('table');
-
-    if(tableActive){
-      return tableActive.querySelector('tbody') || tableActive;
-    }
-
-    return null;
-  }
-
-  function setEmpty(tbody, colspan, message){
-    if(!tbody) return;
-
-    tbody.innerHTML = ''
-      + '<tr>'
-      + '<td colspan="' + colspan + '" style="text-align:center;padding:18px;color:#74869A;">'
-      + esc(message || 'Tidak ada data.')
-      + '</td>'
-      + '</tr>';
-  }
-
-  function badge(text){
-    text = String(text || '-');
-
-    var upper = text.toUpperCase();
-    var bg = '#F1F5F9';
-    var color = '#475569';
-
-    if(['VALID','HADIR','DISETUJUI','AKTIF'].indexOf(upper) !== -1){
-      bg = '#DCFCE7';
-      color = '#166534';
-    }
-
-    if(['MENUNGGU','PERLU_REVIEW','REVISI','TERLAMBAT'].indexOf(upper) !== -1){
-      bg = '#FEF3C7';
-      color = '#92400E';
-    }
-
-    if(['INVALID','DITOLAK','NONAKTIF','ALPHA','DIBLOKIR'].indexOf(upper) !== -1){
-      bg = '#FEE2E2';
-      color = '#991B1B';
-    }
-
-    return '<span style="display:inline-flex;border-radius:999px;padding:5px 9px;font-size:10px;font-weight:800;background:' + bg + ';color:' + color + ';">' + esc(text) + '</span>';
-  }
-
-  function mapLink(url){
-    url = String(url || '').trim();
-
-    if(!url) return '-';
-
-    return '<a href="' + esc(url) + '" target="_blank" style="color:#2F8FC4;font-weight:800;text-decoration:none;">Maps</a>';
-  }
-
-  /*
-   * ABSENSI ADMIN
-   */
-  async function restoreAttendance(){
-    var tbody = findTbody([
-      '#adminAttendanceRows',
-      '#attendanceRows',
-      '#adminHomeAttendanceRows',
-      '#view-admin-attendance tbody',
-      '#view-admin-home tbody'
-    ]);
-
-    if(!tbody) {
-      log('tbody absensi tidak ditemukan');
-      return;
-    }
-
-    setEmpty(tbody, 10, 'Memuat data absensi...');
-
-    try{
-      var result = await tryActions([
-        'getAttendanceMonitoring',
-        'getAttendanceData',
-        'getUserAttendance'
-      ], {
-        tanggalMulai: document.querySelector('#attendanceStart,#filterStart,#attStart')?.value || '',
-        tanggalSelesai: document.querySelector('#attendanceEnd,#filterEnd,#attEnd')?.value || '',
-        status: ''
-      }, 'attendances');
-
-      var rows = result.rows || [];
-
-      if(!rows.length){
-        setEmpty(tbody, 10, 'Belum ada data absensi pada filter ini.');
-        return;
-      }
-
-      tbody.innerHTML = rows.map(function(row, index){
-        var id = getAny(row, ['ID Absensi','ATTENDANCE_ID','idAbsensi','attendanceId','id']);
-        var tanggal = getAny(row, ['Tanggal','TANGGAL','tanggal','date']);
-        var nama = getAny(row, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','fullName','nama']);
-        var divisi = getAny(row, ['Divisi','DIVISI','divisi']);
-        var masuk = getAny(row, ['Jam Masuk','JAM_MASUK','jamMasuk','checkIn']);
-        var pulang = getAny(row, ['Jam Pulang','JAM_PULANG','jamPulang','checkOut']);
-        var total = getAny(row, ['Total Jam Kerja','TOTAL_JAM_KERJA','totalJamKerja','total']);
-        var status = getAny(row, ['Status Kehadiran','STATUS_KEHADIRAN','statusKehadiran','status']);
-        var validasi = getAny(row, ['Status Validasi','STATUS_VALIDASI','statusValidasi']);
-        var maps = getAny(row, ['Peta Masuk','MAPS_MASUK','mapsMasuk','maps','mapUrl']);
-
-        return ''
-          + '<tr data-attendance-id="' + esc(id) + '">'
-          + '<td data-label="No">' + (index + 1) + '</td>'
-          + '<td data-label="Tanggal">' + esc(tanggal || '-') + '</td>'
-          + '<td data-label="Nama">' + esc(nama || '-') + '</td>'
-          + '<td data-label="Divisi">' + esc(divisi || '-') + '</td>'
-          + '<td data-label="Masuk">' + esc(masuk || '-') + '</td>'
-          + '<td data-label="Pulang">' + esc(pulang || '-') + '</td>'
-          + '<td data-label="Total">' + esc(total || '-') + '</td>'
-          + '<td data-label="Status">' + badge(status || validasi || '-') + '</td>'
-          + '<td data-label="Maps">' + mapLink(maps) + '</td>'
-          + '<td data-label="Aksi">'
-          + '<button type="button" class="btn btn-secondary btn-mini" onclick="window.iTrackOpenAttendanceAction ? window.iTrackOpenAttendanceAction(\'' + esc(id) + '\') : alert(\'ID Absensi: ' + esc(id) + '\')">Aksi</button>'
-          + '</td>'
-          + '</tr>';
-      }).join('');
-
-      log('Absensi rendered:', rows.length);
-    }catch(error){
-      setEmpty(tbody, 10, 'Gagal memuat absensi: ' + error.message);
-      console.error('[iTrack Restore] Absensi gagal:', error);
-    }
-  }
-
-  /*
-   * LAPORAN ADMIN
-   */
-  async function restoreReports(){
-    var tbody = findTbody([
-      '#adminReportRows',
-      '#workReportRows',
-      '#reportRows',
-      '#view-admin-reports tbody',
-      '#view-admin-report tbody'
-    ]);
-
-    if(!tbody) {
-      log('tbody laporan tidak ditemukan');
-      return;
-    }
-
-    setEmpty(tbody, 8, 'Memuat data laporan...');
-
-    try{
-      var result = await tryActions([
-        'getWorkReportsForAdmin',
-        'getFilteredReports',
-        'getUserReports'
-      ], {}, 'reports');
-
-      var rows = result.rows || [];
-
-      if(!rows.length){
-        setEmpty(tbody, 8, 'Belum ada data laporan.');
-        return;
-      }
-
-      tbody.innerHTML = rows.map(function(row, index){
-        var id = getAny(row, ['ID Laporan','REPORT_ID','idLaporan','reportId','id']);
-        var tanggal = getAny(row, ['Tanggal','TANGGAL','tanggal','date']);
-        var nama = getAny(row, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','nama']);
-        var divisi = getAny(row, ['Divisi','DIVISI','divisi']);
-        var kegiatan = getAny(row, ['Total Kegiatan','TOTAL_KEGIATAN','totalKegiatan'], 0);
-        var durasi = getAny(row, ['Total Durasi','TOTAL_DURASI','totalDurasi'], '-');
-        var status = getAny(row, ['Status Laporan','STATUS_LAPORAN','statusLaporan','status']);
-
-        return ''
-          + '<tr data-report-id="' + esc(id) + '">'
-          + '<td data-label="No">' + (index + 1) + '</td>'
-          + '<td data-label="Tanggal">' + esc(tanggal || '-') + '</td>'
-          + '<td data-label="Nama">' + esc(nama || '-') + '</td>'
-          + '<td data-label="Divisi">' + esc(divisi || '-') + '</td>'
-          + '<td data-label="Kegiatan">' + esc(kegiatan) + '</td>'
-          + '<td data-label="Durasi">' + esc(durasi) + '</td>'
-          + '<td data-label="Status">' + badge(status || '-') + '</td>'
-          + '<td data-label="Aksi">'
-          + '<button type="button" class="btn btn-secondary btn-mini" onclick="window.iTrackOpenReportAction ? window.iTrackOpenReportAction(\'' + esc(id) + '\') : alert(\'ID Laporan: ' + esc(id) + '\')">Aksi</button>'
-          + '</td>'
-          + '</tr>';
-      }).join('');
-
-      log('Laporan rendered:', rows.length);
-    }catch(error){
-      setEmpty(tbody, 8, 'Gagal memuat laporan: ' + error.message);
-      console.error('[iTrack Restore] Laporan gagal:', error);
-    }
-  }
-
-  /*
-   * PESERTA ADMIN
-   */
-  async function restoreUsers(){
-    var tbody = findTbody([
-      '#adminUserRows',
-      '#userRows',
-      '#participantRows',
-      '#pesertaRows',
-      '#view-admin-users tbody',
-      '#view-admin-participants tbody'
-    ]);
-
-    if(!tbody) {
-      log('tbody peserta tidak ditemukan');
-      return;
-    }
-
-    setEmpty(tbody, 8, 'Memuat data peserta...');
-
-    try{
-      var result = await tryActions([
-        'getUsersForAdmin',
-        'getAdminData'
-      ], {}, 'users');
-
-      var rows = result.rows || [];
-
-      /*
-       * getAdminData kadang membungkus users di response.data.users.
-       */
-      if(!rows.length && result.response && result.response.data && Array.isArray(result.response.data.users)){
-        rows = result.response.data.users;
-      }
-
-      if(!rows.length){
-        setEmpty(tbody, 8, 'Belum ada data peserta.');
-        return;
-      }
-
-      tbody.innerHTML = rows.map(function(row, index){
-        var id = getAny(row, ['ID Pengguna','USER_ID','userId','idPengguna','id']);
-        var username = getAny(row, ['Nama Pengguna','USERNAME','username']);
-        var nama = getAny(row, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','nama']);
-        var email = getAny(row, ['Email','EMAIL','email']);
-        var divisi = getAny(row, ['Divisi','DIVISI','divisi']);
-        var role = getAny(row, ['Peran','ROLE','role']);
-        var status = getAny(row, ['Status Akun','STATUS_AKUN','statusAkun','status']);
-
-        return ''
-          + '<tr data-user-id="' + esc(id) + '" data-username="' + esc(username) + '">'
-          + '<td data-label="No">' + (index + 1) + '</td>'
-          + '<td data-label="Nama">' + esc(nama || '-') + '</td>'
-          + '<td data-label="Username">' + esc(username || '-') + '</td>'
-          + '<td data-label="Email">' + esc(email || '-') + '</td>'
-          + '<td data-label="Divisi">' + esc(divisi || '-') + '</td>'
-          + '<td data-label="Role">' + esc(role || '-') + '</td>'
-          + '<td data-label="Status">' + badge(status || '-') + '</td>'
-          + '<td data-label="Aksi">'
-          + '<button type="button" class="btn btn-secondary btn-mini" onclick="alert(\'User: ' + esc(username || id) + '\')">Aksi</button>'
-          + '</td>'
-          + '</tr>';
-      }).join('');
-
-      log('Peserta rendered:', rows.length);
-    }catch(error){
-      setEmpty(tbody, 8, 'Gagal memuat peserta: ' + error.message);
-      console.error('[iTrack Restore] Peserta gagal:', error);
-    }
-  }
-
-  /*
-   * Panggil loader lama dengan benar.
-   */
-  function callOldLoaders(){
-    [
-      'loadDashboardSummary',
-      'loadAdminDashboard',
-      'loadDashboard',
-
-      'loadAdminAttendance',
-      'loadAttendanceMonitoring',
-      'loadMyAttendance',
-      'loadAttendanceToday',
-
-      'loadAdminReports',
-      'loadWorkReportsForAdmin',
-      'loadMyReports',
-      'loadRecentActivities',
-
-      'loadUsersForAdmin',
-      'loadAdminUsers',
-      'loadParticipants',
-      'loadAdminParticipants',
-      'loadAdminData'
-    ].forEach(function(fn){
-      try{
-        if(typeof window[fn] === 'function'){
-          window[fn]();
-        }
-      }catch(error){
-        console.warn('[iTrack Restore] Loader lama gagal:', fn, error);
-      }
+      });
     });
+
+    return rows;
   }
 
-  function restoreActivePanel(){
-    var activeText = '';
+  function indexOfRow(row){
+    var rows = visibleReportRows();
+
+    for(var i = 0; i < rows.length; i++){
+      if(rows[i] === row) return i;
+    }
+
+    return -1;
+  }
+
+  async function resolveReportIdFromButton(button){
+    var id =
+      button.getAttribute('data-id') ||
+      button.getAttribute('data-report-id') ||
+      '';
+
+    if(id) return id;
+
+    var row = button.closest('tr');
+
+    if(!row) return '';
+
+    id =
+      row.getAttribute('data-report-id') ||
+      row.getAttribute('data-id-laporan') ||
+      row.getAttribute('data-id') ||
+      '';
+
+    if(id) return id;
+
+    var index = indexOfRow(row);
+
+    if(index < 0) return '';
+
+    var reports = await fetchReportList(false);
+    var report = reports[index] || {};
+
+    return getReportId(report);
+  }
+
+  async function loadReportDetail(reportId){
+    if(!reportId){
+      throw new Error('ID Laporan tidak ditemukan.');
+    }
+
+    var res = await apiCall('adminGetWorkReportFullDetail',{
+      reportId:reportId,
+      idLaporan:reportId
+    });
+
+    if(res && res.success === false){
+      throw new Error(res.message || 'Detail laporan gagal dimuat.');
+    }
+
+    return res.data || res;
+  }
+
+  function renderInfo(label, value){
+    return ''
+      + '<div class="itp-info">'
+      + '<small>' + esc(label) + '</small>'
+      + '<b>' + esc(value || '-') + '</b>'
+      + '</div>';
+  }
+
+  function renderItem(item, index){
+    var itemId = any(item, ['ID Kegiatan','ITEM_ID','itemId','idKegiatan','ID_KEGIATAN'], '-');
+    var start = normalizeTime(any(item, ['Jam Mulai','JAM_MULAI','jamMulai','start']));
+    var end = normalizeTime(any(item, ['Jam Selesai','JAM_SELESAI','jamSelesai','end']));
+    var duration = any(item, ['Durasi','DURASI','durasi'], '-');
+    var desc = any(item, ['Uraian Kegiatan','URAIAN_KEGIATAN','uraianKegiatan','uraian','deskripsi'], '-');
+    var doc = any(item, ['URL Dokumentasi','DOKUMENTASI_URL','dokumentasiUrl','urlDokumentasi','Dokumentasi'], '');
+
+    return ''
+      + '<div class="itp-item">'
+      + '<div class="itp-item-head">'
+      + '<div>'
+      + '<b>Kegiatan ' + (index + 1) + '</b><br>'
+      + '<small>' + esc(start) + ' - ' + esc(end) + ' · ' + esc(duration) + '</small>'
+      + '</div>'
+      + '<span class="itp-badge">' + esc(itemId) + '</span>'
+      + '</div>'
+      + '<div class="itp-desc">' + esc(desc) + '</div>'
+      + (doc
+        ? '<div class="itp-doc"><a href="' + attr(doc) + '" target="_blank">📎 Buka Dokumentasi</a></div>'
+        : '')
+      + '</div>';
+  }
+
+  function renderPrettyReport(data, reportId){
+    var report = data.report || data.header || data.laporan || data;
+    var items = data.items || data.details || data.kegiatan || data.activities || [];
+
+    if(!Array.isArray(items)) items = [];
+
+    var nama = any(report, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','nama'], '-');
+    var username = any(report, ['Nama Pengguna','USERNAME','username'], '-');
+    var divisi = any(report, ['Divisi','DIVISI','divisi'], '-');
+    var tanggal = normalizeDate(any(report, ['Tanggal','TANGGAL','tanggal','date'], '-'));
+    var status = any(report, ['Status Laporan','STATUS_LAPORAN','statusLaporan','status'], '-');
+    var totalKegiatan = any(report, ['Total Kegiatan','TOTAL_KEGIATAN','totalKegiatan'], items.length);
+    var totalDurasi = any(report, ['Total Durasi','TOTAL_DURASI','totalDurasi'], '-');
+    var catatanUser = any(report, ['Catatan Peserta','CATATAN_PESERTA','catatanPeserta','Catatan User'], '-');
+    var catatanAdmin = any(report, ['Catatan Admin','CATATAN_ADMIN','catatanAdmin'], '-');
+
+    var html = '';
+
+    html += '<div class="itp-summary">';
+    html += renderInfo('Nama Peserta', nama);
+    html += renderInfo('Username', username);
+    html += renderInfo('Tanggal', tanggal);
+    html += '<div class="itp-info"><small>Status</small><b>' + statusBadge(status) + '</b></div>';
+    html += renderInfo('Divisi', divisi);
+    html += renderInfo('Total Kegiatan', totalKegiatan);
+    html += renderInfo('Total Durasi', totalDurasi);
+    html += renderInfo('ID Laporan', reportId || getReportId(report) || '-');
+    html += '</div>';
+
+    html += '<div class="itp-section">';
+    html += '<h3>Catatan</h3>';
+    html += '<div class="itp-summary" style="grid-template-columns:1fr 1fr">';
+    html += renderInfo('Catatan Peserta', catatanUser);
+    html += renderInfo('Catatan Admin', catatanAdmin);
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="itp-section">';
+    html += '<h3>Detail Kegiatan</h3>';
+
+    if(items.length){
+      html += items.map(function(item, index){
+        return renderItem(item, index);
+      }).join('');
+    }else{
+      html += '<div class="itp-empty">Belum ada detail kegiatan pada laporan ini.</div>';
+    }
+
+    html += '</div>';
+
+    html += '<div class="itp-actions">';
+    html += '<button type="button" class="btn btn-green" data-itp-status="DISETUJUI" data-itp-report-id="' + attr(reportId) + '">Setujui</button>';
+    html += '<button type="button" class="btn btn-orange" data-itp-status="REVISI" data-itp-report-id="' + attr(reportId) + '">Revisi</button>';
+    html += '<button type="button" class="btn btn-red" data-itp-status="DITOLAK" data-itp-report-id="' + attr(reportId) + '">Tolak</button>';
+    html += '</div>';
+
+    return html;
+  }
+
+  async function updateReportStatus(reportId, status){
+    var note = '';
+
+    if(status === 'DISETUJUI'){
+      note = 'Disetujui admin.';
+    }else{
+      note = prompt(
+        status === 'REVISI'
+          ? 'Catatan revisi laporan:'
+          : 'Catatan penolakan laporan:',
+        ''
+      );
+
+      if(note === null) return;
+    }
+
+    var currentUser = {};
 
     try{
-      activeText = (
-        document.querySelector('.view.active') ||
-        document.querySelector('main') ||
-        document.body
-      ).innerText.toLowerCase();
+      currentUser = window.currentUser || JSON.parse(localStorage.getItem('iTrack_user') || '{}');
     }catch(e){}
 
-    callOldLoaders();
+    var payload = {
+      reportId:reportId,
+      idLaporan:reportId,
+      statusLaporan:status,
+      status:status,
+      catatanAdmin:note,
+      catatan:note,
+      validatedBy:
+        currentUser.NAMA_LENGKAP ||
+        currentUser.namaLengkap ||
+        currentUser.USERNAME ||
+        currentUser.username ||
+        'Admin'
+    };
 
-    /*
-     * Render fallback berdasarkan halaman yang sedang aktif.
-     */
-    if(activeText.indexOf('absensi') !== -1){
-      setTimeout(restoreAttendance, 500);
-      setTimeout(restoreAttendance, 1600);
+    var res;
+
+    try{
+      res = await apiCall('adminUpdateWorkReportStatus', payload);
+    }catch(e){
+      res = await apiCall('validateWorkReport', payload);
     }
 
-    if(activeText.indexOf('laporan') !== -1){
-      setTimeout(restoreReports, 500);
-      setTimeout(restoreReports, 1600);
+    if(res && res.success === false){
+      throw new Error(res.message || 'Status laporan gagal diperbarui.');
+    }
+
+    popup('success','Laporan diperbarui','Status laporan berhasil diubah menjadi ' + status + '.');
+
+    document.getElementById('itpReportModal').classList.remove('show');
+
+    if(typeof window.loadAdminReports === 'function'){
+      window.loadAdminReports();
+    }
+  }
+
+  /*
+   * Tangkap klik tombol Detail laporan, lalu tampilkan modal rapi.
+   * Ini mencegah modal lama yang menampilkan JSON mentah.
+   */
+  document.addEventListener('click', function(event){
+    var button = event.target.closest('button');
+
+    if(!button) return;
+
+    var text = String(button.innerText || button.textContent || '').trim().toLowerCase();
+    var isDetailButton =
+      button.classList.contains('itx-report-detail') ||
+      button.classList.contains('report-detail') ||
+      button.classList.contains('btn-report-detail') ||
+      text === 'detail' ||
+      text.indexOf('detail') !== -1;
+
+    if(!isDetailButton) return;
+
+    var row = button.closest('tr');
+    var tableText = row && row.closest('table')
+      ? String(row.closest('table').innerText || '').toLowerCase()
+      : '';
+
+    /*
+     * Pastikan yang dicegat hanya detail laporan, bukan detail absensi/peserta.
+     */
+    if(
+      tableText.indexOf('kegiatan') === -1 &&
+      tableText.indexOf('durasi') === -1 &&
+      tableText.indexOf('laporan') === -1
+    ){
+      return;
+    }
+
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+
+    (async function(){
+      try{
+        var reportId = await resolveReportIdFromButton(button);
+
+        if(!reportId){
+          popup(
+            'error',
+            'ID Laporan tidak ditemukan',
+            'Data laporan belum membawa ID. Pastikan backend mengirim REPORT_ID / ID Laporan.'
+          );
+          return;
+        }
+
+        var data = await loadReportDetail(reportId);
+        var html = renderPrettyReport(data, reportId);
+
+        showModal(
+          'Detail Laporan Kerja',
+          'Ringkasan laporan, detail kegiatan, dan aksi validasi admin.',
+          html
+        );
+      }catch(error){
+        popup('error','Gagal memuat detail laporan',error.message);
+      }
+    })();
+
+  }, true);
+
+  /*
+   * Aksi tombol Setujui/Revisi/Tolak dalam modal rapi.
+   */
+  document.addEventListener('click', function(event){
+    var button = event.target.closest('[data-itp-status]');
+
+    if(!button) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    var reportId = button.getAttribute('data-itp-report-id');
+    var status = button.getAttribute('data-itp-status');
+
+    updateReportStatus(reportId, status).catch(function(error){
+      popup('error','Aksi laporan gagal',error.message);
+    });
+  });
+
+})();
+</script>
+<!-- PATCH DETAIL ADMIN RAPI V2 - ABSENSI + LAPORAN - PRESERVE UI -->
+<style id="itrack-pretty-admin-detail-v2-style">
+  .itp2-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 150000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(23,42,69,.42);
+    backdrop-filter: blur(14px);
+  }
+
+  .itp2-bg.show {
+    display: flex;
+  }
+
+  .itp2-modal {
+    width: min(1020px,100%);
+    max-height: 92dvh;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 32px;
+    box-shadow: 0 32px 100px rgba(23,42,69,.26);
+    padding: 22px;
+  }
+
+  .itp2-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .itp2-head h2 {
+    margin: 0;
+    color: var(--navy,#172A45);
+    font-size: 22px;
+    font-weight: 850;
+    letter-spacing: -.4px;
+  }
+
+  .itp2-head p {
+    margin: 5px 0 0;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .itp2-close {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #fff;
+    color: var(--ink,#26384F);
+    border-radius: 15px;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  .itp2-summary {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .itp2-info {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #FBFEFF;
+    border-radius: 20px;
+    padding: 13px;
+  }
+
+  .itp2-info small {
+    display: block;
+    color: var(--muted,#74869A);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-weight: 850;
+    margin-bottom: 5px;
+  }
+
+  .itp2-info b {
+    display: block;
+    color: var(--navy,#172A45);
+    font-size: 13px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .itp2-section {
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 24px;
+    background: #fff;
+    padding: 15px;
+    margin-top: 12px;
+  }
+
+  .itp2-section h3 {
+    margin: 0 0 10px;
+    color: var(--navy,#172A45);
+    font-size: 17px;
+    font-weight: 850;
+  }
+
+  .itp2-badge {
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 5px 9px;
+    background: #F1F5F9;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 850;
+    white-space: nowrap;
+  }
+
+  .itp2-badge.good {
+    background: #DCFCE7;
+    color: #166534;
+  }
+
+  .itp2-badge.warn {
+    background: #FEF3C7;
+    color: #92400E;
+  }
+
+  .itp2-badge.bad {
+    background: #FEE2E2;
+    color: #991B1B;
+  }
+
+  .itp2-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .itp2-grid3 {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+  }
+
+  .itp2-photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .itp2-photo-card {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #F8FAFC;
+    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .itp2-photo-card img {
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+    display: block;
+    background: #fff;
+  }
+
+  .itp2-photo-card .itp2-photo-empty {
+    height: 260px;
+    display: grid;
+    place-items: center;
+    color: var(--muted,#74869A);
+    font-size: 13px;
+    background: #F8FAFC;
+  }
+
+  .itp2-photo-card div {
+    padding: 10px;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .itp2-map-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--blue2,#2F8FC4);
+    background: var(--blue3,#EAF7FD);
+    border-radius: 999px;
+    padding: 8px 11px;
+    font-size: 12px;
+    font-weight: 850;
+    text-decoration: none;
+    margin: 4px 5px 4px 0;
+  }
+
+  .itp2-desc {
+    color: var(--ink,#26384F);
+    font-size: 13px;
+    line-height: 1.7;
+    white-space: pre-wrap;
+    background: #fff;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 16px;
+    padding: 12px;
+  }
+
+  .itp2-item {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #FBFEFF;
+    border-radius: 22px;
+    padding: 14px;
+    margin-bottom: 10px;
+  }
+
+  .itp2-item-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .itp2-item-head b {
+    color: var(--navy,#172A45);
+    font-size: 15px;
+  }
+
+  .itp2-item-head small {
+    color: var(--muted,#74869A);
+    font-size: 11px;
+    line-height: 1.5;
+  }
+
+  .itp2-actions {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .itp2-empty {
+    text-align: center;
+    color: var(--muted,#74869A);
+    border: 1px dashed #D6E5EE;
+    border-radius: 18px;
+    padding: 18px;
+    font-size: 13px;
+  }
+
+  @media(max-width: 760px) {
+    .itp2-modal {
+      border-radius: 26px;
+      padding: 18px;
+    }
+
+    .itp2-summary,
+    .itp2-grid2,
+    .itp2-grid3,
+    .itp2-photo-grid,
+    .itp2-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .itp2-photo-card img,
+    .itp2-photo-card .itp2-photo-empty {
+      height: 220px;
+    }
+
+    .itp2-item-head {
+      display: block;
+    }
+
+    .itp2-badge {
+      margin-top: 8px;
+    }
+  }
+</style>
+
+<script id="itrack-pretty-admin-detail-v2-script">
+(function(){
+  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';
+
+  function esc(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
+
+  function attr(value){
+    return esc(value).replace(/`/g,'&#096;');
+  }
+
+  function any(row, keys, fallback){
+    row = row || {};
+    keys = keys || [];
+
+    for(var i = 0; i < keys.length; i++){
+      var key = keys[i];
+      if(row[key] !== undefined && row[key] !== null && row[key] !== ''){
+        return row[key];
+      }
+    }
+
+    return fallback === undefined ? '' : fallback;
+  }
+
+  async function apiCall(action, payload){
+    payload = payload || {};
+
+    if(typeof window.api === 'function'){
+      try{
+        return await window.api(action, payload);
+      }catch(e){
+        console.warn('[Pretty Admin Detail] api lama gagal, fallback direct:', e.message);
+      }
+    }
+
+    var res = await fetch(EXEC_URL,{
+      method:'POST',
+      headers:{'Content-Type':'text/plain;charset=utf-8'},
+      body:JSON.stringify({
+        action:action,
+        payload:payload
+      })
+    });
+
+    var text = await res.text();
+    if(!text) throw new Error('Response API kosong.');
+
+    try{
+      return JSON.parse(text);
+    }catch(error){
+      console.error('[Pretty Admin Detail] Response bukan JSON:', text);
+      throw new Error('Response API bukan JSON.');
+    }
+  }
+
+  function popup(type,title,message){
+    if(typeof window.toast === 'function'){
+      window.toast(title || 'Info', message || '', type || 'info');
+      return;
+    }
+
+    if(typeof window.showToast === 'function'){
+      window.showToast(type || 'info', title || 'Info', message || '');
+      return;
+    }
+
+    alert((title || 'Info') + '\n' + (message || ''));
+  }
+
+  function badge(status){
+    status = String(status || '-');
+    var upper = status.toUpperCase();
+    var cls = '';
+
+    if(['DISETUJUI','VALID','HADIR','SELESAI','AKTIF','TEPAT WAKTU'].indexOf(upper) !== -1) cls = 'good';
+    if(['MENUNGGU','REVISI','PERLU_REVIEW','TERLAMBAT','LUAR_RADIUS'].indexOf(upper) !== -1) cls = 'warn';
+    if(['DITOLAK','INVALID','NONAKTIF','DIBLOKIR','ALPHA'].indexOf(upper) !== -1) cls = 'bad';
+
+    return '<span class="itp2-badge ' + cls + '">' + esc(status) + '</span>';
+  }
+
+  function normalizeDate(value){
+    if(!value) return '-';
+    var text = String(value);
+
+    if(/^\d{4}-\d{2}-\d{2}/.test(text)){
+      var p = text.substring(0,10).split('-');
+      return p[2] + '/' + p[1] + '/' + p[0];
+    }
+
+    return text;
+  }
+
+  function normalizeTime(value){
+    value = String(value || '');
+    var m = value.match(/(\d{1,2}):(\d{2})/);
+
+    if(m){
+      return String(m[1]).padStart(2,'0') + ':' + m[2];
+    }
+
+    return value || '-';
+  }
+
+  function toMinutes(timeText){
+    var m = String(timeText || '').match(/(\d{1,2}):(\d{2})/);
+    if(!m) return null;
+    return parseInt(m[1],10) * 60 + parseInt(m[2],10);
+  }
+
+  function lateInfo(att){
+    var status = String(any(att, [
+      'Status Kehadiran',
+      'STATUS_KEHADIRAN',
+      'statusKehadiran',
+      'status'
+    ], '')).toUpperCase();
+
+    if(status.indexOf('TERLAMBAT') !== -1){
+      return {
+        text:'Terlambat',
+        detail:'Status kehadiran tercatat terlambat.',
+        className:'warn'
+      };
+    }
+
+    var jamMasuk = normalizeTime(any(att, [
+      'Jam Masuk',
+      'JAM_MASUK',
+      'jamMasuk',
+      'checkIn'
+    ], ''));
+
+    var masukMin = toMinutes(jamMasuk);
+    var batasMin = 8 * 60;
+
+    if(masukMin !== null && masukMin > batasMin){
+      return {
+        text:'Terlambat',
+        detail:'Jam masuk melewati batas 08:00.',
+        className:'warn'
+      };
+    }
+
+    if(masukMin !== null){
+      return {
+        text:'Tepat waktu',
+        detail:'Jam masuk tidak melewati batas 08:00.',
+        className:'good'
+      };
+    }
+
+    return {
+      text:'Belum diketahui',
+      detail:'Jam masuk belum tersedia.',
+      className:''
+    };
+  }
+
+  function radiusInfo(att){
+    var distance = any(att, [
+      'Jarak Meter',
+      'JARAK_METER',
+      'distanceMeter',
+      'jarakMeter',
+      'Jarak Masuk',
+      'jarakMasuk'
+    ], '');
+
+    var radius = any(att, [
+      'Radius Kantor',
+      'RADIUS_KANTOR',
+      'officeRadius',
+      'radius'
+    ], 100);
+
+    var numDistance = parseFloat(String(distance).replace(/[^\d.]/g,''));
+
+    if(!isNaN(numDistance)){
+      if(numDistance <= Number(radius || 100)){
+        return {
+          text:'Dalam radius',
+          detail:Math.round(numDistance) + ' meter dari kantor.',
+          className:'good'
+        };
+      }
+
+      return {
+        text:'Luar radius',
+        detail:Math.round(numDistance) + ' meter dari kantor.',
+        className:'warn'
+      };
+    }
+
+    return {
+      text:'Belum diketahui',
+      detail:'Data jarak tidak tersedia.',
+      className:''
+    };
+  }
+
+  function normalizeDriveImage(url){
+    url = String(url || '').trim();
+
+    if(!url) return '';
+
+    var m1 = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+    if(m1 && m1[1]){
+      return 'https://drive.google.com/uc?export=view&id=' + m1[1];
+    }
+
+    var m2 = url.match(/[?&]id=([^&]+)/);
+    if(url.indexOf('drive.google.com') !== -1 && m2 && m2[1]){
+      return 'https://drive.google.com/uc?export=view&id=' + m2[1];
+    }
+
+    return url;
+  }
+
+  function mapUrl(lat, lng, fallback){
+    if(lat && lng){
+      return 'https://www.google.com/maps?q=' + encodeURIComponent(lat + ',' + lng);
+    }
+
+    return fallback || '';
+  }
+
+  function ensureModal(){
+    if(document.getElementById('itp2Modal')) return;
+
+    var el = document.createElement('div');
+    el.id = 'itp2Modal';
+    el.className = 'itp2-bg';
+    el.innerHTML = ''
+      + '<div class="itp2-modal">'
+      + '<div class="itp2-head">'
+      + '<div>'
+      + '<h2 id="itp2Title">Detail</h2>'
+      + '<p id="itp2Sub">Informasi detail.</p>'
+      + '</div>'
+      + '<button type="button" class="itp2-close" id="itp2Close">Tutup</button>'
+      + '</div>'
+      + '<div id="itp2Body"></div>'
+      + '</div>';
+
+    document.body.appendChild(el);
+
+    document.getElementById('itp2Close').onclick = function(){
+      el.classList.remove('show');
+    };
+  }
+
+  function showModal(title, sub, html){
+    ensureModal();
+
+    document.getElementById('itp2Title').textContent = title || 'Detail';
+    document.getElementById('itp2Sub').textContent = sub || '';
+    document.getElementById('itp2Body').innerHTML = html || '';
+    document.getElementById('itp2Modal').classList.add('show');
+  }
+
+  function info(label, value){
+    return ''
+      + '<div class="itp2-info">'
+      + '<small>' + esc(label) + '</small>'
+      + '<b>' + (value && String(value).indexOf('<span') === 0 ? value : esc(value || '-')) + '</b>'
+      + '</div>';
+  }
+
+  function photoCard(title, url){
+    var img = normalizeDriveImage(url);
+
+    return ''
+      + '<div class="itp2-photo-card">'
+      + (img
+        ? '<img src="' + attr(img) + '" alt="' + attr(title) + '" onclick="window.open(\'' + attr(img) + '\',\'_blank\')">'
+        : '<div class="itp2-photo-empty">Foto belum tersedia</div>')
+      + '<div><b>' + esc(title) + '</b><br>' + (img ? 'Klik foto untuk membuka ukuran penuh.' : 'Tidak ada dokumentasi foto.') + '</div>'
+      + '</div>';
+  }
+
+  function renderAttendanceDetail(data, attendanceId){
+    var att = data.attendance || data.detail || data.absensi || data;
+
+    var nama = any(att, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','nama'], '-');
+    var username = any(att, ['Nama Pengguna','USERNAME','username'], '-');
+    var divisi = any(att, ['Divisi','DIVISI','divisi'], '-');
+    var tanggal = normalizeDate(any(att, ['Tanggal','TANGGAL','tanggal','date'], '-'));
+
+    var jamMasuk = normalizeTime(any(att, ['Jam Masuk','JAM_MASUK','jamMasuk','checkIn'], '-'));
+    var jamPulang = normalizeTime(any(att, ['Jam Pulang','JAM_PULANG','jamPulang','checkOut'], '-'));
+    var total = any(att, ['Total Jam Kerja','TOTAL_JAM_KERJA','totalJamKerja','total'], '-');
+
+    var statusHadir = any(att, ['Status Kehadiran','STATUS_KEHADIRAN','statusKehadiran','status'], '-');
+    var statusValidasi = any(att, ['Status Validasi','STATUS_VALIDASI','statusValidasi'], '-');
+
+    var accuracy = any(att, ['Akurasi','AKURASI','accuracy','akurasi'], '-');
+    var late = lateInfo(att);
+    var radius = radiusInfo(att);
+
+    var latMasuk = any(att, ['Latitude Masuk','LATITUDE_MASUK','latitudeMasuk','latMasuk','latitude']);
+    var lngMasuk = any(att, ['Longitude Masuk','LONGITUDE_MASUK','longitudeMasuk','lngMasuk','longitude']);
+    var latPulang = any(att, ['Latitude Pulang','LATITUDE_PULANG','latitudePulang','latPulang']);
+    var lngPulang = any(att, ['Longitude Pulang','LONGITUDE_PULANG','longitudePulang','lngPulang']);
+
+    var mapsMasuk = any(att, ['Maps Masuk','MAPS_MASUK','mapsMasuk','Peta Masuk']);
+    var mapsPulang = any(att, ['Maps Pulang','MAPS_PULANG','mapsPulang','Peta Pulang']);
+
+    var fotoMasuk = any(att, [
+      'Foto Masuk',
+      'FOTO_MASUK',
+      'fotoMasuk',
+      'PHOTO_IN',
+      'photoIn',
+      'URL Foto Masuk',
+      'SELFIE_MASUK'
+    ]);
+
+    var fotoPulang = any(att, [
+      'Foto Pulang',
+      'FOTO_PULANG',
+      'fotoPulang',
+      'PHOTO_OUT',
+      'photoOut',
+      'URL Foto Pulang',
+      'SELFIE_PULANG'
+    ]);
+
+    var catatan = any(att, ['Catatan','CATATAN','catatan','Keterangan','keterangan'], '-');
+    var catatanValidasi = any(att, ['Catatan Validasi','CATATAN_VALIDASI','catatanValidasi'], '-');
+
+    var html = '';
+
+    html += '<div class="itp2-summary">';
+    html += info('Nama Peserta', nama);
+    html += info('Username', username);
+    html += info('Tanggal', tanggal);
+    html += info('Divisi', divisi);
+    html += info('Jam Masuk', jamMasuk);
+    html += info('Jam Pulang', jamPulang);
+    html += info('Total Jam', total);
+    html += info('Status Kehadiran', badge(statusHadir));
+    html += info('Validasi', badge(statusValidasi));
+    html += info('Ketepatan Waktu', '<span class="itp2-badge ' + late.className + '">' + esc(late.text) + '</span>');
+    html += info('Radius Lokasi', '<span class="itp2-badge ' + radius.className + '">' + esc(radius.text) + '</span>');
+    html += info('Akurasi GPS', accuracy === '-' ? '-' : accuracy + ' meter');
+    html += '</div>';
+
+    html += '<div class="itp2-section">';
+    html += '<h3>Penjelasan Status</h3>';
+    html += '<div class="itp2-grid2">';
+    html += info('Info Ketepatan Waktu', late.detail);
+    html += info('Info Radius', radius.detail);
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="itp2-section">';
+    html += '<h3>Foto Absensi</h3>';
+    html += '<div class="itp2-photo-grid">';
+    html += photoCard('Foto Masuk', fotoMasuk);
+    html += photoCard('Foto Pulang', fotoPulang);
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="itp2-section">';
+    html += '<h3>Lokasi dan Maps</h3>';
+
+    var linkMasuk = mapUrl(latMasuk, lngMasuk, mapsMasuk);
+    var linkPulang = mapUrl(latPulang, lngPulang, mapsPulang);
+
+    if(linkMasuk){
+      html += '<a class="itp2-map-link" href="' + attr(linkMasuk) + '" target="_blank">📍 Buka Maps Masuk</a>';
+    }
+
+    if(linkPulang){
+      html += '<a class="itp2-map-link" href="' + attr(linkPulang) + '" target="_blank">📍 Buka Maps Pulang</a>';
+    }
+
+    if(!linkMasuk && !linkPulang){
+      html += '<div class="itp2-empty">Titik lokasi belum tersedia.</div>';
+    }
+
+    html += '</div>';
+
+    html += '<div class="itp2-section">';
+    html += '<h3>Catatan</h3>';
+    html += '<div class="itp2-grid2">';
+    html += info('Catatan Peserta', catatan);
+    html += info('Catatan Validasi', catatanValidasi);
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="itp2-actions">';
+    html += '<button type="button" class="btn btn-green" data-itp2-att-status="VALID" data-itp2-att-id="' + attr(attendanceId) + '">Tandai Valid</button>';
+    html += '<button type="button" class="btn btn-orange" data-itp2-att-status="PERLU_REVIEW" data-itp2-att-id="' + attr(attendanceId) + '">Perlu Review</button>';
+    html += '<button type="button" class="btn btn-red" data-itp2-att-status="INVALID" data-itp2-att-id="' + attr(attendanceId) + '">Tolak</button>';
+    html += '</div>';
+
+    return html;
+  }
+
+  function renderReportItem(item, index){
+    var itemId = any(item, ['ID Kegiatan','ITEM_ID','itemId','idKegiatan','ID_KEGIATAN'], '-');
+    var start = normalizeTime(any(item, ['Jam Mulai','JAM_MULAI','jamMulai','start']));
+    var end = normalizeTime(any(item, ['Jam Selesai','JAM_SELESAI','jamSelesai','end']));
+    var duration = any(item, ['Durasi','DURASI','durasi'], '-');
+    var desc = any(item, ['Uraian Kegiatan','URAIAN_KEGIATAN','uraianKegiatan','uraian','deskripsi'], '-');
+    var doc = any(item, ['URL Dokumentasi','DOKUMENTASI_URL','dokumentasiUrl','urlDokumentasi','Dokumentasi'], '');
+
+    return ''
+      + '<div class="itp2-item">'
+      + '<div class="itp2-item-head">'
+      + '<div>'
+      + '<b>Kegiatan ' + (index + 1) + '</b><br>'
+      + '<small>' + esc(start) + ' - ' + esc(end) + ' · ' + esc(duration) + '</small>'
+      + '</div>'
+      + '<span class="itp2-badge">' + esc(itemId) + '</span>'
+      + '</div>'
+      + '<div class="itp2-desc">' + esc(desc) + '</div>'
+      + (doc
+        ? '<div style="margin-top:10px"><a class="itp2-map-link" href="' + attr(doc) + '" target="_blank">📎 Buka Dokumentasi</a></div>'
+        : '')
+      + '</div>';
+  }
+
+  function renderReportDetail(data, reportId){
+    var report = data.report || data.header || data.laporan || data;
+    var items = data.items || data.details || data.kegiatan || data.activities || [];
+
+    if(!Array.isArray(items)) items = [];
+
+    var nama = any(report, ['Nama Lengkap','NAMA_LENGKAP','namaLengkap','nama'], '-');
+    var username = any(report, ['Nama Pengguna','USERNAME','username'], '-');
+    var divisi = any(report, ['Divisi','DIVISI','divisi'], '-');
+    var tanggal = normalizeDate(any(report, ['Tanggal','TANGGAL','tanggal','date'], '-'));
+    var status = any(report, ['Status Laporan','STATUS_LAPORAN','statusLaporan','status'], '-');
+    var totalKegiatan = any(report, ['Total Kegiatan','TOTAL_KEGIATAN','totalKegiatan'], items.length);
+    var totalDurasi = any(report, ['Total Durasi','TOTAL_DURASI','totalDurasi'], '-');
+    var catatanUser = any(report, ['Catatan Peserta','CATATAN_PESERTA','catatanPeserta','Catatan User'], '-');
+    var catatanAdmin = any(report, ['Catatan Admin','CATATAN_ADMIN','catatanAdmin'], '-');
+
+    var html = '';
+
+    html += '<div class="itp2-summary">';
+    html += info('Nama Peserta', nama);
+    html += info('Username', username);
+    html += info('Tanggal', tanggal);
+    html += info('Status', badge(status));
+    html += info('Divisi', divisi);
+    html += info('Total Kegiatan', totalKegiatan);
+    html += info('Total Durasi', totalDurasi);
+    html += info('ID Laporan', reportId);
+    html += '</div>';
+
+    html += '<div class="itp2-section">';
+    html += '<h3>Catatan</h3>';
+    html += '<div class="itp2-grid2">';
+    html += info('Catatan Peserta', catatanUser);
+    html += info('Catatan Admin', catatanAdmin);
+    html += '</div>';
+    html += '</div>';
+
+    html += '<div class="itp2-section">';
+    html += '<h3>Detail Kegiatan</h3>';
+
+    if(items.length){
+      html += items.map(function(item, index){
+        return renderReportItem(item, index);
+      }).join('');
+    }else{
+      html += '<div class="itp2-empty">Belum ada detail kegiatan pada laporan ini.</div>';
+    }
+
+    html += '</div>';
+
+    html += '<div class="itp2-actions">';
+    html += '<button type="button" class="btn btn-green" data-itp2-report-status="DISETUJUI" data-itp2-report-id="' + attr(reportId) + '">Setujui</button>';
+    html += '<button type="button" class="btn btn-orange" data-itp2-report-status="REVISI" data-itp2-report-id="' + attr(reportId) + '">Revisi</button>';
+    html += '<button type="button" class="btn btn-red" data-itp2-report-status="DITOLAK" data-itp2-report-id="' + attr(reportId) + '">Tolak</button>';
+    html += '</div>';
+
+    return html;
+  }
+
+  async function loadAttendanceDetail(attendanceId){
+    var res = await apiCall('adminGetAttendanceDetail',{
+      idAbsensi:attendanceId,
+      attendanceId:attendanceId
+    });
+
+    if(res && res.success === false){
+      throw new Error(res.message || 'Detail absensi gagal dimuat.');
+    }
+
+    return res.data || res;
+  }
+
+  async function loadReportDetail(reportId){
+    var res = await apiCall('adminGetWorkReportFullDetail',{
+      reportId:reportId,
+      idLaporan:reportId
+    });
+
+    if(res && res.success === false){
+      throw new Error(res.message || 'Detail laporan gagal dimuat.');
+    }
+
+    return res.data || res;
+  }
+
+  function getIdFromButton(button, type){
+    var id = '';
+
+    if(type === 'attendance'){
+      id =
+        button.getAttribute('data-id') ||
+        button.getAttribute('data-attendance-id') ||
+        button.getAttribute('data-id-absensi') ||
+        '';
+    }
+
+    if(type === 'report'){
+      id =
+        button.getAttribute('data-id') ||
+        button.getAttribute('data-report-id') ||
+        button.getAttribute('data-id-laporan') ||
+        '';
+    }
+
+    if(id) return id;
+
+    var row = button.closest('tr');
+
+    if(row){
+      if(type === 'attendance'){
+        id =
+          row.getAttribute('data-attendance-id') ||
+          row.getAttribute('data-id-absensi') ||
+          row.getAttribute('data-id') ||
+          '';
+      }
+
+      if(type === 'report'){
+        id =
+          row.getAttribute('data-report-id') ||
+          row.getAttribute('data-id-laporan') ||
+          row.getAttribute('data-id') ||
+          '';
+      }
+    }
+
+    return id;
+  }
+
+  function isDetailButton(button){
+    if(!button) return false;
+
+    var text = String(button.innerText || button.textContent || '').trim().toLowerCase();
+
+    return (
+      button.classList.contains('itx-att-detail') ||
+      button.classList.contains('itx-report-detail') ||
+      button.classList.contains('att-detail') ||
+      button.classList.contains('report-detail') ||
+      text === 'detail' ||
+      text.indexOf('detail') !== -1 ||
+      text.indexOf('lihat') !== -1
+    );
+  }
+
+  function detectDetailType(button){
+    var row = button.closest('tr');
+    var table = row && row.closest('table');
+    var text = table ? String(table.innerText || '').toLowerCase() : '';
+
+    if(
+      button.classList.contains('itx-att-detail') ||
+      text.indexOf('masuk') !== -1 ||
+      text.indexOf('pulang') !== -1 ||
+      text.indexOf('maps') !== -1
+    ){
+      return 'attendance';
     }
 
     if(
-      activeText.indexOf('peserta') !== -1 ||
-      activeText.indexOf('pengguna') !== -1 ||
-      activeText.indexOf('user') !== -1
+      button.classList.contains('itx-report-detail') ||
+      text.indexOf('kegiatan') !== -1 ||
+      text.indexOf('durasi') !== -1 ||
+      text.indexOf('laporan') !== -1
     ){
-      setTimeout(restoreUsers, 500);
-      setTimeout(restoreUsers, 1600);
+      return 'report';
     }
+
+    return '';
   }
 
   /*
-   * Debug manual:
-   * Jalankan di console:
-   * iTrackRestoreAll()
+   * Override fungsi detail dari patch sebelumnya kalau ada.
    */
-  window.iTrackRestoreAll = function(){
-    callOldLoaders();
-    restoreAttendance();
-    restoreReports();
-    restoreUsers();
+  window.itp2OpenAttendanceDetail = async function(attendanceId){
+    try{
+      var data = await loadAttendanceDetail(attendanceId);
+      var html = renderAttendanceDetail(data, attendanceId);
+
+      showModal(
+        'Detail Absensi',
+        'Informasi absensi, foto, lokasi, status ketepatan waktu, dan validasi.',
+        html
+      );
+    }catch(error){
+      popup('error','Gagal memuat detail absensi',error.message);
+    }
   };
 
-  window.iTrackRestoreAttendance = restoreAttendance;
-  window.iTrackRestoreReports = restoreReports;
-  window.iTrackRestoreUsers = restoreUsers;
+  window.itp2OpenReportDetail = async function(reportId){
+    try{
+      var data = await loadReportDetail(reportId);
+      var html = renderReportDetail(data, reportId);
+
+      showModal(
+        'Detail Laporan Kerja',
+        'Ringkasan laporan, detail kegiatan, dokumentasi, dan aksi validasi admin.',
+        html
+      );
+    }catch(error){
+      popup('error','Gagal memuat detail laporan',error.message);
+    }
+  };
 
   /*
-   * Debug API:
-   * Jalankan:
-   * iTrackRestoreSelfTest()
+   * Tangkap semua klik Detail sebelum modal JSON lama muncul.
    */
-  window.iTrackRestoreSelfTest = async function(){
-    var tests = [
-      'ping',
-      'getAttendanceMonitoring',
-      'getWorkReportsForAdmin',
-      'getUsersForAdmin',
-      'getMyAttendance',
-      'getMyWorkReports'
-    ];
+  document.addEventListener('click', function(event){
+    var button = event.target.closest('button');
 
-    var user = currentUserSafe();
+    if(!button) return;
+    if(!isDetailButton(button)) return;
 
-    var output = [];
+    var type = detectDetailType(button);
 
-    for(var i = 0; i < tests.length; i++){
-      var action = tests[i];
-      var payload = {};
+    if(!type) return;
 
-      if(action.indexOf('My') !== -1){
-        payload = {
-          userId: user.USER_ID || user.userId || '',
-          username: user.USERNAME || user.username || ''
-        };
-      }
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
 
-      try{
-        var res = await fixedApi(action, payload);
-        output.push({
-          action: action,
-          success: !!(res && res.success),
-          message: res && res.message,
-          rows: normalizeRows(res).length,
-          raw: res
-        });
-      }catch(error){
-        output.push({
-          action: action,
-          success: false,
-          message: error.message
-        });
-      }
+    var id = getIdFromButton(button, type);
+
+    if(!id){
+      popup(
+        'error',
+        type === 'attendance' ? 'ID Absensi tidak ditemukan' : 'ID Laporan tidak ditemukan',
+        'Tombol detail belum membawa ID. Pastikan data backend mengirim ID dan renderer tabel memakai data-id.'
+      );
+      return;
     }
 
-    console.log('[iTrack Restore] SelfTest:', output);
+    if(type === 'attendance'){
+      window.itp2OpenAttendanceDetail(id);
+    }
 
-    alert(
-      output.map(function(x){
-        return x.action + ': ' + (x.success ? 'OK' : 'GAGAL') + ' ' + (x.rows !== undefined ? '(' + x.rows + ' rows)' : '');
-      }).join('\n')
-    );
+    if(type === 'report'){
+      window.itp2OpenReportDetail(id);
+    }
 
-    return output;
+  }, true);
+
+  /*
+   * Aksi validasi absensi dari modal rapi.
+   */
+  document.addEventListener('click', function(event){
+    var button = event.target.closest('[data-itp2-att-status]');
+
+    if(!button) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    var id = button.getAttribute('data-itp2-att-id');
+    var status = button.getAttribute('data-itp2-att-status');
+    var note = '';
+
+    if(status !== 'VALID'){
+      note = prompt('Catatan validasi absensi:', '');
+      if(note === null) return;
+    }else{
+      note = 'Divalidasi admin.';
+    }
+
+    apiCall('adminUpdateAttendance',{
+      idAbsensi:id,
+      attendanceId:id,
+      statusValidasi:status,
+      status:status,
+      catatanValidasi:note,
+      note:note
+    }).then(function(res){
+      if(res && res.success === false) throw new Error(res.message);
+
+      popup('success','Absensi diperbarui','Status absensi berhasil diperbarui.');
+
+      document.getElementById('itp2Modal').classList.remove('show');
+
+      if(typeof window.loadAdminAttendance === 'function'){
+        window.loadAdminAttendance();
+      }
+    }).catch(function(error){
+      popup('error','Aksi absensi gagal',error.message);
+    });
+  });
+
+  /*
+   * Aksi validasi laporan dari modal rapi.
+   */
+  document.addEventListener('click', function(event){
+    var button = event.target.closest('[data-itp2-report-status]');
+
+    if(!button) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    var id = button.getAttribute('data-itp2-report-id');
+    var status = button.getAttribute('data-itp2-report-status');
+    var note = '';
+
+    if(status === 'DISETUJUI'){
+      note = 'Disetujui admin.';
+    }else{
+      note = prompt(
+        status === 'REVISI'
+          ? 'Catatan revisi laporan:'
+          : 'Catatan penolakan laporan:',
+        ''
+      );
+
+      if(note === null) return;
+    }
+
+    var currentUser = {};
+
+    try{
+      currentUser = window.currentUser || JSON.parse(localStorage.getItem('iTrack_user') || '{}');
+    }catch(e){}
+
+    var payload = {
+      reportId:id,
+      idLaporan:id,
+      statusLaporan:status,
+      status:status,
+      catatanAdmin:note,
+      catatan:note,
+      validatedBy:
+        currentUser.NAMA_LENGKAP ||
+        currentUser.namaLengkap ||
+        currentUser.USERNAME ||
+        currentUser.username ||
+        'Admin'
+    };
+
+    apiCall('adminUpdateWorkReportStatus',payload).catch(function(){
+      return apiCall('validateWorkReport',payload);
+    }).then(function(res){
+      if(res && res.success === false) throw new Error(res.message);
+
+      popup('success','Laporan diperbarui','Status laporan berhasil diperbarui.');
+
+      document.getElementById('itp2Modal').classList.remove('show');
+
+      if(typeof window.loadAdminReports === 'function'){
+        window.loadAdminReports();
+      }
+    }).catch(function(error){
+      popup('error','Aksi laporan gagal',error.message);
+    });
+  });
+
+})();
+</script>
+<!-- PATCH NATIVE LOADING DELAYED - iTrack -->
+<style id="itrack-native-delayed-loading-style">
+  .itl-native-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 200000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(23,42,69,.42);
+    backdrop-filter: blur(16px);
+  }
+
+  .itl-native-bg.show {
+    display: flex;
+  }
+
+  .itl-native-card {
+    width: min(380px, 92vw);
+    background: rgba(255,255,255,.96);
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 34px;
+    box-shadow: 0 34px 100px rgba(23,42,69,.28);
+    padding: 26px;
+    text-align: center;
+    animation: itlPop .18s ease-out;
+  }
+
+  @keyframes itlPop {
+    from { opacity: 0; transform: translateY(10px) scale(.98); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .itl-loader-ring {
+    width: 72px;
+    height: 72px;
+    border-radius: 999px;
+    margin: 0 auto 16px;
+    display: grid;
+    place-items: center;
+    background:
+      conic-gradient(from 0deg, var(--blue,#4BA9D9), #9BDCF3, var(--blue,#4BA9D9));
+    animation: itlSpin .9s linear infinite;
+    position: relative;
+  }
+
+  .itl-loader-ring::before {
+    content: "";
+    position: absolute;
+    inset: 7px;
+    border-radius: inherit;
+    background: #fff;
+  }
+
+  .itl-loader-dot {
+    position: relative;
+    z-index: 1;
+    width: 34px;
+    height: 34px;
+    border-radius: 13px;
+    background: var(--blue3,#EAF7FD);
+    display: grid;
+    place-items: center;
+    color: var(--blue2,#2F8FC4);
+    font-weight: 900;
+    font-size: 16px;
+  }
+
+  @keyframes itlSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  .itl-native-card h3 {
+    margin: 0 0 7px;
+    color: var(--navy,#172A45);
+    font-size: 21px;
+    font-weight: 850;
+    letter-spacing: -.35px;
+  }
+
+  .itl-native-card p {
+    margin: 0;
+    color: var(--muted,#74869A);
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .itl-progress {
+    height: 8px;
+    border-radius: 999px;
+    background: #EAF7FD;
+    margin-top: 18px;
+    overflow: hidden;
+  }
+
+  .itl-progress span {
+    display: block;
+    width: 42%;
+    height: 100%;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--blue,#4BA9D9), #7CC8EA);
+    animation: itlMove 1.15s ease-in-out infinite;
+  }
+
+  @keyframes itlMove {
+    0% { transform: translateX(-120%); }
+    100% { transform: translateX(260%); }
+  }
+
+  .itl-native-foot {
+    margin-top: 13px;
+    color: var(--muted,#74869A);
+    font-size: 11px;
+  }
+
+  @media(max-width: 520px) {
+    .itl-native-card {
+      border-radius: 28px;
+      padding: 22px;
+    }
+
+    .itl-loader-ring {
+      width: 66px;
+      height: 66px;
+    }
+  }
+</style>
+
+<script id="itrack-native-delayed-loading-script">
+(function(){
+  /*
+   * Native loading akan tampil jika proses berjalan lebih dari 2 detik.
+   * Aman untuk Android/iPhone, dan tidak mengubah UI utama.
+   */
+
+  var SHOW_DELAY = 1000;
+  var MIN_VISIBLE = 450;
+
+  var activeCount = 0;
+  var timer = null;
+  var shownAt = 0;
+  var tokenSeq = 0;
+  var activeTokens = {};
+
+  function ensureLoader(){
+    if(document.getElementById('itlNativeLoading')) return;
+
+    var el = document.createElement('div');
+    el.id = 'itlNativeLoading';
+    el.className = 'itl-native-bg';
+    el.innerHTML = ''
+      + '<div class="itl-native-card">'
+      + '<div class="itl-loader-ring"><div class="itl-loader-dot">i</div></div>'
+      + '<h3 id="itlNativeTitle">Memproses</h3>'
+      + '<p id="itlNativeMessage">Mohon tunggu sebentar, data sedang disiapkan.</p>'
+      + '<div class="itl-progress"><span></span></div>'
+      + '<div class="itl-native-foot">iTrack Internship OJK DIY</div>'
+      + '</div>';
+
+    document.body.appendChild(el);
+  }
+
+  function setText(title, message){
+    ensureLoader();
+
+    document.getElementById('itlNativeTitle').textContent =
+      title || 'Memproses';
+
+    document.getElementById('itlNativeMessage').textContent =
+      message || 'Mohon tunggu sebentar, data sedang disiapkan.';
+  }
+
+  function showNow(){
+    ensureLoader();
+
+    var el = document.getElementById('itlNativeLoading');
+
+    if(!el.classList.contains('show')){
+      shownAt = Date.now();
+      el.classList.add('show');
+    }
+  }
+
+  function hideNow(){
+    var el = document.getElementById('itlNativeLoading');
+
+    if(el){
+      el.classList.remove('show');
+    }
+
+    shownAt = 0;
+  }
+
+  function begin(title, message, delay){
+    ensureLoader();
+
+    var token = 'itl_' + (++tokenSeq);
+    activeTokens[token] = true;
+    activeCount++;
+
+    setText(title, message);
+
+    clearTimeout(timer);
+
+    timer = setTimeout(function(){
+      if(activeCount > 0){
+        showNow();
+      }
+    }, typeof delay === 'number' ? delay : SHOW_DELAY);
+
+    return token;
+  }
+
+  function end(token){
+    if(token && activeTokens[token]){
+      delete activeTokens[token];
+      activeCount = Math.max(0, activeCount - 1);
+    }else if(!token){
+      activeCount = Math.max(0, activeCount - 1);
+    }
+
+    if(activeCount > 0) return;
+
+    clearTimeout(timer);
+
+    var elapsed = shownAt ? Date.now() - shownAt : 0;
+    var wait = shownAt ? Math.max(0, MIN_VISIBLE - elapsed) : 0;
+
+    setTimeout(function(){
+      if(activeCount === 0){
+        hideNow();
+      }
+    }, wait);
+  }
+
+  function endAll(){
+    activeTokens = {};
+    activeCount = 0;
+    clearTimeout(timer);
+    hideNow();
+  }
+
+  window.iTrackNativeLoading = {
+    begin: begin,
+    end: end,
+    endAll: endAll,
+    showNow: showNow
   };
 
   /*
-   * Hook openView.
+   * Override showLoading/hideLoading lama agar tidak langsung muncul.
+   * Jadi semua proses lama tetap memakai loading, tapi tampilnya delayed 2 detik.
+   */
+  var currentManualToken = null;
+
+  window.showLoading = function(title, message){
+    currentManualToken = begin(
+      title || 'Memproses',
+      message || 'Mohon tunggu sebentar.',
+      SHOW_DELAY
+    );
+
+    return currentManualToken;
+  };
+
+  window.hideLoading = function(){
+    if(currentManualToken){
+      end(currentManualToken);
+      currentManualToken = null;
+    }else{
+      end();
+    }
+  };
+
+  /*
+   * Bungkus API global kalau ada.
+   * Ini menangkap login, filter, validasi, export, detail, dll.
+   */
+  var oldApi = window.api;
+
+  if(typeof oldApi === 'function' && !oldApi.__itlWrapped){
+    var wrappedApi = async function(action, payload){
+      var title = 'Memproses data';
+      var message = 'Menghubungkan ke server iTrack.';
+
+      var a = String(action || '').toLowerCase();
+
+      if(a.indexOf('login') !== -1){
+        title = 'Memverifikasi akun';
+        message = 'Akun sedang diverifikasi dengan server.';
+      }else if(a.indexOf('attendance') !== -1 || a.indexOf('absensi') !== -1){
+        title = 'Memproses absensi';
+        message = 'Data absensi sedang disiapkan.';
+      }else if(a.indexOf('report') !== -1 || a.indexOf('laporan') !== -1){
+        title = 'Memproses laporan';
+        message = 'Data laporan kerja sedang disiapkan.';
+      }else if(a.indexOf('export') !== -1){
+        title = 'Menyiapkan export';
+        message = 'Dokumen sedang dibuat, proses ini bisa memerlukan beberapa detik.';
+      }else if(a.indexOf('user') !== -1 || a.indexOf('peserta') !== -1){
+        title = 'Memproses peserta';
+        message = 'Data peserta sedang disiapkan.';
+      }else if(a.indexOf('leave') !== -1 || a.indexOf('izin') !== -1){
+        title = 'Memproses izin';
+        message = 'Data izin sedang disiapkan.';
+      }
+
+      var token = begin(title, message, SHOW_DELAY);
+
+      try{
+        return await oldApi(action, payload || {});
+      }finally{
+        end(token);
+      }
+    };
+
+    wrappedApi.__itlWrapped = true;
+    window.api = wrappedApi;
+  }
+
+  /*
+   * Bungkus fetch khusus Google Apps Script.
+   * Jadi kalau ada fungsi yang tidak lewat window.api, tetap tertangkap.
+   */
+  var oldFetch = window.fetch;
+
+  if(typeof oldFetch === 'function' && !oldFetch.__itlWrapped){
+    var wrappedFetch = function(input, init){
+      var url = '';
+
+      try{
+        url = typeof input === 'string'
+          ? input
+          : (input && input.url) || '';
+      }catch(e){}
+
+      var shouldTrack =
+        url.indexOf('script.google.com') !== -1 ||
+        url.indexOf('/macros/s/') !== -1;
+
+      if(!shouldTrack){
+        return oldFetch.apply(this, arguments);
+      }
+
+      var token = begin(
+        'Menghubungkan ke server',
+        'Sinkronisasi data iTrack sedang berjalan.',
+        SHOW_DELAY
+      );
+
+      return oldFetch.apply(this, arguments)
+        .finally(function(){
+          end(token);
+        });
+    };
+
+    wrappedFetch.__itlWrapped = true;
+    window.fetch = wrappedFetch;
+  }
+
+  /*
+   * Bungkus openView agar pindah menu terasa native.
+   * Loading tetap hanya muncul kalau prosesnya lewat dari 2 detik.
    */
   var oldOpenView = window.openView;
 
-  if(typeof oldOpenView === 'function' && !oldOpenView.__itrackRestoreWrapped){
+  if(typeof oldOpenView === 'function' && !oldOpenView.__itlWrapped){
     var wrappedOpenView = function(id){
-      oldOpenView(id);
+      var label = 'Membuka halaman';
 
-      setTimeout(restoreActivePanel, 400);
-      setTimeout(restoreActivePanel, 1500);
+      var viewName = String(id || '').replace(/-/g,' ');
+
+      if(viewName){
+        label = 'Membuka ' + viewName;
+      }
+
+      var token = begin(
+        label,
+        'Menyiapkan tampilan dan data halaman.',
+        SHOW_DELAY
+      );
+
+      try{
+        return oldOpenView.apply(this, arguments);
+      }finally{
+        /*
+         * Jangan langsung hide, karena biasanya load data terjadi setelah render.
+         * API/fetch wrapper tetap akan menjaga loading jika data masih diproses.
+         */
+        setTimeout(function(){
+          end(token);
+        }, 1200);
+      }
     };
 
-    wrappedOpenView.__itrackRestoreWrapped = true;
+    wrappedOpenView.__itlWrapped = true;
     window.openView = wrappedOpenView;
   }
 
   /*
-   * Hook tombol filter.
+   * Safety: kalau ada error JS, loading tidak menggantung.
    */
-  document.addEventListener('click', function(e){
-    var target = e.target;
+  window.addEventListener('error', function(){
+    setTimeout(endAll, 300);
+  });
 
-    if(!target) return;
-
-    var text = String(target.innerText || target.textContent || '').toLowerCase();
-
-    if(
-      text.indexOf('filter') !== -1 ||
-      text.indexOf('refresh') !== -1 ||
-      text.indexOf('muat') !== -1
-    ){
-      setTimeout(restoreActivePanel, 600);
-    }
+  window.addEventListener('unhandledrejection', function(){
+    setTimeout(endAll, 300);
   });
 
   /*
-   * Init.
+   * Debug manual:
+   * iTrackNativeLoading.showNow()
+   * iTrackNativeLoading.endAll()
    */
-  document.addEventListener('DOMContentLoaded', function(){
-    log('Patch aktif. Exec:', EXEC_URL);
-
-    setTimeout(restoreActivePanel, 900);
-    setTimeout(restoreActivePanel, 2400);
-  });
-
-  if(document.readyState !== 'loading'){
-    log('Patch aktif late. Exec:', EXEC_URL);
-
-    setTimeout(restoreActivePanel, 700);
-    setTimeout(restoreActivePanel, 1800);
-  }
 })();
 </script>
 </body></html>
