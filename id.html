@@ -32,7 +32,7 @@
 </head><body>
 <div id="splash" class="splash"><div style="text-align:center"><div class="splash-logo"></div><h1>iTrack</h1><p>Internship Tracker</p></div></div><div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loading-card"><div class="loader"></div><h3 id="loadingTitle">Memproses...</h3><p id="loadingText">Mohon tunggu sebentar.</p><div class="progress-line"><span></span></div></div></div><div id="authPage" class="auth-page"></div><div id="appPage" class="app hidden"></div><div id="outsideAttendanceModal" class="modal"></div><div id="detailModal" class="modal"></div><div id="itStage1Modal" class="it-stage1-modal"><div class="it-stage1-card" id="itStage1ModalCard"></div></div>
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbxjEZ4VWPHC4YDQT8pptj5WjmemQUGkwFeasKKKhWAaT_NIFPHrwV4E1-QMlxb5s6hsYw/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
+const API_URL='https://script.google.com/macros/s/AKfycbzxw845lI9SIHZhUreedatazvGzYGupbehK6HwOP5QpKOvEkQW0vJ177VEhhuj8805akg/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
 let currentUser=null,currentRoleIsAdmin=false,settings={APP_NAME:'iTrack Internship OJK DIY',APP_SHORT_NAME:'iTrack',APP_LOGO_URL:DEFAULT_LOGO,OFFICE_NAME:'Kantor OJK DIY',OFFICE_ADDRESS:'Jalan Jenderal Sudirman No. 22, Gowongan, Jetis, Yogyakarta 55232',OFFICE_LATITUDE:-7.7830584,OFFICE_LONGITUDE:110.3687544,OFFICE_RADIUS_METER:100,LATE_AFTER:'08:15',WORK_END_TIME:'17:00',ADMIN_NOTIFICATION_EMAIL:''};let currentCameraMode='in',cameraStream=null,capturedBase64='',currentLocation=null,currentDistance=null,serverTimeData=null,workItemCounter=0,isSubmittingAttendance=false;let state={today:null,adminAttendance:[],attendanceFilter:'SEMUA',retryPayload:null,retryAction:'',retryMode:'',recent:[],calendar:[],exportLogs:[],alerts:{}};
 const META={'user-home':['Dashboard','Hari ini'],'user-attendance':['Riwayat Absensi','Data saya'],'user-work':['Laporan','Catat kegiatan'],'user-leave':['Izin','Ajukan izin'],'user-profile':['Profil','Data akun'],'user-calendar':['Kalender','Kehadiran'],'user-progress':['Progress','Magang'],'admin-home':['Dashboard Admin','Monitoring'],'admin-attendance':['Absensi','Monitoring'],'admin-reports':['Laporan','Validasi'],'admin-leaves':['Izin','Approval'],'admin-menu':['Menu Admin','Akses lainnya'],'admin-registrations':['Registrasi','Verifikasi'],'admin-users':['Peserta','Data akun'],'admin-export':['Export','Unduh data'],'admin-export-logs':['Log Export','Riwayat export'],'admin-settings':['Pengaturan','Sistem']};
 const USER_MENUS=[['user-home','Home','home'],['user-attendance','Absensi','camera'],['user-work','Laporan','file'],['user-leave','Izin','calendar'],['user-profile','Profil','user']];const ADMIN_MENUS=[['admin-home','Home','home'],['admin-attendance','Absensi','camera'],['admin-reports','Laporan','file'],['admin-leaves','Izin','calendar'],['admin-registrations','Registrasi','user-plus'],['admin-users','Peserta','users'],['admin-export','Export','download'],['admin-export-logs','Log Export','file'],['admin-settings','Pengaturan','settings']];
@@ -1573,6 +1573,1972 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
   });
 
   window.iTrackForceStableReportDate = init;
+})();
+</script>
+<style id="itrack-ios-mobile-fix">
+  @supports (-webkit-touch-callout: none) {
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+
+    input,
+    select,
+    textarea,
+    button {
+      font-size: 16px !important;
+    }
+
+    .content {
+      padding-left: 14px !important;
+      padding-right: 14px !important;
+      padding-bottom: calc(110px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+
+    .itr-report-page,
+    .itx-export-shell {
+      display: block !important;
+    }
+
+    .itr-report-card,
+    .itx-panel {
+      border-radius: 24px !important;
+      padding: 16px !important;
+      margin-bottom: 14px !important;
+    }
+
+    .itr-report-head {
+      flex-direction: column !important;
+      gap: 8px !important;
+    }
+
+    .itr-report-grid2 {
+      grid-template-columns: 1fr !important;
+      gap: 10px !important;
+    }
+
+    .itr-side-card {
+      position: static !important;
+    }
+
+    .itr-activity-top {
+      grid-template-columns: 40px minmax(0,1fr) 34px !important;
+      padding: 13px !important;
+    }
+
+    .itr-activity-title b {
+      font-size: 14px !important;
+    }
+
+    .itr-activity-title span {
+      font-size: 10.5px !important;
+      white-space: normal !important;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+    }
+
+    .itr-photo-zone {
+      grid-template-columns: 82px 1fr !important;
+      gap: 10px !important;
+    }
+
+    .itr-photo-thumb {
+      width: 82px !important;
+      height: 82px !important;
+      border-radius: 18px !important;
+    }
+
+    .itr-report-actions,
+    .itr-activity-actions,
+    .itx-actions {
+      grid-template-columns: 1fr !important;
+    }
+
+    .itr-report-actions .full,
+    .itx-actions .full {
+      grid-column: auto !important;
+    }
+
+    .itr-preview-card {
+      width: calc(100vw - 24px) !important;
+      max-height: calc(100dvh - 24px) !important;
+      border-radius: 26px !important;
+      padding: 18px !important;
+    }
+
+    .itx-preview-frame,
+    .itx-preview-empty {
+      height: 62dvh !important;
+      border-radius: 20px !important;
+    }
+
+    .bottom-nav {
+      bottom: calc(10px + env(safe-area-inset-bottom, 0px)) !important;
+    }
+  }
+
+  @media (max-width: 430px) {
+    .hero h1,
+    .itr-report-head h2,
+    .itx-head h2 {
+      font-size: 20px !important;
+    }
+
+    .field input,
+    .field select,
+    .field textarea {
+      min-height: 56px !important;
+    }
+
+    .itr-summary-list {
+      grid-template-columns: 1fr !important;
+    }
+
+    .itr-preview-item img {
+      max-height: 150px !important;
+    }
+  }
+</style>
+<script id="itrack-ios-photo-input-fix">
+(function(){
+  function isIOS(){
+    return /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+      (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  }
+
+  function enhancePhotoInputs(){
+    if(!isIOS()) return;
+
+    document.querySelectorAll('[data-work-photo]').forEach(function(input){
+      if(input.getAttribute('data-ios-enhanced') === '1') return;
+
+      input.setAttribute('data-ios-enhanced','1');
+
+      var id = input.getAttribute('data-work-photo');
+      var parentLabel = input.closest('label');
+
+      if(!parentLabel || !id) return;
+
+      var wrapper = document.createElement('div');
+      wrapper.style.display = 'grid';
+      wrapper.style.gridTemplateColumns = '1fr 1fr';
+      wrapper.style.gap = '8px';
+
+      var cameraLabel = document.createElement('label');
+      cameraLabel.className = 'btn btn-secondary btn-full';
+      cameraLabel.innerHTML = 'Ambil Foto';
+
+      var cameraInput = document.createElement('input');
+      cameraInput.type = 'file';
+      cameraInput.accept = 'image/*';
+      cameraInput.capture = 'environment';
+      cameraInput.className = 'file-hidden';
+      cameraInput.setAttribute('data-work-photo', id);
+
+      var galleryLabel = document.createElement('label');
+      galleryLabel.className = 'btn btn-secondary btn-full';
+      galleryLabel.innerHTML = 'Galeri';
+
+      var galleryInput = document.createElement('input');
+      galleryInput.type = 'file';
+      galleryInput.accept = 'image/*';
+      galleryInput.className = 'file-hidden';
+      galleryInput.setAttribute('data-work-photo', id);
+
+      cameraLabel.appendChild(cameraInput);
+      galleryLabel.appendChild(galleryInput);
+      wrapper.appendChild(cameraLabel);
+      wrapper.appendChild(galleryLabel);
+
+      parentLabel.replaceWith(wrapper);
+
+      /*
+       * Trigger ulang binding lama jika fungsi refresh tersedia.
+       */
+      setTimeout(function(){
+        if(typeof window.iTrackReportExportFullUpdateRefresh === 'function'){
+          // Jangan refresh penuh karena bisa reset form; cukup event bubbling native akan dipakai kalau render ulang berikutnya.
+        }
+      }, 50);
+    });
+  }
+
+  var observer = new MutationObserver(function(){
+    enhancePhotoInputs();
+  });
+
+  document.addEventListener('DOMContentLoaded',function(){
+    enhancePhotoInputs();
+
+    observer.observe(document.body,{
+      childList:true,
+      subtree:true
+    });
+  });
+})();
+</script>
+<style id="itrack-native-ux-admin-style">
+  .it-native-popup-backdrop,
+  .it-native-loader-backdrop,
+  .it-image-preview-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(23,42,69,.42);
+    backdrop-filter: blur(14px);
+  }
+
+  .it-native-popup-backdrop.show,
+  .it-native-loader-backdrop.show,
+  .it-image-preview-backdrop.show {
+    display: flex;
+  }
+
+  .it-native-popup-card {
+    width: min(420px, 100%);
+    background: #fff;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 30px;
+    box-shadow: 0 28px 90px rgba(23,42,69,.24);
+    padding: 24px;
+    text-align: center;
+    animation: itPop .18s ease-out;
+  }
+
+  @keyframes itPop {
+    from { opacity: 0; transform: translateY(10px) scale(.98); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .it-popup-icon {
+    width: 62px;
+    height: 62px;
+    border-radius: 24px;
+    display: grid;
+    place-items: center;
+    margin: 0 auto 14px;
+    font-size: 26px;
+    font-weight: 900;
+  }
+
+  .it-popup-icon.success { background: #DCFCE7; color: #166534; }
+  .it-popup-icon.error { background: #FEE2E2; color: #991B1B; }
+  .it-popup-icon.warning { background: #FEF3C7; color: #92400E; }
+  .it-popup-icon.info { background: #EAF7FD; color: #2F8FC4; }
+
+  .it-native-popup-card h3 {
+    margin: 0 0 8px;
+    color: var(--navy,#172A45);
+    font-size: 19px;
+    font-weight: 850;
+  }
+
+  .it-native-popup-card p {
+    margin: 0;
+    color: var(--muted,#74869A);
+    font-size: 13px;
+    line-height: 1.65;
+  }
+
+  .it-popup-actions {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+  }
+
+  .it-loader-card {
+    width: min(360px, 100%);
+    background: #fff;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 30px;
+    box-shadow: 0 28px 90px rgba(23,42,69,.24);
+    padding: 24px;
+    text-align: center;
+  }
+
+  .it-loader-spinner {
+    width: 62px;
+    height: 62px;
+    margin: 0 auto 16px;
+    border-radius: 22px;
+    background: linear-gradient(145deg,#EAF7FD,#fff);
+    display: grid;
+    place-items: center;
+  }
+
+  .it-loader-spinner:before {
+    content: "";
+    width: 38px;
+    height: 38px;
+    border-radius: 999px;
+    border: 4px solid rgba(75,169,217,.18);
+    border-top-color: #4BA9D9;
+    animation: itSpin .75s linear infinite;
+  }
+
+  @keyframes itSpin {
+    to { transform: rotate(360deg); }
+  }
+
+  .it-loader-card h3 {
+    margin: 0 0 7px;
+    color: var(--navy,#172A45);
+    font-size: 17px;
+  }
+
+  .it-loader-card p {
+    margin: 0;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .it-image-preview-card {
+    width: min(760px, 100%);
+    max-height: 92dvh;
+    background: #fff;
+    border-radius: 30px;
+    overflow: hidden;
+    box-shadow: 0 28px 90px rgba(23,42,69,.24);
+    display: grid;
+  }
+
+  .it-image-preview-head {
+    padding: 14px 16px;
+    border-bottom: 1px solid var(--line,#E6EEF4);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .it-image-preview-head b {
+    color: var(--navy,#172A45);
+  }
+
+  .it-image-preview-body {
+    padding: 14px;
+    background: #F8FAFC;
+    overflow: auto;
+  }
+
+  .it-image-preview-body img {
+    width: 100%;
+    max-height: 72dvh;
+    object-fit: contain;
+    border-radius: 18px;
+    background: #fff;
+  }
+
+  .it-detail-photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .it-detail-photo-box {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #F8FAFC;
+    border-radius: 18px;
+    overflow: hidden;
+    min-height: 130px;
+  }
+
+  .it-detail-photo-box img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+  }
+
+  .it-detail-photo-box div {
+    padding: 9px 10px;
+    font-size: 12px;
+    color: var(--muted,#74869A);
+  }
+
+  @media(max-width:720px){
+    .it-detail-photo-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
+
+<script id="itrack-native-ux-admin-script">
+(function(){
+  let loaderTimer = null;
+  let activeRequests = 0;
+
+  function ensurePopupDom(){
+    if(document.getElementById('itNativePopup')) return;
+
+    var el = document.createElement('div');
+    el.id = 'itNativePopup';
+    el.className = 'it-native-popup-backdrop';
+    el.innerHTML = ''
+      + '<div class="it-native-popup-card">'
+      + '<div id="itPopupIcon" class="it-popup-icon info">i</div>'
+      + '<h3 id="itPopupTitle">Informasi</h3>'
+      + '<p id="itPopupMessage">-</p>'
+      + '<div class="it-popup-actions">'
+      + '<button type="button" class="btn btn-primary" id="itPopupOk">Mengerti</button>'
+      + '</div>'
+      + '</div>';
+
+    document.body.appendChild(el);
+
+    document.getElementById('itPopupOk').addEventListener('click',function(){
+      el.classList.remove('show');
+    });
+  }
+
+  function ensureLoaderDom(){
+    if(document.getElementById('itNativeLoader')) return;
+
+    var el = document.createElement('div');
+    el.id = 'itNativeLoader';
+    el.className = 'it-native-loader-backdrop';
+    el.innerHTML = ''
+      + '<div class="it-loader-card">'
+      + '<div class="it-loader-spinner"></div>'
+      + '<h3 id="itLoaderTitle">Memproses...</h3>'
+      + '<p id="itLoaderText">Mohon tunggu sebentar.</p>'
+      + '</div>';
+
+    document.body.appendChild(el);
+  }
+
+  function ensureImagePreviewDom(){
+    if(document.getElementById('itImagePreview')) return;
+
+    var el = document.createElement('div');
+    el.id = 'itImagePreview';
+    el.className = 'it-image-preview-backdrop';
+    el.innerHTML = ''
+      + '<div class="it-image-preview-card">'
+      + '<div class="it-image-preview-head">'
+      + '<b>Preview Foto</b>'
+      + '<button type="button" class="btn btn-secondary btn-mini" id="itImagePreviewClose">Tutup</button>'
+      + '</div>'
+      + '<div class="it-image-preview-body">'
+      + '<img id="itImagePreviewImg" src="" alt="Preview Foto">'
+      + '</div>'
+      + '</div>';
+
+    document.body.appendChild(el);
+
+    document.getElementById('itImagePreviewClose').addEventListener('click',function(){
+      el.classList.remove('show');
+    });
+  }
+
+  function popup(type,title,message){
+    ensurePopupDom();
+
+    type = type || 'info';
+
+    var icon = document.getElementById('itPopupIcon');
+    icon.className = 'it-popup-icon ' + type;
+    icon.textContent =
+      type === 'success' ? '✓' :
+      type === 'error' ? '×' :
+      type === 'warning' ? '!' : 'i';
+
+    document.getElementById('itPopupTitle').textContent = title || 'Informasi';
+    document.getElementById('itPopupMessage').textContent = message || '';
+
+    document.getElementById('itNativePopup').classList.add('show');
+  }
+
+  function loadingText(action){
+    action = String(action || '').toLowerCase();
+
+    if(action.indexOf('submitworkreport') !== -1 || action.indexOf('savereport') !== -1){
+      return ['Mengirim Laporan', 'Laporan dan dokumentasi sedang disiapkan.'];
+    }
+
+    if(action.indexOf('attendance') !== -1 || action.indexOf('absensi') !== -1){
+      return ['Memproses Absensi', 'Data waktu, lokasi, dan foto sedang diperiksa.'];
+    }
+
+    if(action.indexOf('export') !== -1 || action.indexOf('preview') !== -1){
+      return ['Menyiapkan Dokumen', 'Preview atau file laporan sedang dibuat.'];
+    }
+
+    if(action.indexOf('login') !== -1){
+      return ['Masuk ke iTrack', 'Akun sedang diverifikasi.'];
+    }
+
+    return ['Memproses Permintaan', 'Mohon tunggu sebentar.'];
+  }
+
+  function showAppLoading(action){
+    ensureLoaderDom();
+
+    var text = loadingText(action);
+
+    document.getElementById('itLoaderTitle').textContent = text[0];
+    document.getElementById('itLoaderText').textContent = text[1];
+    document.getElementById('itNativeLoader').classList.add('show');
+  }
+
+  function hideAppLoading(){
+    var el = document.getElementById('itNativeLoader');
+    if(el) el.classList.remove('show');
+  }
+
+  /*
+   * Override toast/showToast jadi popup tengah.
+   */
+  window.showAppPopup = popup;
+
+  window.showToast = function(type,title,message){
+    popup(type || 'info', title || 'Informasi', message || '');
+  };
+
+  window.toast = function(title,message,type){
+    popup(type || 'info', title || 'Informasi', message || '');
+  };
+
+  /*
+   * Loading otomatis kalau request lebih dari 2 detik.
+   */
+  const oldApi = window.api;
+
+  if(typeof oldApi === 'function' && !oldApi.__nativeWrapped){
+    const wrapped = async function(action,payload){
+      activeRequests++;
+
+      var shown = false;
+
+      var timer = setTimeout(function(){
+        shown = true;
+        showAppLoading(action);
+      },2000);
+
+      try{
+        return await oldApi(action,payload);
+      }finally{
+        clearTimeout(timer);
+        activeRequests--;
+
+        if(shown && activeRequests <= 0){
+          hideAppLoading();
+        }
+      }
+    };
+
+    wrapped.__nativeWrapped = true;
+    window.api = wrapped;
+  }
+
+  /*
+   * Manual compatibility untuk fungsi loading lama.
+   */
+  window.showLoading = function(title,text){
+    ensureLoaderDom();
+    document.getElementById('itLoaderTitle').textContent = title || 'Memproses Permintaan';
+    document.getElementById('itLoaderText').textContent = text || 'Mohon tunggu sebentar.';
+    document.getElementById('itNativeLoader').classList.add('show');
+  };
+
+  window.hideLoading = hideAppLoading;
+
+  /*
+   * Fix URL gambar Drive agar bisa tampil di detail.
+   */
+  function normalizeImageUrl(url){
+    url = String(url || '').trim();
+
+    if(!url) return '';
+
+    if(url.indexOf('data:image') === 0) return url;
+
+    var match =
+      url.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
+      url.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
+      url.match(/open\?id=([a-zA-Z0-9_-]+)/);
+
+    if(match && match[1]){
+      return 'https://drive.google.com/uc?export=view&id=' + match[1];
+    }
+
+    return url;
+  }
+
+  window.iTrackNormalizeImageUrl = normalizeImageUrl;
+
+  window.iTrackOpenImagePreview = function(url){
+    ensureImagePreviewDom();
+
+    var finalUrl = normalizeImageUrl(url);
+
+    if(!finalUrl){
+      popup('warning','Foto tidak tersedia','URL foto tidak ditemukan.');
+      return;
+    }
+
+    document.getElementById('itImagePreviewImg').src = finalUrl;
+    document.getElementById('itImagePreview').classList.add('show');
+  };
+
+  /*
+   * Scan modal/detail dan ubah link foto menjadi preview gambar.
+   */
+  function enhanceDetailPhotos(){
+    var root = document.getElementById('detailModal') || document.body;
+
+    if(!root) return;
+
+    root.querySelectorAll('img').forEach(function(img){
+      if(img.getAttribute('data-img-fixed') === '1') return;
+
+      img.setAttribute('data-img-fixed','1');
+      img.src = normalizeImageUrl(img.getAttribute('src'));
+
+      img.addEventListener('click',function(){
+        window.iTrackOpenImagePreview(img.src);
+      });
+    });
+
+    root.querySelectorAll('a').forEach(function(a){
+      var href = a.getAttribute('href') || '';
+      var text = (a.textContent || '').toLowerCase();
+
+      if(a.getAttribute('data-photo-enhanced') === '1') return;
+
+      var looksImage =
+        href.indexOf('drive.google.com') !== -1 ||
+        href.match(/\.(jpg|jpeg|png|webp)(\?|$)/i) ||
+        text.indexOf('foto') !== -1 ||
+        text.indexOf('gambar') !== -1;
+
+      if(!looksImage) return;
+
+      a.setAttribute('data-photo-enhanced','1');
+
+      var imgUrl = normalizeImageUrl(href);
+
+      var box = document.createElement('div');
+      box.className = 'it-detail-photo-box';
+      box.innerHTML = ''
+        + '<img src="' + imgUrl + '" alt="Foto Detail">'
+        + '<div>Tap foto untuk melihat lebih besar</div>';
+
+      box.querySelector('img').addEventListener('click',function(){
+        window.iTrackOpenImagePreview(imgUrl);
+      });
+
+      a.insertAdjacentElement('afterend', box);
+    });
+  }
+
+  const observer = new MutationObserver(function(){
+    enhanceDetailPhotos();
+  });
+
+  document.addEventListener('DOMContentLoaded',function(){
+    ensurePopupDom();
+    ensureLoaderDom();
+    ensureImagePreviewDom();
+
+    observer.observe(document.body,{
+      childList:true,
+      subtree:true
+    });
+
+    setInterval(enhanceDetailPhotos,1200);
+  });
+})();
+</script>
+<style id="itrack-admin-inline-action-style">
+  /* Hide floating action center lama */
+  #itaAdminFab,
+  #itaMiniToolbar {
+    display: none !important;
+  }
+
+  .itadm-action-th,
+  .itadm-action-td {
+    width: 138px;
+    min-width: 138px;
+    text-align: center !important;
+    white-space: nowrap;
+  }
+
+  .itadm-action-wrap {
+    position: relative;
+    display: inline-flex;
+  }
+
+  .itadm-action-btn {
+    border: 0;
+    min-height: 34px;
+    border-radius: 13px;
+    padding: 8px 12px;
+    background: var(--blue3,#EAF7FD);
+    color: var(--blue2,#2F8FC4);
+    font-size: 11px;
+    font-weight: 850;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    cursor: pointer;
+    box-shadow: 0 8px 18px rgba(30,70,98,.06);
+  }
+
+  .itadm-action-btn:hover {
+    filter: brightness(.98);
+  }
+
+  .itadm-action-btn.report {
+    background: #F0EDFF;
+    color: #6955D8;
+  }
+
+  .itadm-action-btn.attendance {
+    background: #EAF7FD;
+    color: #2F8FC4;
+  }
+
+  .itadm-action-menu {
+    position: fixed;
+    z-index: 9200;
+    min-width: 190px;
+    background: #fff;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 18px;
+    box-shadow: 0 24px 80px rgba(23,42,69,.20);
+    padding: 8px;
+    display: none;
+  }
+
+  .itadm-action-menu.show {
+    display: grid;
+    gap: 6px;
+  }
+
+  .itadm-menu-item {
+    border: 0;
+    background: #fff;
+    color: var(--ink,#26384F);
+    border-radius: 13px;
+    padding: 10px 11px;
+    text-align: left;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .itadm-menu-item:hover {
+    background: #F8FBFD;
+  }
+
+  .itadm-menu-item.success {
+    color: #166534;
+  }
+
+  .itadm-menu-item.warning {
+    color: #92400E;
+  }
+
+  .itadm-menu-item.danger {
+    color: #991B1B;
+  }
+
+  .itadm-modal-backdrop {
+    position: fixed;
+    inset: 0;
+    z-index: 9300;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(23,42,69,.42);
+    backdrop-filter: blur(14px);
+  }
+
+  .itadm-modal-backdrop.show {
+    display: flex;
+  }
+
+  .itadm-modal {
+    width: min(920px,100%);
+    max-height: 94dvh;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 32px;
+    box-shadow: 0 32px 100px rgba(23,42,69,.26);
+    padding: 22px;
+    animation: itadmPop .18s ease-out;
+  }
+
+  @keyframes itadmPop {
+    from { opacity: 0; transform: translateY(10px) scale(.98); }
+    to { opacity: 1; transform: none; }
+  }
+
+  .itadm-modal-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .itadm-modal-head h2 {
+    margin: 0;
+    color: var(--navy,#172A45);
+    font-size: 22px;
+    font-weight: 850;
+    letter-spacing: -.4px;
+  }
+
+  .itadm-modal-head p {
+    margin: 5px 0 0;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .itadm-close {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #fff;
+    color: var(--ink,#26384F);
+    border-radius: 15px;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  .itadm-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .itadm-grid3 {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 12px;
+  }
+
+  .itadm-photo-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 12px 0 16px;
+  }
+
+  .itadm-photo-card {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #F8FAFC;
+    border-radius: 22px;
+    overflow: hidden;
+  }
+
+  .itadm-photo-card img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    background: #fff;
+  }
+
+  .itadm-photo-empty {
+    height: 210px;
+    display: grid;
+    place-items: center;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+  }
+
+  .itadm-photo-card div {
+    padding: 10px 11px;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+  }
+
+  .itadm-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 14px;
+  }
+
+  .itadm-actions .full {
+    grid-column: 1/3;
+  }
+
+  .itadm-section-card {
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 24px;
+    background: #FBFEFF;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+
+  .itadm-section-card h3 {
+    margin: 0 0 6px;
+    color: var(--navy,#172A45);
+    font-size: 16px;
+    font-weight: 850;
+  }
+
+  .itadm-section-card p {
+    margin: 0 0 10px;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .itadm-report-item {
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 20px;
+    background: #fff;
+    padding: 13px;
+    margin-bottom: 10px;
+  }
+
+  .itadm-report-item-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: flex-start;
+    margin-bottom: 10px;
+  }
+
+  .itadm-report-item-head b {
+    color: var(--navy,#172A45);
+    font-size: 14px;
+  }
+
+  .itadm-report-item-head small {
+    color: var(--muted,#74869A);
+    font-size: 11px;
+  }
+
+  .itadm-badge {
+    display: inline-flex;
+    border-radius: 999px;
+    padding: 5px 9px;
+    background: #F1F5F9;
+    color: #475569;
+    font-size: 10px;
+    font-weight: 850;
+  }
+
+  .itadm-note-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9400;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(23,42,69,.42);
+    backdrop-filter: blur(14px);
+  }
+
+  .itadm-note-modal.show {
+    display: flex;
+  }
+
+  .itadm-note-card {
+    width: min(440px,100%);
+    background: #fff;
+    border-radius: 28px;
+    border: 1px solid var(--line,#E6EEF4);
+    box-shadow: 0 32px 100px rgba(23,42,69,.26);
+    padding: 20px;
+  }
+
+  .itadm-note-card h3 {
+    margin: 0 0 6px;
+    color: var(--navy,#172A45);
+    font-size: 18px;
+  }
+
+  .itadm-note-card p {
+    margin: 0 0 12px;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  @media(max-width: 720px) {
+    .itadm-modal {
+      padding: 18px;
+      border-radius: 28px;
+    }
+
+    .itadm-grid2,
+    .itadm-grid3,
+    .itadm-photo-grid,
+    .itadm-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .itadm-actions .full {
+      grid-column: auto;
+    }
+
+    .itadm-photo-card img,
+    .itadm-photo-empty {
+      height: 170px;
+    }
+  }
+</style>
+
+<script id="itrack-admin-inline-action-script">
+(function(){
+  let activeMenu = null;
+  let noteResolve = null;
+
+  function isAdmin(){
+    try{
+      if(typeof currentRoleIsAdmin !== 'undefined' && currentRoleIsAdmin) return true;
+    }catch(e){}
+
+    try{
+      const u = typeof currentUser !== 'undefined'
+        ? currentUser
+        : JSON.parse(localStorage.getItem('iTrack_user') || '{}');
+
+      const role = String(u.ROLE || u.role || '').toUpperCase();
+      return role.indexOf('ADMIN') !== -1 || role.indexOf('SUPERVISOR') !== -1;
+    }catch(e){
+      return false;
+    }
+  }
+
+  function esc(v){
+    return String(v == null ? '' : v)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
+
+  function escAttr(v){
+    return esc(v).replace(/`/g,'&#096;');
+  }
+
+  function popup(type,title,msg){
+    if(window.showAppPopup){
+      window.showAppPopup(type,title,msg);
+      return;
+    }
+
+    if(window.showToast){
+      window.showToast(type,title,msg);
+      return;
+    }
+
+    alert((title || '') + '\n' + (msg || ''));
+  }
+
+  async function apiCall(action,payload){
+    if(typeof api === 'function'){
+      return await api(action,payload || {});
+    }
+
+    if(typeof API_URL === 'undefined'){
+      throw new Error('API_URL tidak ditemukan.');
+    }
+
+    const res = await fetch(API_URL,{
+      method:'POST',
+      headers:{
+        'Content-Type':'text/plain;charset=utf-8'
+      },
+      body:JSON.stringify({
+        action:action,
+        payload:payload || {}
+      })
+    });
+
+    return await res.json();
+  }
+
+  function normalizeImg(url){
+    if(window.iTrackNormalizeImageUrl){
+      return window.iTrackNormalizeImageUrl(url);
+    }
+
+    url = String(url || '').trim();
+
+    const m =
+      url.match(/\/d\/([a-zA-Z0-9_-]+)/) ||
+      url.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
+      url.match(/open\?id=([a-zA-Z0-9_-]+)/);
+
+    if(m && m[1]){
+      return 'https://drive.google.com/uc?export=view&id=' + m[1];
+    }
+
+    return url;
+  }
+
+  function openImage(url){
+    url = normalizeImg(url);
+
+    if(window.iTrackOpenImagePreview){
+      window.iTrackOpenImagePreview(url);
+    }else{
+      window.open(url,'_blank');
+    }
+  }
+
+  function getAny(row,keys){
+    row = row || {};
+
+    for(let i=0;i<keys.length;i++){
+      if(row[keys[i]] !== undefined && row[keys[i]] !== null && row[keys[i]] !== ''){
+        return row[keys[i]];
+      }
+    }
+
+    return '';
+  }
+
+  function findIdFromText(text,type){
+    text = String(text || '');
+
+    const patterns = type === 'attendance'
+      ? [
+          /(ABSROW-[A-Z0-9\-]+)/i,
+          /(ABS-[A-Z0-9\-]+)/i,
+          /(ATT-[A-Z0-9\-]+)/i,
+          /(ATTENDANCE-[A-Z0-9\-]+)/i
+        ]
+      : [
+          /(LAPROW-[A-Z0-9\-]+)/i,
+          /(LAP\/ITRACK\/OJKDIY\/[A-Z0-9\/\-]+)/i,
+          /(LAP-[A-Z0-9\-]+)/i,
+          /(REPORT-[A-Z0-9\-]+)/i
+        ];
+
+    for(let i=0;i<patterns.length;i++){
+      const m = text.match(patterns[i]);
+      if(m && m[1]) return m[1];
+    }
+
+    return '';
+  }
+
+  function extractRowId(row,type){
+    if(!row) return '';
+
+    const ds = type === 'attendance'
+      ? ['attendanceId','idAbsensi','attId','id']
+      : ['reportId','idLaporan','lapId','id'];
+
+    for(let i=0;i<ds.length;i++){
+      if(row.dataset && row.dataset[ds[i]]) return row.dataset[ds[i]];
+    }
+
+    const attrs = type === 'attendance'
+      ? ['data-attendance-id','data-id-absensi','data-att-id','data-id']
+      : ['data-report-id','data-id-laporan','data-lap-id','data-id'];
+
+    for(let i=0;i<attrs.length;i++){
+      const v = row.getAttribute(attrs[i]);
+      if(v) return v;
+    }
+
+    /*
+     * Coba cari dari tombol detail yang sudah ada.
+     */
+    const detailBtn = row.querySelector('[data-id], [data-report-id], [data-attendance-id], .detail-report, .detail-attendance');
+    if(detailBtn){
+      const v =
+        detailBtn.getAttribute('data-id') ||
+        detailBtn.getAttribute('data-report-id') ||
+        detailBtn.getAttribute('data-attendance-id');
+
+      if(v) return v;
+    }
+
+    return findIdFromText(row.innerText || row.textContent || '', type);
+  }
+
+  function ensureModal(){
+    if(document.getElementById('itadmModal')) return;
+
+    const el = document.createElement('div');
+    el.id = 'itadmModal';
+    el.className = 'itadm-modal-backdrop';
+    el.innerHTML = `
+      <div class="itadm-modal">
+        <div class="itadm-modal-head">
+          <div>
+            <h2 id="itadmModalTitle">Detail Admin</h2>
+            <p id="itadmModalSub">Kelola data operasional.</p>
+          </div>
+          <button type="button" class="itadm-close" id="itadmCloseModal">Tutup</button>
+        </div>
+        <div id="itadmModalBody"></div>
+      </div>
+    `;
+
+    document.body.appendChild(el);
+
+    document.getElementById('itadmCloseModal').addEventListener('click',function(){
+      el.classList.remove('show');
+    });
+  }
+
+  function showModal(title,sub,html){
+    ensureModal();
+
+    document.getElementById('itadmModalTitle').textContent = title || 'Detail Admin';
+    document.getElementById('itadmModalSub').textContent = sub || '';
+    document.getElementById('itadmModalBody').innerHTML = html || '';
+    document.getElementById('itadmModal').classList.add('show');
+  }
+
+  function ensureNoteModal(){
+    if(document.getElementById('itadmNoteModal')) return;
+
+    const el = document.createElement('div');
+    el.id = 'itadmNoteModal';
+    el.className = 'itadm-note-modal';
+    el.innerHTML = `
+      <div class="itadm-note-card">
+        <h3 id="itadmNoteTitle">Catatan Admin</h3>
+        <p id="itadmNoteSub">Tambahkan catatan jika diperlukan.</p>
+        <div class="field">
+          <textarea id="itadmNoteText" placeholder=" "></textarea>
+          <label>Catatan</label>
+        </div>
+        <div class="itadm-actions">
+          <button type="button" class="btn btn-secondary" id="itadmNoteCancel">Batal</button>
+          <button type="button" class="btn btn-primary" id="itadmNoteOk">Lanjutkan</button>
+        </div>
+      </div>
+    `;
+
+    document.body.appendChild(el);
+
+    document.getElementById('itadmNoteCancel').addEventListener('click',function(){
+      el.classList.remove('show');
+      if(noteResolve) noteResolve(null);
+      noteResolve = null;
+    });
+
+    document.getElementById('itadmNoteOk').addEventListener('click',function(){
+      const text = document.getElementById('itadmNoteText').value || '';
+      el.classList.remove('show');
+      if(noteResolve) noteResolve(text);
+      noteResolve = null;
+    });
+  }
+
+  function askNote(title,sub){
+    ensureNoteModal();
+
+    document.getElementById('itadmNoteTitle').textContent = title || 'Catatan Admin';
+    document.getElementById('itadmNoteSub').textContent = sub || 'Tambahkan catatan jika diperlukan.';
+    document.getElementById('itadmNoteText').value = '';
+    document.getElementById('itadmNoteModal').classList.add('show');
+
+    return new Promise(function(resolve){
+      noteResolve = resolve;
+    });
+  }
+
+  function ensureMenu(){
+    if(document.getElementById('itadmActionMenu')) return;
+
+    const menu = document.createElement('div');
+    menu.id = 'itadmActionMenu';
+    menu.className = 'itadm-action-menu';
+    document.body.appendChild(menu);
+
+    document.addEventListener('click',function(e){
+      if(activeMenu && !menu.contains(e.target) && !e.target.closest('.itadm-action-btn')){
+        closeMenu();
+      }
+    });
+  }
+
+  function closeMenu(){
+    const menu = document.getElementById('itadmActionMenu');
+    if(menu) menu.classList.remove('show');
+    activeMenu = null;
+  }
+
+  function openMenu(btn,type,id){
+    ensureMenu();
+
+    if(!id){
+      popup(
+        'warning',
+        'ID tidak ditemukan',
+        type === 'attendance'
+          ? 'ID Absensi tidak ditemukan pada baris ini.'
+          : 'ID Laporan tidak ditemukan pada baris ini.'
+      );
+      return;
+    }
+
+    const menu = document.getElementById('itadmActionMenu');
+
+    if(type === 'attendance'){
+      menu.innerHTML = `
+        <button type="button" class="itadm-menu-item" data-act="att-detail">📷 Detail/Edit Absensi</button>
+        <button type="button" class="itadm-menu-item success" data-act="att-valid">✓ Tandai Valid</button>
+        <button type="button" class="itadm-menu-item warning" data-act="att-review">! Perlu Review</button>
+        <button type="button" class="itadm-menu-item danger" data-act="att-reject">× Tolak</button>
+      `;
+    }else{
+      menu.innerHTML = `
+        <button type="button" class="itadm-menu-item" data-act="rep-detail">📄 Detail/Edit Laporan</button>
+        <button type="button" class="itadm-menu-item success" data-act="rep-approve">✓ Setujui</button>
+        <button type="button" class="itadm-menu-item warning" data-act="rep-revision">! Minta Revisi</button>
+        <button type="button" class="itadm-menu-item danger" data-act="rep-reject">× Tolak</button>
+      `;
+    }
+
+    menu.querySelectorAll('[data-act]').forEach(function(item){
+      item.addEventListener('click',function(){
+        handleAction(item.getAttribute('data-act'), id);
+        closeMenu();
+      });
+    });
+
+    const rect = btn.getBoundingClientRect();
+
+    menu.style.left = Math.min(rect.left, window.innerWidth - 210) + 'px';
+    menu.style.top = Math.min(rect.bottom + 8, window.innerHeight - 240) + 'px';
+    menu.classList.add('show');
+    activeMenu = menu;
+  }
+
+  async function handleAction(action,id){
+    if(action === 'att-detail') return loadAttendanceDetail(id);
+    if(action === 'att-valid') return quickAttendance(id,'VALID');
+    if(action === 'att-review') return quickAttendance(id,'PERLU_REVIEW');
+    if(action === 'att-reject') return quickAttendance(id,'DITOLAK');
+
+    if(action === 'rep-detail') return loadReportDetail(id);
+    if(action === 'rep-approve') return quickReport(id,'DISETUJUI');
+    if(action === 'rep-revision') return quickReport(id,'REVISI');
+    if(action === 'rep-reject') return quickReport(id,'DITOLAK');
+  }
+
+  async function quickAttendance(id,status){
+    let note = '';
+
+    if(status !== 'VALID'){
+      note = await askNote(
+        status === 'PERLU_REVIEW' ? 'Catatan Review Absensi' : 'Catatan Penolakan Absensi',
+        'Catatan ini akan disimpan sebagai catatan validasi.'
+      );
+
+      if(note === null) return;
+    }
+
+    try{
+      const res = await apiCall('adminUpdateAttendance',{
+        idAbsensi:id,
+        statusValidasi:status,
+        catatanValidasi:note || (status === 'VALID' ? 'Divalidasi admin.' : '')
+      });
+
+      if(!res || !res.success){
+        throw new Error(res && res.message ? res.message : 'Aksi absensi gagal.');
+      }
+
+      popup('success','Absensi diperbarui','Status validasi absensi berhasil diperbarui.');
+
+      safeRefreshAdminTables();
+    }catch(error){
+      popup('error','Aksi gagal',error.message);
+    }
+  }
+
+  async function quickReport(id,status){
+    let note = '';
+
+    if(status !== 'DISETUJUI'){
+      note = await askNote(
+        status === 'REVISI' ? 'Catatan Revisi Laporan' : 'Catatan Penolakan Laporan',
+        'Catatan ini akan tampil sebagai catatan admin.'
+      );
+
+      if(note === null) return;
+    }
+
+    try{
+      const res = await apiCall('adminUpdateWorkReportStatus',{
+        reportId:id,
+        statusLaporan:status,
+        catatanAdmin:note || (status === 'DISETUJUI' ? 'Disetujui admin.' : ''),
+        validatedBy:'Admin'
+      });
+
+      if(!res || !res.success){
+        throw new Error(res && res.message ? res.message : 'Aksi laporan gagal.');
+      }
+
+      popup('success','Laporan diperbarui','Status laporan berhasil diperbarui.');
+
+      safeRefreshAdminTables();
+    }catch(error){
+      popup('error','Aksi gagal',error.message);
+    }
+  }
+
+  function safeRefreshAdminTables(){
+    [
+      'loadAdminAttendance',
+      'loadAttendanceMonitoring',
+      'loadAdminReports',
+      'loadWorkReportsForAdmin',
+      'loadDashboardSummary'
+    ].forEach(function(fn){
+      try{
+        if(typeof window[fn] === 'function') window[fn]();
+      }catch(e){}
+    });
+  }
+
+  async function loadAttendanceDetail(id){
+    try{
+      const res = await apiCall('adminGetAttendanceDetail',{
+        idAbsensi:id
+      });
+
+      if(!res || !res.success){
+        throw new Error(res && res.message ? res.message : 'Detail absensi gagal dimuat.');
+      }
+
+      renderAttendanceModal(res.data);
+    }catch(error){
+      popup('error','Gagal memuat absensi',error.message);
+    }
+  }
+
+  function photoCard(label,url){
+    url = normalizeImg(url);
+
+    if(!url){
+      return `
+        <div class="itadm-photo-card">
+          <div class="itadm-photo-empty">Foto tidak tersedia</div>
+          <div>${esc(label)}</div>
+        </div>
+      `;
+    }
+
+    return `
+      <div class="itadm-photo-card">
+        <img src="${escAttr(url)}" alt="${escAttr(label)}" data  `;
+  }
+
+  function renderAttendanceModal(data){
+    showModal(
+      'Detail/Edit Absensi',
+      (data.namaLengkap || '-') + ' · ' + (data.tanggal || '-') + ' · ' + (data.divisi || '-'),
+      `
+        <div class="itadm-photo-grid">
+          ${photoCard('Foto Masuk', data.fotoMasukUrl)}
+          ${photoCard('Foto Pulang', data.fotoPulangUrl)}
+        </div>
+
+        <div class="itadm-section-card">
+          <h3>Koreksi Absensi</h3>
+          <p>Edit jam/status jika ada koreksi dari admin.</p>
+
+          <div class="itadm-grid2">
+            <div class="field">
+              <input id="itadmAttIn" type="time" placeholder=" " value="${escAttr(data.jamMasuk || '')}">
+              <label>Jam Masuk</label>
+            </div>
+            <div class="field">
+              <input id="itadmAttOut" type="time" placeholder=" " value="${escAttr(data.jamPulang || '')}">
+              <label>Jam Pulang</label>
+            </div>
+          </div>
+
+          <div class="itadm-grid2">
+            <div class="field">
+              <select id="itadmAttStatus">
+                ${options(['HADIR','TERLAMBAT','LUAR_LOKASI','DINAS_LUAR','IZIN','SAKIT','CUTI','ALPHA'], data.statusKehadiran)}
+              </select>
+              <label>Status Kehadiran</label>
+            </div>
+            <div class="field">
+              <select id="itadmAttValidation">
+                ${options(['VALID','PERLU_REVIEW','INVALID','DITOLAK'], data.statusValidasi)}
+              </select>
+              <label>Status Validasi</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <textarea id="itadmAttNote" placeholder=" ">${esc(data.catatanValidasi || '')}</textarea>
+            <label>Catatan Validasi</label>
+          </div>
+
+          <div class="field">
+            <textarea id="itadmAttDesc" placeholder=" ">${esc(data.keterangan || '')}</textarea>
+            <label>Keterangan</label>
+          </div>
+
+          <div class="itadm-actions">
+            <button type="button" class="btn btn-primary full" id="itadmSaveAttendance">Simpan Perubahan</button>
+          </div>
+        </div>
+      `
+    );
+
+    document.querySelectorAll('[data-itadm-img]').forEach(function(img){
+      img.addEventListener('click',function(){
+        openImage(img.getAttribute('data-itadm-img'));
+      });
+    });
+
+    document.getElementById('itadmSaveAttendance').addEventListener('click',async function(){
+      try{
+        const res = await apiCall('adminUpdateAttendance',{
+          idAbsensi:data.idAbsensi,
+          jamMasuk:document.getElementById('itadmAttIn').value,
+          jamPulang:document.getElementById('itadmAttOut').value,
+          statusKehadiran:document.getElementById('itadmAttStatus').value,
+          statusValidasi:document.getElementById('itadmAttValidation').value,
+          catatanValidasi:document.getElementById('itadmAttNote').value,
+          keterangan:document.getElementById('itadmAttDesc').value
+        });
+
+        if(!res || !res.success){
+          throw new Error(res && res.message ? res.message : 'Absensi gagal diperbarui.');
+        }
+
+        popup('success','Absensi diperbarui','Perubahan absensi berhasil disimpan.');
+        document.getElementById('itadmModal').classList.remove('show');
+        safeRefreshAdminTables();
+      }catch(error){
+        popup('error','Gagal menyimpan',error.message);
+      }
+    });
+  }
+
+  function options(list,selected){
+    selected = String(selected || '').toUpperCase();
+
+    return list.map(function(item){
+      const s = String(item).toUpperCase() === selected ? 'selected' : '';
+      return `<option value="${escAttr(item)}" ${s}>${esc(item)}</option>`;
+    }).join('');
+  }
+
+  async function loadReportDetail(id){
+    try{
+      const res = await apiCall('adminGetWorkReportFullDetail',{
+        reportId:id
+      });
+
+      if(!res || !res.success){
+        throw new Error(res && res.message ? res.message : 'Detail laporan gagal dimuat.');
+      }
+
+      renderReportModal(res.data);
+    }catch(error){
+      popup('error','Gagal memuat laporan',error.message);
+    }
+  }
+
+  function renderReportModal(data){
+    const report = data.report || {};
+    const items = data.items || [];
+
+    const reportId = getAny(report,['ID Laporan','REPORT_ID']);
+    const nama = getAny(report,['Nama Lengkap','NAMA_LENGKAP']);
+    const tanggal = getAny(report,['Tanggal','TANGGAL']);
+    const status = getAny(report,['Status Laporan','STATUS_LAPORAN']);
+    const note = getAny(report,['Catatan Admin','CATATAN_ADMIN']);
+
+    showModal(
+      'Detail/Edit Laporan Kerja',
+      (nama || '-') + ' · ' + (tanggal || '-') + ' · Status: ' + (status || '-'),
+      `
+        <div class="itadm-section-card">
+          <h3>Validasi Laporan</h3>
+          <p>Setujui, revisi, atau tolak laporan kerja peserta.</p>
+
+          <div class="itadm-grid3">
+            <div class="field">
+              <select id="itadmRepStatus">
+                ${options(['MENUNGGU','DISETUJUI','REVISI','DITOLAK'], status)}
+              </select>
+              <label>Status Laporan</label>
+            </div>
+            <div class="field">
+              <input id="itadmRepBy" type="text" placeholder=" " value="Admin">
+              <label>Divalidasi Oleh</label>
+            </div>
+            <div class="field">
+              <input type="text" placeholder=" " readonly value="${escAttr(reportId)}">
+              <label>ID Laporan</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <textarea id="itadmRepNote" placeholder=" ">${esc(note || '')}</textarea>
+            <label>Catatan Admin</label>
+          </div>
+
+          <div class="itadm-actions">
+            <button type="button" class="btn btn-primary full" id="itadmSaveReportStatus">Simpan Status Laporan</button>
+          </div>
+        </div>
+
+        <div class="itadm-section-card">
+          <h3>Detail Kegiatan</h3>
+          <p>Edit detail kegiatan jika ada koreksi.</p>
+
+          ${items.length ? items.map(function(item,index){
+            return renderReportItem(item,index);
+          }).join('') : '<div class="empty">Belum ada detail kegiatan.</div>'}
+        </div>
+      `
+    );
+
+    document.getElementById('itadmSaveReportStatus').addEventListener('click',async function(){
+      try{
+        const res = await apiCall('adminUpdateWorkReportStatus',{
+          reportId:reportId,
+          statusLaporan:document.getElementById('itadmRepStatus').value,
+          catatanAdmin:document.getElementById('itadmRepNote').value,
+          validatedBy:document.getElementById('itadmRepBy').value || 'Admin'
+        });
+
+        if(!res || !res.success){
+          throw new Error(res && res.message ? res.message : 'Status laporan gagal diperbarui.');
+        }
+
+        popup('success','Laporan diperbarui','Status laporan berhasil disimpan.');
+        safeRefreshAdminTables();
+      }catch(error){
+        popup('error','Gagal menyimpan',error.message);
+      }
+    });
+
+    document.querySelectorAll('[data-itadm-save-item]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        saveReportItem(btn.getAttribute('data-itadm-save-item'));
+      });
+    });
+
+    document.querySelectorAll('[data-itadm-delete-item]').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        deleteReportItem(btn.getAttribute('data-itadm-delete-item'));
+      });
+    });
+
+    document.querySelectorAll('[data-itadm-img]').forEach(function(img){
+      img.addEventListener('click',function(){
+        openImage(img.getAttribute('data-itadm-img'));
+      });
+    });
+  }
+
+  function renderReportItem(item,index){
+    const itemId = getAny(item,['ID Kegiatan','ITEM_ID']);
+    const start = normalizeTime(getAny(item,['Jam Mulai','JAM_MULAI']));
+    const end = normalizeTime(getAny(item,['Jam Selesai','JAM_SELESAI']));
+    const durasi = getAny(item,['Durasi','DURASI']);
+    const desc = getAny(item,['Uraian Kegiatan','URAIAN_KEGIATAN']);
+    const doc = normalizeImg(getAny(item,['URL Dokumentasi','DOKUMENTASI_URL']));
+
+    return `
+      <div class="itadm-report-item">
+        <div class="itadm-report-item-head">
+          <div>
+            <b>Kegiatan ${index + 1}</b><br>
+            <small>${esc(start || '-')} - ${esc(end || '-')} · ${esc(durasi || '-')}</small>
+          </div>
+          <span class="itadm-badge">${esc(itemId)}</span>
+        </div>
+
+        <div class="itadm-grid2">
+          <div class="field">
+            <input id="itadmItemStart_${escAttr(itemId)}" type="time" placeholder=" " value="${escAttr(start)}">
+            <label>Jam Mulai</label>
+          </div>
+          <div class="field">
+            <input id="itadmItemEnd_${escAttr(itemId)}" type="time" placeholder=" " value="${escAttr(end)}">
+            <label>Jam Selesai</label>
+          </div>
+        </div>
+
+        <div class="field">
+          <textarea id="itadmItemDesc_${escAttr(itemId)}" placeholder=" ">${esc(desc || '')}</textarea>
+          <label>Uraian Kegiatan</label>
+        </div>
+
+        <div class="field">
+          <input id="itadmItemDoc_${escAttr(itemId)}" type="text" placeholder=" " value="${escAttr(doc || '')}">
+          <label>URL Dokumentasi</label>
+        </div>
+
+        ${doc ? `
+          <div class="itadm-photo-grid">
+            <div class="itadm-photo-card">
+              ${escAttr(doc)}
+              <div>Dokumentasi kegiatan · Tap untuk perbesar</div>
+            </div>
+          </div>
+        ` : ''}
+
+        <div class="itadm-actions">
+          <button type="button" class="btn btn-primary" data-itadm-save-item="${escAttr(itemId)}">Simpan Detail</button>
+          <button type="button" class="btn btn-red" data-itadm-delete-item="${escAttr(itemId)}">Hapus Detail</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function normalizeTime(value){
+    value = String(value || '');
+    const m = value.match(/(\d{1,2}):(\d{2})/);
+
+    if(m){
+      return String(m[1]).padStart(2,'0') + ':' + m[2];
+    }
+
+    return value;
+  }
+
+  async function saveReportItem(itemId){
+    try{
+      const res = await apiCall('adminUpdateWorkReportDetail',{
+        itemId:itemId,
+        jamMulai:document.getElementById('itadmItemStart_' + itemId).value,
+        jamSelesai:document.getElementById('itadmItemEnd_' + itemId).value,
+        uraianKegiatan:document.getElementById('itadmItemDesc_' + itemId).value,
+        dokumentasiUrl:document.getElementById('itadmItemDoc_' + itemId).value
+      });
+
+      if(!res || !res.success){
+        throw new Error(res && res.message ? res.message : 'Detail kegiatan gagal diperbarui.');
+      }
+
+      popup('success','Detail diperbarui','Detail kegiatan berhasil disimpan.');
+      safeRefreshAdminTables();
+    }catch(error){
+      popup('error','Gagal menyimpan detail',error.message);
+    }
+  }
+
+  async function deleteReportItem(itemId){
+    const note = await askNote(
+      'Hapus Detail Kegiatan',
+      'Tambahkan alasan penghapusan detail kegiatan jika diperlukan.'
+    );
+
+    if(note === null) return;
+
+    try{
+      const res = await apiCall('adminDeleteWorkReportDetail',{
+        itemId:itemId,
+        note:note
+      });
+
+      if(!res || !res.success){
+        throw new Error(res && res.message ? res.message : 'Detail kegiatan gagal dihapus.');
+      }
+
+      popup('success','Detail dihapus','Detail kegiatan berhasil dihapus.');
+      safeRefreshAdminTables();
+
+      const modal = document.getElementById('itadmModal');
+      if(modal) modal.classList.remove('show');
+    }catch(error){
+      popup('error','Gagal menghapus detail',error.message);
+    }
+  }
+
+  function askNote(title,sub){
+    return new Promise(function(resolve){
+      if(!document.getElementById('itadmInlineNote')){
+        const el = document.createElement('div');
+        el.id = 'itadmInlineNote';
+        el.className = 'itadm-note-modal';
+        el.innerHTML = `
+          <div class="itadm-note-card">
+            <h3 id="itadmInlineNoteTitle">Catatan Admin</h3>
+            <p id="itadmInlineNoteSub">Tambahkan catatan jika diperlukan.</p>
+            <div class="field">
+              <textarea id="itadmInlineNoteText" placeholder=" "></textarea>
+              <label>Catatan</label>
+            </div>
+            <div class="itadm-actions">
+              <button type="button" class="btn btn-secondary" id="itadmInlineNoteCancel">Batal</button>
+              <button type="button" class="btn btn-primary" id="itadmInlineNoteOk">Lanjutkan</button>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(el);
+      }
+
+      const modal = document.getElementById('itadmInlineNote');
+
+      document.getElementById('itadmInlineNoteTitle').textContent = title || 'Catatan Admin';
+      document.getElementById('itadmInlineNoteSub').textContent = sub || 'Tambahkan catatan jika diperlukan.';
+      document.getElementById('itadmInlineNoteText').value = '';
+
+      modal.classList.add('show');
+
+      document.getElementById('itadmInlineNoteCancel').onclick = function(){
+        modal.classList.remove('show');
+        resolve(null);
+      };
+
+      document.getElementById('itadmInlineNoteOk').onclick = function(){
+        const text = document.getElementById('itadmInlineNoteText').value || '';
+        modal.classList.remove('show');
+        resolve(text);
+      };
+    });
+  }
+
+  function addHeaderIfNeeded(table){
+    if(!table) return;
+
+    const headRow = table.querySelector('thead tr');
+    if(!headRow) return;
+
+    if(headRow.querySelector('.itadm-action-th')) return;
+
+    const th = document.createElement('th');
+    th.className = 'itadm-action-th';
+    th.textContent = 'Aksi';
+
+    headRow.appendChild(th);
+  }
+
+  function enhanceRows(){
+    if(!isAdmin()) return;
+
+    const configs = [
+      {
+        type:'attendance',
+        selectors:[
+          '#adminAttendanceRows tr',
+          '#adminHomeAttendanceRows tr',
+          '#attendanceRows tr',
+          'table[data-admin-attendance] tbody tr'
+        ]
+      },
+      {
+        type:'report',
+        selectors:[
+          '#adminReportRows tr',
+          '#workReportRows tr',
+          '#reportRows tr',
+          'table[data-admin-report] tbody tr'
+        ]
+      }
+    ];
+
+    configs.forEach(function(config){
+      config.selectors.forEach(function(selector){
+        document.querySelectorAll(selector).forEach(function(row){
+          enhanceRow(row,config.type);
+        });
+      });
+    });
+  }
+
+  function enhanceRow(row,type){
+    if(!row || row.getAttribute('data-itadm-inline-' + type) === '1') return;
+
+    const table = row.closest('table');
+    addHeaderIfNeeded(table);
+
+    const id = extractRowId(row,type);
+
+    row.setAttribute('data-itadm-inline-' + type,'1');
+
+    const td = document.createElement('td');
+    td.className = 'itadm-action-td';
+    td.setAttribute('data-label','Aksi');
+
+    const wrap = document.createElement('div');
+    wrap.className = 'itadm-action-wrap';
+
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'itadm-action-btn ' + type;
+    btn.innerHTML = type === 'attendance' ? 'Aksi Absensi ▾' : 'Aksi Laporan ▾';
+
+    btn.addEventListener('click',function(e){
+      e.stopPropagation();
+      e.preventDefault();
+
+      const dynamicId = extractRowId(row,type) || id;
+      openMenu(btn,type,dynamicId);
+    });
+
+    wrap.appendChild(btn);
+    td.appendChild(wrap);
+    row.appendChild(td);
+  }
+
+  function safeRefreshAdminTables(){
+    [
+      'loadAdminAttendance',
+      'loadAttendanceMonitoring',
+      'loadAdminReports',
+      'loadWorkReportsForAdmin',
+      'loadDashboardSummary'
+    ].forEach(function(fn){
+      try{
+        if(typeof window[fn] === 'function') window[fn]();
+      }catch(e){}
+    });
+  }
+
+  const observer = new MutationObserver(function(){
+    enhanceRows();
+  });
+
+  document.addEventListener('DOMContentLoaded',function(){
+    ensureModal();
+    ensureMenu();
+
+    observer.observe(document.body,{
+      childList:true,
+      subtree:true
+    });
+
+    setInterval(enhanceRows,1000);
+  });
+
+  window.iTrackAdminInlineActionsRefresh = enhanceRows;
 })();
 </script>
 </body></html>
