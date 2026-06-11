@@ -1,5 +1,49 @@
-const CACHE_NAME='itrack-ojk-diy-v6';
-const APP_SHELL=['./','./id.html','./manifest.webmanifest'];
-self.addEventListener('install',event=>{event.waitUntil(caches.open(CACHE_NAME).then(cache=>cache.addAll(APP_SHELL)).catch(()=>null));self.skipWaiting();});
-self.addEventListener('activate',event=>{event.waitUntil(caches.keys().then(keys=>Promise.all(keys.filter(key=>key!==CACHE_NAME).map(key=>caches.delete(key)))));self.clients.claim();});
-self.addEventListener('fetch',event=>{const req=event.request;if(req.method!=='GET')return;event.respondWith(fetch(req).then(res=>{const copy=res.clone();caches.open(CACHE_NAME).then(cache=>cache.put(req,copy)).catch(()=>null);return res;}).catch(()=>caches.match(req).then(cached=>cached||caches.match('./id.html'))));});
+const CACHE_NAME = 'itrack-pwa-v1';
+
+const APP_SHELL = [
+  './',
+  './id',
+  './manifest.webmanifest'
+];
+
+self.addEventListener('install', function(event) {
+  self.skipWaiting();
+
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(function(cache) {
+      return cache.addAll(APP_SHELL).catch(function() {
+        return Promise.resolve();
+      });
+    })
+  );
+});
+
+self.addEventListener('activate', function(event) {
+  event.waitUntil(
+    caches.keys().then(function(keys) {
+      return Promise.all(
+        keys
+          .filter(function(key) {
+            return key !== CACHE_NAME;
+          })
+          .map(function(key) {
+            return caches.delete(key);
+          })
+      );
+    }).then(function() {
+      return self.clients.claim();
+    })
+  );
+});
+
+self.addEventListener('fetch', function(event) {
+  if (event.request.method !== 'GET') return;
+
+  event.respondWith(
+    fetch(event.request).catch(function() {
+      return caches.match(event.request).then(function(response) {
+        return response || caches.match('./id');
+      });
+    })
+  );
+});
