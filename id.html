@@ -1,20 +1,41 @@
 <!doctype html>
 <html lang="id">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#4BA9D9">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="default">
-<meta name="apple-mobile-web-app-title" content="iTrack">
-<title>iTrack Internship OJK DIY</title>
-<link rel="manifest" href="./manifest.webmanifest">
-<link rel="icon" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
-<link rel="apple-touch-icon" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
-<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+
+  <title>iTrack Internship OJK DIY</title>
+
+  <!-- Theme / PWA -->
+  <meta name="theme-color" content="#4BA9D9">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <!-- iOS Safari Web App -->
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="iTrack">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+
+  <!-- Mobile behavior -->
+  <meta name="format-detection" content="telephone=no">
+  <meta name="application-name" content="iTrack">
+  <meta name="msapplication-TileColor" content="#4BA9D9">
+  <meta name="msapplication-tap-highlight" content="no">
+
+  <!-- Manifest -->
+  <link rel="manifest" href="./manifest.webmanifest">
+
+  <!-- Icons from ImageKit -->
+  <link rel="icon" type="image/png" sizes="192x192" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
+  <link rel="icon" type="image/png" sizes="512x512" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
+  <link rel="apple-touch-icon" sizes="180x180" href="https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938">
+
+  <!-- Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+
 :root{--blue:#4BA9D9;--blue2:#2F8FC4;--blue3:#EAF7FD;--navy:#172A45;--ink:#26384F;--muted:#74869A;--bg:#F6FAFD;--line:#E6EEF4;--green:#3DBB86;--orange:#F59B45;--red:#E85D5D;--purple:#8B7CF6;--shadow:0 28px 80px rgba(30,70,98,.14);--soft:0 12px 32px rgba(30,70,98,.08);--safe:env(safe-area-inset-bottom,0px);--logo:url('https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938')}*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}html,body{margin:0;min-height:100%;font-family:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink)}button,input,select,textarea{font-family:inherit}button{cursor:pointer}a{color:var(--blue2);font-weight:600;text-decoration:none}.hidden{display:none!important}.logo{background:var(--logo) center/contain no-repeat}.mono-icon{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}@keyframes spin{to{transform:rotate(360deg)}}@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}@keyframes shimmer{0%{background-position:-220% 0}100%{background-position:220% 0}}
 .splash{position:fixed;inset:0;z-index:5000;display:grid;place-items:center;background:linear-gradient(145deg,#F5FCFF,#E5F6FC);transition:.5s}.splash.hide{opacity:0;visibility:hidden;pointer-events:none}.splash-logo{width:108px;height:108px;margin:auto;border-radius:32px;background:#fff var(--logo) center/74% no-repeat;box-shadow:var(--shadow);position:relative}.splash-logo:after{content:"";position:absolute;inset:-8px;border-radius:40px;border:3px solid rgba(75,169,217,.18);border-top-color:var(--blue);animation:spin .8s linear infinite}.splash h1{margin:18px 0 5px;color:var(--navy);font-size:34px}.splash p{margin:0;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase}.loading{position:fixed;inset:0;z-index:4500;display:none;place-items:center;background:rgba(23,42,69,.36);backdrop-filter:blur(14px);padding:18px}.loading.show{display:grid}.loading-card{width:min(380px,100%);background:#fff;border:1px solid var(--line);border-radius:30px;box-shadow:0 28px 82px rgba(23,42,69,.22);padding:26px;text-align:center;animation:rise .2s}.loader{width:70px;height:70px;margin:0 auto 15px;border-radius:24px;background:linear-gradient(145deg,var(--blue3),#fff);display:grid;place-items:center}.loader:before{content:"";width:44px;height:44px;border-radius:999px;border:4px solid rgba(75,169,217,.17);border-top-color:var(--blue);animation:spin .75s linear infinite}.loading h3{margin:0 0 7px;color:var(--navy);font-size:17px}.loading p{margin:0;color:var(--muted);font-size:12px;line-height:1.55}.progress-line{height:7px;background:#EEF6FA;border-radius:999px;margin-top:16px;overflow:hidden}.progress-line span{display:block;width:50%;height:100%;border-radius:999px;background:linear-gradient(90deg,transparent,var(--blue),transparent);background-size:220% 100%;animation:shimmer 1.1s linear infinite}.toast{position:fixed;z-index:4600;left:50%;top:18px;transform:translateX(-50%);width:min(440px,calc(100% - 28px));display:none}.toast.show{display:block}.toast-card{background:#fff;border:1px solid var(--line);border-radius:22px;box-shadow:var(--shadow);padding:14px 16px;display:flex;gap:12px;animation:rise .18s}.toast-ico{width:36px;height:36px;border-radius:14px;display:grid;place-items:center;background:var(--blue3);color:var(--blue2);font-weight:700;flex:0 0 auto}.toast-card.success .toast-ico{background:#DCFCE7;color:#166534}.toast-card.error .toast-ico{background:#FEE2E2;color:#991B1B}.toast-card.warning .toast-ico{background:#FEF3C7;color:#92400E}.toast h3{margin:0 0 3px;color:var(--navy);font-size:13px}.toast p{margin:0;color:var(--muted);font-size:12px;line-height:1.5}.btn{border:0;min-height:48px;border-radius:16px;padding:11px 16px;display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:13px;font-weight:600;transition:.16s;white-space:nowrap}.btn:active{transform:scale(.985)}.btn:disabled{opacity:.56;cursor:not-allowed}.btn-primary{background:linear-gradient(135deg,var(--blue),#62B9E3);color:#fff;box-shadow:0 16px 30px rgba(75,169,217,.22)}.btn-secondary{background:#fff;color:var(--navy);border:1px solid var(--line)}.btn-green{background:#E5F8EF;color:#217A58}.btn-orange{background:#FFF0DF;color:#996018}.btn-red{background:#FEEAEA;color:#9C2A2A}.btn-full{width:100%}.btn-mini{min-height:34px;border-radius:12px;padding:7px 10px;font-size:11px}.text-btn{border:0;background:transparent;color:var(--blue2);font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.06em;padding:0}.field{position:relative}.field input,.field select,.field textarea{width:100%;min-height:58px;border:1.35px solid var(--line);background:#fff;border-radius:16px;outline:0;color:var(--ink);padding:21px 14px 7px;font-size:13px;font-weight:400;transition:.16s;box-shadow:0 7px 18px rgba(30,70,98,.025)}.field textarea{min-height:118px;resize:vertical;line-height:1.55}.field label{position:absolute;left:14px;top:17px;color:#9AABBB;font-size:12px;font-weight:400;pointer-events:none;transition:.15s}.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 4px rgba(75,169,217,.13)}.field input:focus+label,.field input:not(:placeholder-shown)+label,.field textarea:focus+label,.field textarea:not(:placeholder-shown)+label,.field select:focus+label,.field select:valid+label{top:6px;font-size:9px;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--blue2)}.pw input{padding-right:50px}.pw button{position:absolute;right:9px;top:9px;width:40px;height:40px;border:0;border-radius:14px;background:#F7FAFC;color:#8A99AB}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stack{display:grid;gap:12px}
 .auth-page{min-height:100dvh;padding:18px;display:grid;place-items:center;background:radial-gradient(circle at top left,rgba(75,169,217,.16),transparent 30%),radial-gradient(circle at bottom right,rgba(47,143,196,.13),transparent 34%),#F6FAFD}.auth-shell{width:min(1320px,100%);min-height:735px;display:grid;grid-template-columns:1.13fr .87fr;overflow:hidden;border-radius:34px;background:#fff;border:1px solid rgba(226,238,244,.95);box-shadow:var(--shadow)}.video-panel{position:relative;overflow:hidden;background:linear-gradient(160deg,#7ECBEF,#3EA2D0)}.video-card{position:relative;height:100%;min-height:735px;overflow:hidden}.video-card video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.30;filter:saturate(1.03) contrast(1.02)}.video-card:before{content:"";position:absolute;inset:0;z-index:1;background:radial-gradient(circle at 18% 14%,rgba(255,255,255,.25),transparent 20%),radial-gradient(circle at 88% 90%,rgba(255,255,255,.16),transparent 30%),linear-gradient(160deg,rgba(102,188,229,.82),rgba(47,143,196,.78))}.login-left-content{position:relative;z-index:4;min-height:735px;padding:46px 48px;display:flex;flex-direction:column;justify-content:space-between;color:#fff}.login-brand{display:flex;align-items:center;gap:14px}.login-brand-logo{width:60px;height:60px;border-radius:18px;background:rgba(255,255,255,.96) var(--logo) center/74% no-repeat;box-shadow:0 16px 34px rgba(20,70,98,.14)}.login-brand-title strong{display:block;font-size:20px;font-weight:700}.login-brand-title span{display:block;margin-top:4px;font-size:12px;opacity:.82}.login-hero-copy{max-width:520px;margin-top:58px}.login-hero-line{width:46px;height:4px;border-radius:999px;background:rgba(255,255,255,.86);margin-bottom:22px}.login-hero-copy h1{margin:0;font-size:clamp(42px,4.4vw,62px);line-height:.99;letter-spacing:-2.2px;font-weight:700}.login-hero-copy p{margin:22px 0 0;max-width:465px;font-size:14px;line-height:1.8;color:rgba(255,255,255,.86)}.login-feature-list{display:grid;gap:13px;margin-top:34px;max-width:520px}.login-feature{display:grid;grid-template-columns:48px 1fr;gap:13px;align-items:center;padding:14px 16px;border-radius:20px;background:rgba(255,255,255,.13);border:1px solid rgba(255,255,255,.18);backdrop-filter:blur(12px)}.login-feature-icon{width:40px;height:40px;border-radius:14px;background:rgba(255,255,255,.18);display:grid;place-items:center;color:#fff}.login-feature-icon svg{width:21px;height:21px;stroke:#fff;fill:none;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}.login-feature b{display:block;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#fff;font-weight:700}.login-feature span{display:block;margin-top:4px;font-size:11px;line-height:1.45;color:rgba(255,255,255,.78)}.auth-panel{padding:52px 76px;display:grid;align-items:center;background:radial-gradient(circle at top right,rgba(75,169,217,.08),transparent 24%),#fff}.auth-form{width:100%;max-width:480px;margin:auto;display:none;animation:rise .24s}.auth-form.active{display:block}.auth-kicker{width:max-content;margin-bottom:16px;padding:8px 13px;border-radius:999px;background:var(--blue3);color:var(--blue2);font-size:11px;font-weight:600}.heading h1,.heading h2{margin:0;color:var(--navy);font-size:34px;line-height:1.08;letter-spacing:-1.2px;font-weight:700}.heading p{margin:12px 0 24px;color:var(--muted);font-size:14px;line-height:1.75}.workspace-btn{width:100%;min-height:50px;border-radius:16px;border:1px solid var(--line);background:#fff;color:var(--ink);font-weight:500;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 8px 22px rgba(30,70,98,.035);margin-bottom:18px}.workspace-btn span{width:23px;height:23px;display:grid;place-items:center;border-radius:999px;background:#F2F7FA;color:#4285F4;font-weight:700}.auth-divider{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:13px;margin:16px 0 18px;color:#B1BDCA;font-size:10px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}.auth-divider:before,.auth-divider:after{content:"";height:1px;background:#E8EFF4}.login-actions-row{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:10px 0 14px}.auth-note{margin-top:18px;border-radius:18px;border:1px solid #E8EFF4;background:#F8FAFC;padding:15px 16px;color:var(--muted);font-size:12px;line-height:1.65}
@@ -29,10 +50,34 @@
 @media(max-width:1080px){.app{grid-template-columns:1fr}.quick-card{min-height:112px!important}.map-preview-grid{grid-template-columns:1fr}.mini-map-card iframe{height:145px}.gps-toolbox{grid-template-columns:1fr}.preview-actions{grid-template-columns:1fr}.preview-actions .btn-primary{grid-column:auto}}
 
 </style>
+
+<style id="itrack-final-mobile-pwa-safety-css">
+  #itaAdminFab,#itaMiniToolbar{display:none!important;}
+  th.itadm-action-th + th.itadm-action-th,
+  td.itadm-action-td + td.itadm-action-td{display:none!important;}
+  @supports (-webkit-touch-callout:none){
+    input,select,textarea,button{font-size:16px;}
+    html,body{overflow-x:hidden;-webkit-text-size-adjust:100%;}
+  }
+</style>
 </head><body>
+<script id="itrack-ios-safe-boot">
+(function(){
+  var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  if (!isIOS) return;
+  try {
+    Object.keys(localStorage).forEach(function(key){
+      var value = localStorage.getItem(key) || '';
+      if (key.indexOf('iTrack_workDraft_') === 0 && value.length > 250000) localStorage.removeItem(key);
+    });
+  } catch(e) {}
+  window.__ITRACK_IOS_SAFE_MODE__ = true;
+})();
+</script>
+
 <div id="splash" class="splash"><div style="text-align:center"><div class="splash-logo"></div><h1>iTrack</h1><p>Internship Tracker</p></div></div><div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loading-card"><div class="loader"></div><h3 id="loadingTitle">Memproses...</h3><p id="loadingText">Mohon tunggu sebentar.</p><div class="progress-line"><span></span></div></div></div><div id="authPage" class="auth-page"></div><div id="appPage" class="app hidden"></div><div id="outsideAttendanceModal" class="modal"></div><div id="detailModal" class="modal"></div><div id="itStage1Modal" class="it-stage1-modal"><div class="it-stage1-card" id="itStage1ModalCard"></div></div>
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbzZKHOmczzn6yWCBIAZCEAZAC1g7PEhfUuVoqXWR_0Gy5FZdzlCCoRCLl_5mceZd74z/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
+const API_URL='https://script.google.com/macros/s/AKfycbzxw845lI9SIHZhUreedatazvGzYGupbehK6HwOP5QpKOvEkQW0vJ177VEhhuj8805akg/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
 let currentUser=null,currentRoleIsAdmin=false,settings={APP_NAME:'iTrack Internship OJK DIY',APP_SHORT_NAME:'iTrack',APP_LOGO_URL:DEFAULT_LOGO,OFFICE_NAME:'Kantor OJK DIY',OFFICE_ADDRESS:'Jalan Jenderal Sudirman No. 22, Gowongan, Jetis, Yogyakarta 55232',OFFICE_LATITUDE:-7.7830584,OFFICE_LONGITUDE:110.3687544,OFFICE_RADIUS_METER:100,LATE_AFTER:'08:15',WORK_END_TIME:'17:00',ADMIN_NOTIFICATION_EMAIL:''};let currentCameraMode='in',cameraStream=null,capturedBase64='',currentLocation=null,currentDistance=null,serverTimeData=null,workItemCounter=0,isSubmittingAttendance=false;let state={today:null,adminAttendance:[],attendanceFilter:'SEMUA',retryPayload:null,retryAction:'',retryMode:'',recent:[],calendar:[],exportLogs:[],alerts:{}};
 const META={'user-home':['Dashboard','Hari ini'],'user-attendance':['Riwayat Absensi','Data saya'],'user-work':['Laporan','Catat kegiatan'],'user-leave':['Izin','Ajukan izin'],'user-profile':['Profil','Data akun'],'user-calendar':['Kalender','Kehadiran'],'user-progress':['Progress','Magang'],'admin-home':['Dashboard Admin','Monitoring'],'admin-attendance':['Absensi','Monitoring'],'admin-reports':['Laporan','Validasi'],'admin-leaves':['Izin','Approval'],'admin-menu':['Menu Admin','Akses lainnya'],'admin-registrations':['Registrasi','Verifikasi'],'admin-users':['Peserta','Data akun'],'admin-export':['Export','Unduh data'],'admin-export-logs':['Log Export','Riwayat export'],'admin-settings':['Pengaturan','Sistem']};
 const USER_MENUS=[['user-home','Home','home'],['user-attendance','Absensi','camera'],['user-work','Laporan','file'],['user-leave','Izin','calendar'],['user-profile','Profil','user']];const ADMIN_MENUS=[['admin-home','Home','home'],['admin-attendance','Absensi','camera'],['admin-reports','Laporan','file'],['admin-leaves','Izin','calendar'],['admin-registrations','Registrasi','user-plus'],['admin-users','Peserta','users'],['admin-export','Export','download'],['admin-export-logs','Log Export','file'],['admin-settings','Pengaturan','settings']];
@@ -3559,5 +3604,23 @@ window.iTrackDebugApi = async function(){
     alert('API debug gagal: ' + e.message);
   }
 };
+</script>
+
+<script id="itrack-final-safe-sw-register">
+(function(){
+  window.registerSW = function(){
+    if(location.protocol !== 'http:' && location.protocol !== 'https:'){
+      console.warn('[iTrack] Service Worker tidak dijalankan karena bukan http/https.');
+      return;
+    }
+    if('serviceWorker' in navigator){
+      navigator.serviceWorker.register('./sw.js').then(function(registration){
+        console.log('[iTrack] Service Worker aktif:', registration.scope);
+      }).catch(function(error){
+        console.warn('[iTrack] Service Worker gagal:', error);
+      });
+    }
+  };
+})();
 </script>
 </body></html>
