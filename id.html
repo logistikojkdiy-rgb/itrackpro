@@ -122,7 +122,37 @@ async function loadMyAttendance(){if(!currentUser)return;try{const res=await api
 function addWorkItem(){workItemCounter++;const div=document.createElement('div');div.className='work-item';div.setAttribute('data-work-item',String(workItemCounter));div.innerHTML='<div class="panel-head" style="margin-bottom:10px"><div><h2 style="font-size:15px">Kegiatan '+workItemCounter+'</h2><p>Isi detail</p></div><button type="button" class="btn btn-red remove-work">Hapus</button></div><div class="grid2"><div class="field"><input class="work-start" type="time" placeholder=" "><label>Mulai</label></div><div class="field"><input class="work-end" type="time" placeholder=" "><label>Selesai</label></div></div><div style="height:10px"></div><div class="field"><textarea class="work-desc" placeholder=" " required></textarea><label>Uraian</label></div><div style="height:10px"></div><div class="grid2"><label class="btn btn-secondary btn-full">Galeri<input class="work-photo file-hidden" type="file" accept="image/*"></label><label class="btn btn-primary btn-full">Kamera<input class="work-photo-camera file-hidden" type="file" accept="image/*" capture="environment"></label></div>';document.getElementById('workItems').appendChild(div);const remove=div.querySelector('.remove-work');remove.addEventListener('click',()=>removeWorkItem(remove));const cam=div.querySelector('.work-photo-camera');cam.addEventListener('change',()=>copyCameraFileToWorkPhoto(cam));saveWorkDraftDebounced()}function copyCameraFileToWorkPhoto(input){const block=input.closest('[data-work-item]'),target=block.querySelector('.work-photo');if(input.files&&input.files[0]){const dt=new DataTransfer();dt.items.add(input.files[0]);target.files=dt.files;toast('Foto dipilih','Dokumentasi siap.','success')}}function removeWorkItem(btn){if(document.querySelectorAll('[data-work-item]').length<=1)return toast('Minimal satu kegiatan','Laporan harus punya kegiatan.','warning');btn.closest('[data-work-item]').remove();saveWorkDraftDebounced()}
 let draftTimer=null;function saveWorkDraftDebounced(){clearTimeout(draftTimer);draftTimer=setTimeout(saveWorkDraft,350)}function saveWorkDraft(){if(!currentUser)return;try{const items=Array.from(document.querySelectorAll('[data-work-item]')).map(b=>({start:b.querySelector('.work-start').value,end:b.querySelector('.work-end').value,desc:b.querySelector('.work-desc').value}));const draft={date:val('workDate'),division:val('workDivision'),note:val('workNote'),items};localStorage.setItem('iTrack_workDraft_'+currentUser.USER_ID,JSON.stringify(draft));text('draftStatus','Draft tersimpan')}catch(e){}}function loadWorkDraft(){if(!currentUser)return;try{const raw=localStorage.getItem('iTrack_workDraft_'+currentUser.USER_ID);if(!raw)return;const d=JSON.parse(raw);setValue('workDate',d.date);setValue('workDivision',d.division);setValue('workNote',d.note);if(d.items&&d.items.length){document.getElementById('workItems').innerHTML='';workItemCounter=0;d.items.forEach(it=>{addWorkItem();const b=document.querySelector('[data-work-item]:last-child');b.querySelector('.work-start').value=it.start||'';b.querySelector('.work-end').value=it.end||'';b.querySelector('.work-desc').value=it.desc||''})}text('draftStatus','Draft dimuat')}catch(e){}}function clearWorkDraft(){if(!currentUser)return;localStorage.removeItem('iTrack_workDraft_'+currentUser.USER_ID);toast('Draft dihapus','Form draft dibersihkan.','success');text('draftStatus','Draft')}
 async function submitWorkReportForm(e){e.preventDefault();if(!currentUser)return;const blocks=Array.from(document.querySelectorAll('[data-work-item]')),items=[];showLoading('Mengirim laporan...','Menyimpan data.');try{for(let i=0;i<blocks.length;i++){const block=blocks[i],desc=block.querySelector('.work-desc').value.trim();if(!desc)throw new Error('Semua uraian wajib diisi.');let photo='',file=block.querySelector('.work-photo').files[0];if(file)photo=await compressImageFile(file,700,.58);items.push({jamMulai:block.querySelector('.work-start').value,jamSelesai:block.querySelector('.work-end').value,uraianKegiatan:desc,photoBase64:photo})}const res=await api('submitWorkReport',{userId:currentUser.USER_ID,tanggal:val('workDate'),divisi:val('workDivision'),catatanUser:val('workNote'),items});if(!res.success)throw new Error(res.message);document.getElementById('workItems').innerHTML='';workItemCounter=0;addWorkItem();setValue('workNote','');clearWorkDraft();toast('Laporan terkirim',res.message,'success');loadMyReports();loadRecentActivities()}catch(err){toast('Laporan gagal',err.message,'error')}finally{hideLoading()}}
-async function loadMyReports(){if(!currentUser)return;try{const res=await api('getMyWorkReports',{userId:currentUser.USER_ID});if(res.success)renderMyReports(res.data||[])}catch(e){}}function renderMyReports(rows){const tb=document.getElementById('myReportRows');if(!tb)return;if(!rows.length){tb.innerHTML='<tr><td colspan="7"><div class="empty">Belum ada laporan.</div></td></tr>';return}tb.innerHTML=rows.map((r,i)=>rowHtml([i+1,formatDateID(r.TANGGAL),r.DIVISI||'-',r.TOTAL_KEGIATAN||0,r.TOTAL_DURASI||'-',badge(r.STATUS_LAPORAN),'<button class="btn btn-secondary detail-report" data-id="'+escAttr(r.REPORT_ID)+'">Detail</button>'],['No','Tanggal','Divisi','Kegiatan','Durasi','Status','Detail'])).join('');document.querySelectorAll('.detail-report').forEach(b=>b.addEventListener('click',()=>openReportDetail(b.getAttribute('data-id'))))}
+async function loadMyReports(){
+  if(!currentUser)return;
+  try{
+    const res=await api('getMyWorkReports',{userId:currentUser.USER_ID});
+    if(res.success){
+      window.__iTrackMyReports = res.data || [];
+      renderMyReports(res.data||[]);
+    }
+  }catch(e){}
+}
+function renderMyReports(rows){
+  window.__iTrackMyReports = rows || [];
+  const tb=document.getElementById('myReportRows');
+  if(!tb)return;
+  if(!rows.length){
+    tb.innerHTML='<tr><td colspan="7"><div class="empty">Belum ada laporan.</div></td></tr>';
+    return;
+  }
+  tb.innerHTML=rows.map((r,i)=>{
+    const id=escAttr(r.REPORT_ID||r.reportId||r.ID_LAPORAN||r.idLaporan||r.ID||'');
+    const rawStatus=String(r.STATUS_LAPORAN||r.statusLaporan||r.status||'').toUpperCase();
+    const canEdit=rawStatus.indexOf('REVISI')>=0;
+    const actions='<div style="display:flex;gap:6px;flex-wrap:wrap">'
+      + '<button class="btn btn-secondary detail-report" data-id="'+id+'">Detail</button>'
+      + (canEdit ? ' <button class="btn btn-orange edit-revision-report" data-id="'+id+'">Edit Revisi</button>' : '')
+      + '</div>';
+    return rowHtml([i+1,formatDateID(r.TANGGAL),r.DIVISI||'-',r.TOTAL_KEGIATAN||0,r.TOTAL_DURASI||'-',badge(r.STATUS_LAPORAN),actions],['No','Tanggal','Divisi','Kegiatan','Durasi','Status','Detail']);
+  }).join('');
+  document.querySelectorAll('.detail-report').forEach(b=>b.addEventListener('click',()=>openReportDetail(b.getAttribute('data-id'))));
+  document.querySelectorAll('.edit-revision-report').forEach(b=>b.addEventListener('click',()=>openRevisionReportEditor(b.getAttribute('data-id'))));
+}
 async function openReportDetail(id){showLoading('Memuat detail...','Mengambil data.');try{const res=await api('getWorkReportItems',{reportId:id});if(!res.success)throw new Error(res.message);const rows=res.data||[],tb=document.getElementById('detailRows');tb.innerHTML=rows.length?rows.map((r,i)=>rowHtml([i+1,onlyTime(r.JAM_MULAI)+' - '+onlyTime(r.JAM_SELESAI),r.DURASI||'-',esc(r.URAIAN_KEGIATAN||'-'),r.DOKUMENTASI_URL?'<a href="'+escAttr(r.DOKUMENTASI_URL)+'" target="_blank">Foto</a>':'-'],['No','Jam','Durasi','Uraian','Dokumentasi'])).join(''):'<tr><td colspan="5"><div class="empty">Belum ada detail.</div></td></tr>';document.getElementById('detailModal').classList.add('show')}catch(e){toast('Gagal',e.message,'error')}finally{hideLoading()}}function closeDetailModal(){document.getElementById('detailModal').classList.remove('show')}
 async function submitLeaveForm(e){e.preventDefault();showLoading('Mengirim izin...','Menyimpan data.');try{let proof='',file=document.getElementById('leaveProof').files[0];if(file)proof=await compressImageFile(file,700,.58);const res=await api('submitLeave',{userId:currentUser.USER_ID,jenisIzin:val('leaveType'),tanggalMulai:val('leaveStart'),tanggalSelesai:val('leaveEnd'),alasan:val('leaveReason'),buktiBase64:proof});if(!res.success)throw new Error(res.message);e.target.reset();setDefaultDates();toast('Izin terkirim',res.message,'success');loadMyLeaves();loadRecentActivities()}catch(err){toast('Izin gagal',err.message,'error')}finally{hideLoading()}}
 async function loadMyLeaves(){if(!currentUser)return;try{const res=await api('getMyLeaves',{userId:currentUser.USER_ID});if(res.success)renderMyLeaves(res.data||[])}catch(e){}}function renderMyLeaves(rows){const tb=document.getElementById('myLeaveRows');if(!tb)return;if(!rows.length){tb.innerHTML='<tr><td colspan="5"><div class="empty">Belum ada izin.</div></td></tr>';return}tb.innerHTML=rows.map((r,i)=>rowHtml([i+1,formatDateID(r.TANGGAL_PENGAJUAN),r.JENIS_IZIN||'-',formatDateID(r.TANGGAL_MULAI)+' s.d. '+formatDateID(r.TANGGAL_SELESAI),badge(r.STATUS_APPROVAL)],['No','Tanggal','Jenis','Periode','Status'])).join('')}
@@ -3471,496 +3501,6 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 
 })();
 </script>
-<!-- iTrack Clean Revision Edit + Delayed Loading Patch - Preserve UI -->
-<script id="itrack-clean-revision-loading-final">
-(function(){
-  'use strict';
-
-  /* =========================================================
-   *  A. Delayed loading: tampil hanya jika proses > 2 detik.
-   *  Tidak wrap openView, tidak wrap fetch global, tidak mengubah UI.
-   * ========================================================= */
-  var LOADING_DELAY = 2000;
-  var MIN_VISIBLE = 450;
-  var loadingActive = 0;
-  var loadingTimer = null;
-  var loadingShownAt = 0;
-  var loadingSeq = 0;
-  var loadingTokens = {};
-
-  function q(id){ return document.getElementById(id); }
-  function safeText(id, value){ var el=q(id); if(el) el.textContent = value == null ? '' : String(value); }
-
-  function showLoadingNow(){
-    var el = q('loading');
-    if(!el) return;
-    if(!el.classList.contains('show')){
-      loadingShownAt = Date.now();
-      el.classList.add('show');
-    }
-  }
-
-  function hideLoadingNow(){
-    var el = q('loading');
-    if(el) el.classList.remove('show');
-    loadingShownAt = 0;
-  }
-
-  function beginLoading(title, message){
-    var token = 'load_' + (++loadingSeq);
-    loadingTokens[token] = true;
-    loadingActive++;
-
-    safeText('loadingTitle', title || 'Memproses...');
-    safeText('loadingText', message || 'Mohon tunggu sebentar.');
-
-    clearTimeout(loadingTimer);
-    loadingTimer = setTimeout(function(){
-      if(loadingActive > 0) showLoadingNow();
-    }, LOADING_DELAY);
-
-    return token;
-  }
-
-  function endLoading(token){
-    if(token && loadingTokens[token]){
-      delete loadingTokens[token];
-      loadingActive = Math.max(0, loadingActive - 1);
-    }else if(!token){
-      loadingActive = Math.max(0, loadingActive - 1);
-    }
-
-    if(loadingActive > 0) return;
-    clearTimeout(loadingTimer);
-
-    var wait = loadingShownAt ? Math.max(0, MIN_VISIBLE - (Date.now() - loadingShownAt)) : 0;
-    setTimeout(function(){
-      if(loadingActive === 0) hideLoadingNow();
-    }, wait);
-  }
-
-  function clearAllLoading(){
-    loadingActive = 0;
-    loadingTokens = {};
-    clearTimeout(loadingTimer);
-    hideLoadingNow();
-  }
-
-  window.iTrackLoadingFinal = { begin: beginLoading, end: endLoading, clear: clearAllLoading, showNow: showLoadingNow };
-
-  window.showLoading = function(title, message){
-    return beginLoading(title, message);
-  };
-
-  window.hideLoading = function(token){
-    endLoading(token);
-  };
-
-  window.addEventListener('error', function(){ setTimeout(clearAllLoading, 250); });
-  window.addEventListener('unhandledrejection', function(){ setTimeout(clearAllLoading, 250); });
-
-  /* =========================================================
-   *  B. Helpers revisi laporan. UI utama tidak diubah.
-   * ========================================================= */
-  var revisionState = {
-    active: false,
-    reportId: '',
-    report: null,
-    items: []
-  };
-  var reportCache = [];
-  var lastReportRows = [];
-
-  function esc(v){
-    if(typeof window.esc === 'function') return window.esc(v);
-    return String(v == null ? '' : v)
-      .replace(/&/g,'&amp;')
-      .replace(/</g,'&lt;')
-      .replace(/>/g,'&gt;')
-      .replace(/"/g,'&quot;')
-      .replace(/'/g,'&#039;');
-  }
-
-  function escAttr(v){
-    if(typeof window.escAttr === 'function') return window.escAttr(v);
-    return esc(v).replace(/`/g,'&#096;');
-  }
-
-  function any(row, keys, fallback){
-    row = row || {};
-    for(var i=0;i<keys.length;i++){
-      var k = keys[i];
-      if(row[k] !== undefined && row[k] !== null && row[k] !== '') return row[k];
-    }
-    return fallback === undefined ? '' : fallback;
-  }
-
-  function rowsOf(res){
-    if(!res) return [];
-    if(Array.isArray(res)) return res;
-    if(Array.isArray(res.data)) return res.data;
-    var keys = ['rows','items','data','reports','laporan','workReports'];
-    for(var i=0;i<keys.length;i++){
-      if(res.data && Array.isArray(res.data[keys[i]])) return res.data[keys[i]];
-    }
-    return [];
-  }
-
-  function user(){
-    try{ if(window.currentUser) return window.currentUser; }catch(e){}
-    try{ return JSON.parse(localStorage.getItem('iTrack_user') || '{}'); }catch(e){ return {}; }
-  }
-
-  function reportId(row){
-    return any(row, ['REPORT_ID','reportId','idLaporan','ID Laporan','ID_LAPORAN','ID','id']);
-  }
-
-  function reportStatus(row){
-    return String(any(row, ['STATUS_LAPORAN','Status Laporan','statusLaporan','status'], '')).toUpperCase();
-  }
-
-  function normalizeDate(v){
-    if(!v) return '';
-    var s = String(v);
-    if(/^\d{4}-\d{2}-\d{2}/.test(s)) return s.slice(0,10);
-    var m = s.match(/^(\d{2})\/(\d{2})\/(\d{4})/);
-    if(m) return m[3] + '-' + m[2] + '-' + m[1];
-    return s;
-  }
-
-  function normalizeTime(v){
-    v = String(v || '');
-    var m = v.match(/(\d{1,2}):(\d{2})/);
-    return m ? String(m[1]).padStart(2,'0') + ':' + m[2] : '';
-  }
-
-  async function call(action, payload){
-    if(typeof window.api !== 'function') throw new Error('Fungsi API frontend tidak tersedia.');
-    return await window.api(action, payload || {});
-  }
-
-  async function callFirst(actions, payload){
-    var lastErr = null;
-    for(var i=0;i<actions.length;i++){
-      try{
-        var res = await call(actions[i], payload || {});
-        if(res && res.success === false){
-          lastErr = new Error(res.message || ('Action gagal: ' + actions[i]));
-          continue;
-        }
-        return res;
-      }catch(e){
-        lastErr = e;
-      }
-    }
-    throw lastErr || new Error('Semua action revisi gagal.');
-  }
-
-  function notify(type, title, message){
-    if(typeof window.toast === 'function') return window.toast(title || 'Info', message || '', type || 'info');
-    alert((title || 'Info') + '\n' + (message || ''));
-  }
-
-  function getWorkBlocks(){
-    return Array.prototype.slice.call(document.querySelectorAll('[data-work-item]'));
-  }
-
-  function resetRevisionMode(){
-    revisionState = { active:false, reportId:'', report:null, items:[] };
-    var submit = document.querySelector('#formWork button[type="submit"], #formWork .btn-primary');
-    if(submit && submit.getAttribute('data-revision-submit') === '1'){
-      submit.textContent = submit.getAttribute('data-original-text') || 'Kirim';
-      submit.removeAttribute('data-revision-submit');
-    }
-    var ds = q('draftStatus');
-    if(ds) ds.textContent = 'Draft';
-  }
-
-  function ensureOneWorkItem(){
-    if(getWorkBlocks().length === 0 && typeof window.addWorkItem === 'function') window.addWorkItem();
-  }
-
-  function clearWorkItemsOnly(){
-    var box = q('workItems');
-    if(box) box.innerHTML = '';
-    try{ window.workItemCounter = 0; }catch(e){}
-  }
-
-  function addAndFillItem(item){
-    if(typeof window.addWorkItem === 'function') window.addWorkItem();
-    var blocks = getWorkBlocks();
-    var block = blocks[blocks.length - 1];
-    if(!block) return;
-
-    var start = normalizeTime(any(item, ['Jam Mulai','JAM_MULAI','jamMulai','start']));
-    var end = normalizeTime(any(item, ['Jam Selesai','JAM_SELESAI','jamSelesai','end']));
-    var desc = any(item, ['Uraian Kegiatan','URAIAN_KEGIATAN','uraianKegiatan','uraian','deskripsi'], '');
-    var doc = any(item, ['URL Dokumentasi','DOKUMENTASI_URL','DOKUMENTASI_URL','dokumentasiUrl','urlDokumentasi','Dokumentasi','DOKUMENTASI'], '');
-
-    var s = block.querySelector('.work-start');
-    var e = block.querySelector('.work-end');
-    var d = block.querySelector('.work-desc');
-    var p = block.querySelector('.work-photo');
-    if(s) s.value = start;
-    if(e) e.value = end;
-    if(d) d.value = desc;
-    if(p) p.setAttribute('data-existing-doc', doc || '');
-  }
-
-  async function loadRevisionDetail(id){
-    var u = user();
-    var payload = { reportId:id, idLaporan:id, userId:u.USER_ID || u.userId || '', username:u.USERNAME || u.username || '' };
-    try{
-      var full = await callFirst(['getMyWorkReportFullDetail','getWorkReportRevisionDetail','adminGetWorkReportFullDetail'], payload);
-      var data = full.data || full;
-      return {
-        report: data.report || data.header || data.laporan || findCachedReport(id) || {},
-        items: data.items || data.details || data.kegiatan || data.activities || []
-      };
-    }catch(e){
-      var itemsRes = await callFirst(['getWorkReportItems'], payload);
-      return { report: findCachedReport(id) || {}, items: rowsOf(itemsRes) };
-    }
-  }
-
-  function findCachedReport(id){
-    for(var i=0;i<reportCache.length;i++){
-      if(String(reportId(reportCache[i])) === String(id)) return reportCache[i];
-    }
-    return null;
-  }
-
-  async function openRevisionEditor(id){
-    if(!id){ notify('error','ID laporan kosong','Tidak bisa membuka revisi tanpa ID laporan.'); return; }
-    var token = showLoading('Memuat laporan revisi...','Mengambil detail laporan dari backend.');
-    try{
-      var detail = await loadRevisionDetail(id);
-      var report = detail.report || {};
-      var items = Array.isArray(detail.items) ? detail.items : [];
-
-      revisionState = { active:true, reportId:id, report:report, items:items };
-
-      if(typeof window.openView === 'function') window.openView('user-work');
-
-      setTimeout(function(){
-        var date = q('workDate');
-        var div = q('workDivision');
-        var note = q('workNote');
-        if(date) date.value = normalizeDate(any(report, ['TANGGAL','Tanggal','tanggal','date'], date.value));
-        if(div) div.value = any(report, ['DIVISI','Divisi','divisi'], div.value || '');
-        if(note) note.value = any(report, ['CATATAN_PESERTA','Catatan Peserta','catatanPeserta','CATATAN_USER','Catatan User','catatanUser'], '');
-
-        clearWorkItemsOnly();
-        if(items.length){
-          items.forEach(addAndFillItem);
-        }else{
-          ensureOneWorkItem();
-        }
-
-        var submit = document.querySelector('#formWork button[type="submit"], #formWork .btn-primary');
-        if(submit){
-          if(!submit.getAttribute('data-original-text')) submit.setAttribute('data-original-text', submit.textContent || 'Kirim');
-          submit.setAttribute('data-revision-submit','1');
-          submit.textContent = 'Kirim Revisi';
-        }
-        var ds = q('draftStatus');
-        if(ds) ds.textContent = 'Mode Revisi';
-        notify('success','Mode revisi aktif','Silakan perbaiki laporan, lalu tekan Kirim Revisi.');
-      }, 120);
-    }catch(e){
-      notify('error','Gagal membuka revisi', e.message || 'Terjadi kesalahan.');
-    }finally{
-      hideLoading(token);
-    }
-  }
-
-  window.iTrackOpenRevisionEditor = openRevisionEditor;
-
-  async function submitRevision(e){
-    if(e){ e.preventDefault(); e.stopImmediatePropagation(); }
-    if(!revisionState.active || !revisionState.reportId) return;
-
-    var blocks = getWorkBlocks();
-    var items = [];
-    var token = showLoading('Mengirim revisi...','Menyimpan perubahan laporan ke backend.');
-    try{
-      for(var i=0;i<blocks.length;i++){
-        var block = blocks[i];
-        var descEl = block.querySelector('.work-desc');
-        var startEl = block.querySelector('.work-start');
-        var endEl = block.querySelector('.work-end');
-        var photoEl = block.querySelector('.work-photo');
-        var desc = descEl ? descEl.value.trim() : '';
-        var start = startEl ? startEl.value : '';
-        var end = endEl ? endEl.value : '';
-        if(!start || !end || !desc) throw new Error('Kegiatan ' + (i+1) + ' belum lengkap. Jam mulai, jam selesai, dan uraian wajib diisi.');
-        var photoBase64 = '';
-        if(photoEl && photoEl.files && photoEl.files[0]){
-          photoBase64 = typeof window.compressImageFile === 'function' ? await window.compressImageFile(photoEl.files[0],700,.58) : '';
-        }
-        items.push({
-          jamMulai:start,
-          jamSelesai:end,
-          uraianKegiatan:desc,
-          photoBase64:photoBase64,
-          dokumentasiBase64:photoBase64,
-          urlDokumentasi: photoBase64 ? '' : (photoEl ? (photoEl.getAttribute('data-existing-doc') || '') : '')
-        });
-      }
-      var u = user();
-      var payload = {
-        reportId: revisionState.reportId,
-        idLaporan: revisionState.reportId,
-        userId: u.USER_ID || u.userId || '',
-        username: u.USERNAME || u.username || '',
-        tanggal: q('workDate') ? q('workDate').value : '',
-        divisi: q('workDivision') ? q('workDivision').value : '',
-        catatanUser: q('workNote') ? q('workNote').value : '',
-        note: q('workNote') ? q('workNote').value : '',
-        items: items,
-        activities: items,
-        statusLaporan: 'MENUNGGU',
-        status: 'MENUNGGU'
-      };
-
-      var res = await callFirst(['resubmitWorkReportRevision','updateWorkReportRevision','submitWorkReportRevision'], payload);
-      if(res && res.success === false) throw new Error(res.message || 'Revisi gagal dikirim.');
-
-      notify('success','Revisi terkirim','Laporan dikirim ulang dan menunggu validasi admin.');
-      resetRevisionMode();
-      try{ if(typeof window.clearWorkDraft === 'function') window.clearWorkDraft(); }catch(x){}
-      try{ if(typeof window.loadMyReports === 'function') window.loadMyReports(); }catch(x){}
-      try{ if(typeof window.loadRecentActivities === 'function') window.loadRecentActivities(); }catch(x){}
-    }catch(e){
-      notify('error','Gagal mengirim revisi', e.message || 'Terjadi kesalahan.');
-    }finally{
-      hideLoading(token);
-    }
-  }
-
-  function bindFormSubmitCapture(){
-    var form = q('formWork');
-    if(!form || form.__itrackRevisionSubmitBound) return;
-    form.__itrackRevisionSubmitBound = true;
-    form.addEventListener('submit', function(e){
-      if(revisionState.active) submitRevision(e);
-    }, true);
-  }
-
-  function injectEditButtons(){
-    bindFormSubmitCapture();
-
-    var tb = q('myReportRows');
-    if(tb){
-      var trs = Array.prototype.slice.call(tb.querySelectorAll('tr'));
-      trs.forEach(function(tr, idx){
-        var r = reportCache[idx] || {};
-        var st = reportStatus(r) || (String(tr.innerText || '').toUpperCase().indexOf('REVISI') >= 0 ? 'REVISI' : '');
-        if(st !== 'REVISI') return;
-        var id = reportId(r) || tr.getAttribute('data-report-id') || '';
-        if(!id) return;
-        tr.setAttribute('data-report-id', id);
-        if(tr.querySelector('[data-edit-revision-report]')) return;
-        var detailBtn = tr.querySelector('.detail-report, button');
-        var cell = detailBtn ? detailBtn.parentElement : tr.lastElementChild;
-        if(!cell) return;
-        var btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = detailBtn ? detailBtn.className : 'btn btn-secondary btn-mini';
-        btn.setAttribute('data-edit-revision-report', id);
-        btn.textContent = 'Edit Revisi';
-        btn.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); openRevisionEditor(id); });
-        cell.appendChild(document.createTextNode(' '));
-        cell.appendChild(btn);
-      });
-    }
-
-    // Card fallback: tidak mengubah struktur, hanya menambah tombol setelah Detail pada card REVISI.
-    var candidates = Array.prototype.slice.call(document.querySelectorAll('div,article,section,li'));
-    var cards = candidates.filter(function(el){
-      var txt = String(el.innerText || '');
-      if(txt.toUpperCase().indexOf('REVISI') < 0) return false;
-      if(txt.toLowerCase().indexOf('kegiatan') < 0 || txt.toLowerCase().indexOf('durasi') < 0) return false;
-      return Array.prototype.some.call(el.querySelectorAll('button'), function(b){ return String(b.textContent || '').toLowerCase().indexOf('detail') >= 0; });
-    }).filter(function(el, _, arr){
-      return !arr.some(function(other){ return other !== el && el.contains(other); });
-    });
-    cards.forEach(function(card, idx){
-      if(card.querySelector('[data-edit-revision-report]')) return;
-      var allCards = cards;
-      var r = reportCache[idx] || {};
-      var id = reportId(r) || card.getAttribute('data-report-id') || '';
-      if(!id) return;
-      card.setAttribute('data-report-id', id);
-      var detailBtn = Array.prototype.find.call(card.querySelectorAll('button'), function(b){ return String(b.textContent || '').toLowerCase().indexOf('detail') >= 0; });
-      if(!detailBtn) return;
-      var btn = document.createElement('button');
-      btn.type = 'button';
-      btn.className = detailBtn.className || 'btn btn-secondary';
-      btn.setAttribute('data-edit-revision-report', id);
-      btn.textContent = 'Edit Revisi';
-      btn.style.marginTop = '8px';
-      btn.addEventListener('click', function(ev){ ev.preventDefault(); ev.stopPropagation(); openRevisionEditor(id); });
-      detailBtn.insertAdjacentElement('afterend', btn);
-    });
-  }
-
-  var oldRender = window.renderMyReports;
-  if(typeof oldRender === 'function' && !oldRender.__itrackCleanRevisionWrapped){
-    window.renderMyReports = function(rows){
-      lastReportRows = rows || [];
-      reportCache = Array.isArray(rows) ? rows : [];
-      var result = oldRender.apply(this, arguments);
-      setTimeout(injectEditButtons, 80);
-      setTimeout(injectEditButtons, 600);
-      return result;
-    };
-    window.renderMyReports.__itrackCleanRevisionWrapped = true;
-  }
-
-  var oldOpenDetail = window.openReportDetail;
-  if(typeof oldOpenDetail === 'function' && !oldOpenDetail.__itrackCleanDetailWrapped){
-    window.openReportDetail = async function(id){
-      var token = showLoading('Memuat detail...','Mengambil data laporan.');
-      try{
-        return await oldOpenDetail.apply(this, arguments);
-      }finally{
-        hideLoading(token);
-      }
-    };
-    window.openReportDetail.__itrackCleanDetailWrapped = true;
-  }
-
-  var oldOpenView = window.openView;
-  if(typeof oldOpenView === 'function' && !oldOpenView.__itrackCleanRevisionViewWrapped){
-    window.openView = function(id){
-      var result = oldOpenView.apply(this, arguments);
-      if(String(id || '') === 'user-work'){
-        setTimeout(injectEditButtons, 500);
-        setTimeout(injectEditButtons, 1200);
-      }
-      return result;
-    };
-    window.openView.__itrackCleanRevisionViewWrapped = true;
-  }
-
-  document.addEventListener('DOMContentLoaded', function(){
-    bindFormSubmitCapture();
-    setTimeout(injectEditButtons, 800);
-    setTimeout(injectEditButtons, 1800);
-  });
-  if(document.readyState !== 'loading'){
-    bindFormSubmitCapture();
-    setTimeout(injectEditButtons, 800);
-    setTimeout(injectEditButtons, 1800);
-  }
-
-  window.iTrackRefreshRevisionButtons = injectEditButtons;
-  window.iTrackResetRevisionMode = resetRevisionMode;
-  console.warn('[iTrack] Clean revision edit patch aktif: UI tetap, loading delayed, tanpa tumpang tindih.');
-})();
-</script>
-
 <!-- iTrack Backend Date Time Stable Patch - Preserve UI -->
 <script id="itrack-backend-datetime-stable-final">
 (function(){
@@ -4998,4 +4538,1616 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 })();
 </script>
 
+
+
+
+
+
+
+
+<!-- EDIT REVISI BUILT-IN FINAL - no duplicate button -->
+<style id="itrack-built-in-revision-style">
+  .ibr-bg{position:fixed;inset:0;z-index:360000;display:none;align-items:center;justify-content:center;padding:18px;background:rgba(23,42,69,.44);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+  .ibr-bg.show{display:flex}.ibr-modal{width:min(1040px,100%);max-height:92dvh;overflow:auto;background:#fff;border:1px solid var(--line,#E6EEF4);border-radius:32px;box-shadow:0 34px 110px rgba(23,42,69,.28);padding:22px;animation:rise .18s ease-out}.ibr-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:16px}.ibr-head h2{margin:0;color:var(--navy,#172A45);font-size:22px;font-weight:850}.ibr-head p{margin:5px 0 0;color:var(--muted,#74869A);font-size:12px;line-height:1.55}.ibr-close{border:1px solid var(--line,#E6EEF4);background:#fff;color:var(--ink,#26384F);border-radius:15px;padding:9px 12px;font-size:12px;font-weight:850}.ibr-alert{border:1px solid #F8D7A7;background:#FFF8E8;color:#8A5A00;border-radius:20px;padding:13px;margin-bottom:13px;font-size:13px;line-height:1.6}.ibr-section{border:1px solid var(--line,#E6EEF4);border-radius:24px;background:#fff;padding:15px;margin-top:12px}.ibr-title{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.ibr-title h3{margin:0;color:var(--navy,#172A45);font-size:17px;font-weight:850}.ibr-title p{margin:4px 0 0;color:var(--muted,#74869A);font-size:12px;line-height:1.5}.ibr-summary{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:14px}.ibr-info{border:1px solid var(--line,#E6EEF4);background:#FBFEFF;border-radius:19px;padding:12px}.ibr-info small{display:block;color:var(--muted,#74869A);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:850;margin-bottom:5px}.ibr-info b{display:block;color:var(--navy,#172A45);font-size:13px;line-height:1.45;word-break:break-word}.ibr-grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}.ibr-field{position:relative;margin-bottom:12px}.ibr-field input,.ibr-field textarea{width:100%;min-height:56px;border:1px solid var(--line,#E6EEF4);border-radius:18px;background:#fff;color:var(--ink,#26384F);outline:0;padding:21px 13px 8px;font-size:14px}.ibr-field textarea{min-height:112px;resize:vertical;line-height:1.6}.ibr-field label{position:absolute;left:13px;top:8px;color:var(--blue2,#2F8FC4);font-size:10px;text-transform:uppercase;letter-spacing:.06em;font-weight:850}.ibr-item{border:1px solid var(--line,#E6EEF4);background:#FBFEFF;border-radius:24px;padding:14px;margin-bottom:12px}.ibr-item-head{display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:12px}.ibr-photo-row{display:grid;grid-template-columns:104px 1fr;gap:12px;align-items:center}.ibr-thumb{width:104px;height:104px;border:1px dashed #C8D7E2;border-radius:20px;background:#F8FAFC;display:grid;place-items:center;overflow:hidden;color:var(--muted,#74869A);font-size:11px;text-align:center}.ibr-thumb img{width:100%;height:100%;object-fit:cover}.ibr-mini{color:var(--muted,#74869A);font-size:11px;line-height:1.55;margin-top:6px}.ibr-doc-link{display:inline-flex;align-items:center;gap:7px;color:var(--blue2,#2F8FC4);background:var(--blue3,#EAF7FD);border-radius:999px;padding:8px 11px;font-size:12px;font-weight:800;text-decoration:none;margin-top:8px}.ibr-actions{position:sticky;bottom:-22px;background:linear-gradient(180deg,rgba(255,255,255,.78),#fff 36%);border-top:1px solid var(--line,#E6EEF4);margin:18px -22px -22px;padding:16px 22px 22px;display:grid;grid-template-columns:1fr 1fr;gap:12px}.ibr-empty{border:1px dashed #D6E5EE;background:#FBFEFF;color:var(--muted,#74869A);border-radius:20px;padding:18px;text-align:center;font-size:13px;line-height:1.6}@media(max-width:760px){.ibr-modal{border-radius:26px;padding:18px}.ibr-summary,.ibr-grid2,.ibr-actions{grid-template-columns:1fr}.ibr-photo-row{grid-template-columns:86px 1fr}.ibr-thumb{width:86px;height:86px}.ibr-actions{margin:18px -18px -18px;padding:16px 18px 20px}.ibr-title{display:block}}
+</style>
+<script id="itrack-built-in-revision-script">
+(function(){
+  'use strict';
+  var revisionState={reportId:'',report:{},items:[]};
+  function q(id){return document.getElementById(id)}
+  function e(v){return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;')}
+  function a(v){return e(v).replace(/`/g,'&#096;')}
+  function pick(o,ks,f){o=o||{};for(var i=0;i<ks.length;i++){if(o[ks[i]]!==undefined&&o[ks[i]]!==null&&o[ks[i]]!=='')return o[ks[i]]}return f===undefined?'':f}
+  function rowsOf(r){if(!r)return[];if(Array.isArray(r))return r;if(Array.isArray(r.data))return r.data;var ks=['rows','items','details','kegiatan','activities','data'];for(var i=0;i<ks.length;i++){if(r.data&&Array.isArray(r.data[ks[i]]))return r.data[ks[i]]}return[]}
+  function u(){try{return currentUser||{}}catch(x){return{}}}
+  function api1(act,p){return api(act,p||{})}
+  async function first(acts,p){var last;for(var i=0;i<acts.length;i++){try{var r=await api1(acts[i],p);if(r&&r.success===false){last=new Error(r.message||('Action gagal: '+acts[i]));continue}return r}catch(err){last=err}}throw last||new Error('Backend revisi belum tersedia')}
+  function iso(v){if(window.iTrackDateTimeStable&&window.iTrackDateTimeStable.isoDate)return window.iTrackDateTimeStable.isoDate(v);var s=String(v||'');return /^\d{4}-\d{2}-\d{2}/.test(s)?s.slice(0,10):s}
+  function t(v){if(window.iTrackDateTimeStable&&window.iTrackDateTimeStable.time)return window.iTrackDateTimeStable.time(v);var m=String(v||'').match(/(\d{1,2}):(\d{2})/);return m?String(m[1]).padStart(2,'0')+':'+m[2]:''}
+  function d(v){if(window.iTrackDateTimeStable&&window.iTrackDateTimeStable.displayDate)return window.iTrackDateTimeStable.displayDate(v);var s=iso(v),m=s.match(/^(\d{4})-(\d{2})-(\d{2})$/);return m?m[3]+'/'+m[2]+'/'+m[1]:(s||'-')}
+  function drv(url){url=String(url||'').trim();if(!url)return'';var m=url.match(/drive\.google\.com\/file\/d\/([^/]+)/);if(m)return 'https://drive.google.com/uc?export=view&id='+m[1];var q=url.match(/[?&]id=([^&]+)/);if(url.indexOf('drive.google.com')>-1&&q)return 'https://drive.google.com/uc?export=view&id='+q[1];return url}
+  function ensure(){if(q('ibrModal'))return;var el=document.createElement('div');el.id='ibrModal';el.className='ibr-bg';el.innerHTML='<div class="ibr-modal"><div class="ibr-head"><div><h2 id="ibrTitle">Edit Revisi Laporan</h2><p id="ibrSub">Perbaiki laporan lalu kirim ulang.</p></div><button type="button" class="ibr-close" id="ibrClose">Tutup</button></div><div id="ibrBody"></div></div>';document.body.appendChild(el);q('ibrClose').onclick=function(){el.classList.remove('show')}}
+  function modal(title,sub,html){ensure();q('ibrTitle').textContent=title;q('ibrSub').textContent=sub||'';q('ibrBody').innerHTML=html;q('ibrModal').classList.add('show')}
+  function close(){var m=q('ibrModal');if(m)m.classList.remove('show')}
+  function inf(l,v){return'<div class="ibr-info"><small>'+e(l)+'</small><b>'+e(v||'-')+'</b></div>'}
+  function findReport(id){var arr=window.__iTrackMyReports||[];for(var i=0;i<arr.length;i++){var rid=pick(arr[i],['REPORT_ID','reportId','ID_LAPORAN','idLaporan','ID','id']);if(String(rid)===String(id))return arr[i]}return{}}
+  async function detail(id){var cu=u(),p={reportId:id,idLaporan:id,userId:cu.USER_ID||cu.userId||'',username:cu.USERNAME||cu.username||''};try{var r=await first(['getMyWorkReportFullDetail','getWorkReportRevisionDetail','adminGetWorkReportFullDetail','getWorkReportFullDetail'],p),x=r.data||r;return{report:x.report||x.header||x.laporan||findReport(id),items:x.items||x.details||x.kegiatan||x.activities||[]}}catch(err){var it=await first(['getWorkReportItems','getReportItems'],p);return{report:findReport(id),items:rowsOf(it)}}}
+  function item(it,i){it=it||{};var st=t(pick(it,['JAM_MULAI','Jam Mulai','jamMulai','start'])),en=t(pick(it,['JAM_SELESAI','Jam Selesai','jamSelesai','end'])),desc=pick(it,['URAIAN_KEGIATAN','Uraian Kegiatan','uraianKegiatan','uraian','deskripsi'],''),doc=pick(it,['DOKUMENTASI_URL','URL Dokumentasi','dokumentasiUrl','urlDokumentasi','Dokumentasi'],'');var im=drv(doc);return '<div class="ibr-item" data-ibr-item><div class="ibr-item-head"><b>Kegiatan '+(i+1)+'</b><button type="button" class="btn btn-red btn-mini" data-ibr-remove>Hapus</button></div><div class="ibr-grid2"><div class="ibr-field"><input type="time" class="ibrStart" value="'+a(st)+'"><label>Jam Mulai</label></div><div class="ibr-field"><input type="time" class="ibrEnd" value="'+a(en)+'"><label>Jam Selesai</label></div></div><div class="ibr-field"><textarea class="ibrDesc">'+e(desc)+'</textarea><label>Uraian Kegiatan</label></div><div class="ibr-photo-row"><div class="ibr-thumb">'+(im?'<img src="'+a(im)+'" alt="Dokumentasi">':'Belum ada gambar')+'</div><div><input type="file" class="ibrPhoto" accept="image/*" capture="environment" data-existing-doc="'+a(doc)+'"><div class="ibr-mini">Pilih foto baru untuk mengganti dokumentasi. Kosongkan jika tetap memakai foto lama.</div>'+(doc?'<a class="ibr-doc-link" href="'+a(doc)+'" target="_blank">📎 Buka Dokumentasi Lama</a>':'')+'</div></div></div>'}
+  function bind(){var add=q('ibrAddItem'),cancel=q('ibrCancel'),submit=q('ibrSubmit');if(add)add.onclick=function(){var box=q('ibrItems');if(!box)return;var emp=box.querySelector('.ibr-empty');if(emp)emp.remove();var n=box.querySelectorAll('[data-ibr-item]').length;if(n>=10)return toast('Maksimal kegiatan','Satu laporan maksimal 10 kegiatan.','warning');box.insertAdjacentHTML('beforeend',item({},n));bind();renum()};if(cancel)cancel.onclick=close;if(submit)submit.onclick=submitRev;document.querySelectorAll('[data-ibr-remove]').forEach(function(b){if(b.__b)return;b.__b=1;b.onclick=function(){var it=b.closest('[data-ibr-item]');if(it)it.remove();renum()}});document.querySelectorAll('.ibrPhoto').forEach(function(inp){if(inp.__b)return;inp.__b=1;inp.onchange=function(){var f=inp.files&&inp.files[0];if(!f)return;var rd=new FileReader();rd.onload=function(ev){inp.dataset.base64=ev.target.result;var th=inp.closest('[data-ibr-item]').querySelector('.ibr-thumb');if(th)th.innerHTML='<img src="'+a(ev.target.result)+'" alt="Preview">'};rd.readAsDataURL(f)}})}
+  function renum(){var list=document.querySelectorAll('#ibrItems [data-ibr-item]');list.forEach(function(it,i){var b=it.querySelector('.ibr-item-head b');if(b)b.textContent='Kegiatan '+(i+1)});var box=q('ibrItems');if(box&&!list.length)box.innerHTML='<div class="ibr-empty">Belum ada kegiatan. Klik Tambah Kegiatan.</div>'}
+  function payload(){var cu=u(),items=[];document.querySelectorAll('#ibrItems [data-ibr-item]').forEach(function(it,i){var ph=it.querySelector('.ibrPhoto'),b64=ph&&ph.dataset?ph.dataset.base64||'':'',old=ph?ph.getAttribute('data-existing-doc')||'':'';items.push({urutan:i+1,jamMulai:it.querySelector('.ibrStart').value,jamSelesai:it.querySelector('.ibrEnd').value,uraianKegiatan:it.querySelector('.ibrDesc').value.trim(),photoBase64:b64,dokumentasiBase64:b64,urlDokumentasi:b64?'':old})});return{reportId:revisionState.reportId,idLaporan:revisionState.reportId,userId:cu.USER_ID||cu.userId||'',username:cu.USERNAME||cu.username||'',tanggal:q('ibrDate').value,divisi:q('ibrDivision').value,catatanUser:q('ibrNote').value.trim(),note:q('ibrNote').value.trim(),items:items,activities:items,statusLaporan:'MENUNGGU',status:'MENUNGGU'}}
+  async function submitRev(){var p=payload();if(!p.reportId)return toast('ID kosong','ID laporan tidak ditemukan.','error');if(!p.tanggal)return toast('Tanggal wajib','Tanggal laporan belum diisi.','warning');for(var i=0;i<p.items.length;i++){if(!p.items[i].jamMulai||!p.items[i].jamSelesai||!p.items[i].uraianKegiatan)return toast('Belum lengkap','Kegiatan '+(i+1)+' wajib lengkap.','warning')}if(!p.items.length)return toast('Kegiatan kosong','Minimal satu kegiatan.','warning');if(!confirm('Kirim ulang revisi laporan ini?'))return;showLoading('Mengirim revisi...','Menyimpan perubahan laporan.');try{var r=await first(['resubmitWorkReportRevision','updateWorkReportRevision','submitWorkReportRevision','resubmitReportRevision','editWorkReportRevision'],p);if(r&&r.success===false)throw new Error(r.message||'Gagal.');toast('Revisi terkirim','Laporan dikirim ulang dan menunggu validasi admin.','success');close();if(typeof loadMyReports==='function')loadMyReports();if(typeof loadRecentActivities==='function')loadRecentActivities()}catch(err){toast('Gagal mengirim revisi',err.message||'Terjadi kesalahan.','error')}finally{hideLoading()}}
+  window.openRevisionReportEditor=async function(id){if(!id)return toast('ID kosong','Tidak bisa membuka revisi karena ID laporan kosong.','error');showLoading('Memuat revisi...','Mengambil detail laporan.');try{var x=await detail(id),r=x.report||{},items=Array.isArray(x.items)?x.items:[];revisionState={reportId:id,report:r,items:items};var date=iso(pick(r,['TANGGAL','Tanggal','tanggal','date'],'')),div=pick(r,['DIVISI','Divisi','divisi'],''),note=pick(r,['CATATAN_USER','Catatan Peserta','catatanPeserta','catatanUser','note'],''),admin=pick(r,['CATATAN_ADMIN','Catatan Admin','catatanAdmin','Catatan Revisi'],'Admin belum menambahkan catatan revisi.');var html='<div class="ibr-alert"><b>Mode Revisi Aktif.</b><br>Perbaiki data sesuai catatan admin, lalu kirim ulang. Status kembali MENUNGGU.</div><div class="ibr-summary">'+inf('ID Laporan',id)+inf('Tanggal',d(date))+inf('Divisi',div)+inf('Status','REVISI')+'</div><div class="ibr-section"><div class="ibr-title"><div><h3>Catatan Admin</h3><p>Instruksi revisi.</p></div></div><div class="ibr-alert" style="margin-bottom:0">'+e(admin)+'</div></div><div class="ibr-section"><div class="ibr-grid2"><div class="ibr-field"><input id="ibrDate" type="date" value="'+a(date)+'"><label>Tanggal</label></div><div class="ibr-field"><input id="ibrDivision" value="'+a(div)+'"><label>Divisi</label></div></div><div class="ibr-field"><textarea id="ibrNote">'+e(note)+'</textarea><label>Catatan Peserta</label></div></div><div class="ibr-section"><div class="ibr-title"><div><h3>Detail Kegiatan</h3><p>Edit/tambah/hapus kegiatan dan ganti dokumentasi.</p></div><button type="button" class="btn btn-secondary btn-mini" id="ibrAddItem">Tambah Kegiatan</button></div><div id="ibrItems">'+(items.length?items.map(item).join(''):'<div class="ibr-empty">Belum ada kegiatan. Klik Tambah Kegiatan.</div>')+'</div></div><div class="ibr-actions"><button type="button" class="btn btn-secondary" id="ibrCancel">Batal</button><button type="button" class="btn btn-primary" id="ibrSubmit">Kirim Pembaruan Revisi</button></div>';modal('Edit Revisi Laporan','Ubah laporan lalu submit ulang.',html);bind()}catch(err){toast('Gagal membuka revisi',err.message||'Terjadi kesalahan.','error')}finally{hideLoading()}}
+  console.warn('[iTrack] Built-in revision editor aktif. Tombol dibuat langsung dari renderMyReports.');
+})();
+</script>
+<!-- PATCH FIX EDIT REVISI UNTUK RIWAYAT LAPORAN CARD - iTrack -->
+<script id="itrack-fix-edit-revisi-card-v4">
+(function(){
+  'use strict';
+
+  var CACHE = [];
+  var CACHE_AT = 0;
+
+  function txt(el){ return String((el && (el.innerText || el.textContent)) || '').trim(); }
+  function norm(s){ return String(s || '').toLowerCase().replace(/\s+/g,' ').trim(); }
+  function upper(s){ return String(s || '').toUpperCase(); }
+
+  function user(){
+    try{ if(window.currentUser) return window.currentUser; }catch(e){}
+    try{ return JSON.parse(localStorage.getItem('iTrack_user') || localStorage.getItem('itrack_current_user') || '{}'); }catch(e){ return {}; }
+  }
+
+  function any(row, keys){
+    row = row || {};
+    for(var i=0;i<keys.length;i++){
+      if(row[keys[i]] !== undefined && row[keys[i]] !== null && row[keys[i]] !== '') return row[keys[i]];
+    }
+    return '';
+  }
+
+  function rowsOf(res){
+    if(!res) return [];
+    if(Array.isArray(res)) return res;
+    if(Array.isArray(res.data)) return res.data;
+    var keys = ['rows','items','reports','laporan','workReports','data'];
+    for(var i=0;i<keys.length;i++){
+      if(res.data && Array.isArray(res.data[keys[i]])) return res.data[keys[i]];
+    }
+    return [];
+  }
+
+  function reportId(row){
+    return any(row, ['REPORT_ID','reportId','ID_LAPORAN','idLaporan','ID Laporan','id','ID']);
+  }
+
+  function status(row){
+    return upper(any(row, ['STATUS_LAPORAN','statusLaporan','Status Laporan','status']));
+  }
+
+  function dateDisplay(value){
+    if(window.iTrackDateTimeStable && window.iTrackDateTimeStable.displayDate){
+      return window.iTrackDateTimeStable.displayDate(value);
+    }
+    if(typeof window.formatDateID === 'function') return window.formatDateID(value);
+    var s = String(value || '');
+    var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
+    if(m) return m[3] + '/' + m[2] + '/' + m[1];
+    return s;
+  }
+
+  async function getReports(force){
+    if(!force && CACHE.length && Date.now() - CACHE_AT < 12000) return CACHE;
+
+    if(Array.isArray(window.__iTrackMyReports) && window.__iTrackMyReports.length){
+      CACHE = window.__iTrackMyReports;
+      CACHE_AT = Date.now();
+      return CACHE;
+    }
+
+    if(typeof window.api !== 'function') return [];
+
+    var u = user();
+    var payload = {
+      userId: u.USER_ID || u.userId || '',
+      username: u.USERNAME || u.username || ''
+    };
+
+    var actions = ['getMyWorkReports','getUserReports','getWorkReportsForUser'];
+
+    for(var i=0;i<actions.length;i++){
+      try{
+        var res = await window.api(actions[i], payload);
+        var rows = rowsOf(res);
+
+        if(rows.length){
+          CACHE = rows;
+          CACHE_AT = Date.now();
+          window.__iTrackMyReports = rows;
+          return rows;
+        }
+      }catch(e){}
+    }
+
+    return [];
+  }
+
+  function findReportCards(){
+    var nodes = Array.prototype.slice.call(document.querySelectorAll('div, article, section, li, tr'));
+    var cards = [];
+
+    nodes.forEach(function(el){
+      var text = txt(el);
+      if(!text) return;
+
+      if(upper(text).indexOf('STATUS: REVISI') === -1 && upper(text).indexOf('REVISI') === -1) return;
+
+      var detailBtn = Array.prototype.find.call(el.querySelectorAll('button'), function(b){
+        return norm(b.textContent) === 'detail';
+      });
+
+      if(!detailBtn) return;
+
+      var likely =
+        norm(text).indexOf('divisi') >= 0 &&
+        norm(text).indexOf('kegiatan') >= 0 &&
+        norm(text).indexOf('durasi') >= 0;
+
+      if(likely) cards.push(el);
+    });
+
+    return cards.filter(function(card){
+      return !cards.some(function(other){
+        return other !== card && other.contains(card);
+      });
+    });
+  }
+
+  function matchByText(card, reports, index){
+    var cardText = txt(card);
+
+    var byIndex = reports[index];
+    if(byIndex && status(byIndex).indexOf('REVISI') >= 0) return byIndex;
+
+    for(var i=0;i<reports.length;i++){
+      var r = reports[i];
+
+      if(status(r).indexOf('REVISI') < 0) continue;
+
+      var d = dateDisplay(any(r, ['TANGGAL','Tanggal','tanggal','date']));
+      var div = any(r, ['DIVISI','Divisi','divisi']);
+      var dur = any(r, ['TOTAL_DURASI','Total Durasi','totalDurasi']);
+
+      var okDate = d && cardText.indexOf(d) >= 0;
+      var okDiv = !div || norm(cardText).indexOf(norm(div)) >= 0;
+      var okDur = !dur || norm(cardText).indexOf(norm(dur)) >= 0;
+
+      if(okDate && okDiv && okDur) return r;
+    }
+
+    return null;
+  }
+
+  function cleanupDuplicateButtons(card){
+    card.querySelectorAll(
+      '[data-edit-revision-report],' +
+      '[data-user-edit-revision],' +
+      '[data-irx-edit-revision],' +
+      '[data-irz-single-edit],' +
+      '[data-isr-edit-revision],' +
+      '.edit-revision-report'
+    ).forEach(function(btn){
+      try{ btn.remove(); }catch(e){ btn.style.display = 'none'; }
+    });
+
+    Array.prototype.slice.call(card.querySelectorAll('button')).forEach(function(btn){
+      if(norm(btn.textContent) === 'edit revisi'){
+        try{ btn.remove(); }catch(e){ btn.style.display = 'none'; }
+      }
+    });
+  }
+
+  function openEditor(id){
+    if(!id){
+      if(typeof window.toast === 'function'){
+        window.toast('ID laporan kosong','Tidak bisa membuka revisi karena ID laporan tidak ditemukan.','error');
+      }else{
+        alert('ID laporan kosong.');
+      }
+      return;
+    }
+
+    if(typeof window.openRevisionReportEditor === 'function'){
+      window.openRevisionReportEditor(id);
+      return;
+    }
+
+    if(typeof window.iTrackOpenRevisionEditor === 'function'){
+      window.iTrackOpenRevisionEditor(id);
+      return;
+    }
+
+    if(typeof window.toast === 'function'){
+      window.toast('Editor revisi belum aktif','Pastikan id.html final sudah memuat fungsi openRevisionReportEditor.', 'error');
+    }else{
+      alert('Editor revisi belum aktif. Pastikan id.html final sudah memuat fungsi openRevisionReportEditor.');
+    }
+  }
+
+  async function inject(){
+    var cards = findReportCards();
+    if(!cards.length) return;
+
+    var reports = await getReports(false);
+
+    cards.forEach(function(card, index){
+      cleanupDuplicateButtons(card);
+
+      var report = matchByText(card, reports, index);
+      var id = reportId(report) || card.getAttribute('data-report-id') || card.getAttribute('data-id') || '';
+
+      if(!id) return;
+
+      card.setAttribute('data-report-id', id);
+
+      var detailBtn = Array.prototype.find.call(card.querySelectorAll('button'), function(b){
+        return norm(b.textContent) === 'detail';
+      });
+
+      if(!detailBtn) return;
+
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = detailBtn.className || 'btn btn-secondary';
+      btn.textContent = 'Edit Revisi';
+      btn.setAttribute('data-edit-revision-report', id);
+      btn.style.marginTop = '8px';
+
+      btn.onclick = function(event){
+        event.preventDefault();
+        event.stopPropagation();
+        openEditor(id);
+      };
+
+      detailBtn.insertAdjacentElement('afterend', btn);
+    });
+  }
+
+  var oldRender = window.renderMyReports;
+
+  if(typeof oldRender === 'function' && !oldRender.__fixCardRevisionV4){
+    window.renderMyReports = function(rows){
+      window.__iTrackMyReports = Array.isArray(rows) ? rows : [];
+
+      var result = oldRender.apply(this, arguments);
+
+      setTimeout(inject, 80);
+      setTimeout(inject, 500);
+
+      return result;
+    };
+
+    window.renderMyReports.__fixCardRevisionV4 = true;
+  }
+
+  document.addEventListener('click', function(event){
+    var btn = event.target && event.target.closest
+      ? event.target.closest('[data-edit-revision-report]')
+      : null;
+
+    if(!btn) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    openEditor(btn.getAttribute('data-edit-revision-report'));
+  }, true);
+
+  var observer = new MutationObserver(function(){
+    clearTimeout(observer.__timer);
+    observer.__timer = setTimeout(inject, 200);
+  });
+
+  function boot(){
+    try{
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }catch(e){}
+
+    setTimeout(inject, 300);
+    setTimeout(inject, 1200);
+    setTimeout(inject, 2500);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  }else{
+    boot();
+  }
+
+  window.iTrackFixRevisionCardButton = inject;
+
+  console.warn('[iTrack] Fix Edit Revisi card v4 aktif. Tombol akan muncul pada card Status: REVISI.');
+})();
+</script>
+<!-- PATCH EDIT REVISI V5 ALL-IN-ONE - iTrack -->
+<style id="itrack-revisi-v5-style">
+  .irv5-bg {
+    position: fixed;
+    inset: 0;
+    z-index: 390000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(23,42,69,.44);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+
+  .irv5-bg.show {
+    display: flex;
+  }
+
+  .irv5-modal {
+    width: min(1040px, 100%);
+    max-height: 92dvh;
+    overflow: auto;
+    background: #fff;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 32px;
+    box-shadow: 0 34px 110px rgba(23,42,69,.28);
+    padding: 22px;
+  }
+
+  .irv5-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .irv5-head h2 {
+    margin: 0;
+    color: var(--navy,#172A45);
+    font-size: 22px;
+    font-weight: 850;
+  }
+
+  .irv5-head p {
+    margin: 5px 0 0;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+
+  .irv5-close {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #fff;
+    color: var(--ink,#26384F);
+    border-radius: 15px;
+    padding: 9px 12px;
+    font-size: 12px;
+    font-weight: 850;
+  }
+
+  .irv5-alert {
+    border: 1px solid #F8D7A7;
+    background: #FFF8E8;
+    color: #8A5A00;
+    border-radius: 20px;
+    padding: 13px;
+    margin-bottom: 13px;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .irv5-section {
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 24px;
+    background: #fff;
+    padding: 15px;
+    margin-top: 12px;
+  }
+
+  .irv5-title {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .irv5-title h3 {
+    margin: 0;
+    color: var(--navy,#172A45);
+    font-size: 17px;
+    font-weight: 850;
+  }
+
+  .irv5-title p {
+    margin: 4px 0 0;
+    color: var(--muted,#74869A);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  .irv5-summary {
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    gap: 10px;
+    margin-bottom: 14px;
+  }
+
+  .irv5-info {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #FBFEFF;
+    border-radius: 19px;
+    padding: 12px;
+  }
+
+  .irv5-info small {
+    display: block;
+    color: var(--muted,#74869A);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-weight: 850;
+    margin-bottom: 5px;
+  }
+
+  .irv5-info b {
+    display: block;
+    color: var(--navy,#172A45);
+    font-size: 13px;
+    line-height: 1.45;
+    word-break: break-word;
+  }
+
+  .irv5-grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .irv5-field {
+    position: relative;
+    margin-bottom: 12px;
+  }
+
+  .irv5-field input,
+  .irv5-field textarea {
+    width: 100%;
+    min-height: 56px;
+    border: 1px solid var(--line,#E6EEF4);
+    border-radius: 18px;
+    background: #fff;
+    color: var(--ink,#26384F);
+    outline: 0;
+    padding: 21px 13px 8px;
+    font-size: 14px;
+  }
+
+  .irv5-field textarea {
+    min-height: 112px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  .irv5-field label {
+    position: absolute;
+    left: 13px;
+    top: 8px;
+    color: var(--blue2,#2F8FC4);
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: .06em;
+    font-weight: 850;
+  }
+
+  .irv5-item {
+    border: 1px solid var(--line,#E6EEF4);
+    background: #FBFEFF;
+    border-radius: 24px;
+    padding: 14px;
+    margin-bottom: 12px;
+  }
+
+  .irv5-item-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .irv5-photo-row {
+    display: grid;
+    grid-template-columns: 104px 1fr;
+    gap: 12px;
+    align-items: center;
+  }
+
+  .irv5-thumb {
+    width: 104px;
+    height: 104px;
+    border: 1px dashed #C8D7E2;
+    border-radius: 20px;
+    background: #F8FAFC;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    color: var(--muted,#74869A);
+    font-size: 11px;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .irv5-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .irv5-mini {
+    color: var(--muted,#74869A);
+    font-size: 11px;
+    line-height: 1.55;
+    margin-top: 6px;
+  }
+
+  .irv5-doc-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    color: var(--blue2,#2F8FC4);
+    background: var(--blue3,#EAF7FD);
+    border-radius: 999px;
+    padding: 8px 11px;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+    margin-top: 8px;
+  }
+
+  .irv5-actions {
+    position: sticky;
+    bottom: -22px;
+    background: linear-gradient(180deg,rgba(255,255,255,.78),#fff 36%);
+    border-top: 1px solid var(--line,#E6EEF4);
+    margin: 18px -22px -22px;
+    padding: 16px 22px 22px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  .irv5-empty {
+    border: 1px dashed #D6E5EE;
+    background: #FBFEFF;
+    color: var(--muted,#74869A);
+    border-radius: 20px;
+    padding: 18px;
+    text-align: center;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  @media(max-width:760px) {
+    .irv5-modal {
+      border-radius: 26px;
+      padding: 18px;
+    }
+
+    .irv5-summary,
+    .irv5-grid2,
+    .irv5-actions {
+      grid-template-columns: 1fr;
+    }
+
+    .irv5-photo-row {
+      grid-template-columns: 86px 1fr;
+    }
+
+    .irv5-thumb {
+      width: 86px;
+      height: 86px;
+    }
+
+    .irv5-actions {
+      margin: 18px -18px -18px;
+      padding: 16px 18px 20px;
+    }
+
+    .irv5-title {
+      display: block;
+    }
+  }
+</style>
+
+<script id="itrack-revisi-v5-script">
+(function(){
+  'use strict';
+
+  var CACHE = [];
+  var CACHE_AT = 0;
+  var REVISION_STATE = {
+    reportId: '',
+    report: {},
+    items: []
+  };
+
+  function q(id){
+    return document.getElementById(id);
+  }
+
+  function textOf(el){
+    return String((el && (el.innerText || el.textContent)) || '').trim();
+  }
+
+  function norm(value){
+    return String(value || '').toLowerCase().replace(/\s+/g,' ').trim();
+  }
+
+  function upper(value){
+    return String(value || '').toUpperCase();
+  }
+
+  function esc(value){
+    return String(value == null ? '' : value)
+      .replace(/&/g,'&amp;')
+      .replace(/</g,'&lt;')
+      .replace(/>/g,'&gt;')
+      .replace(/"/g,'&quot;')
+      .replace(/'/g,'&#039;');
+  }
+
+  function attr(value){
+    return esc(value).replace(/`/g,'&#096;');
+  }
+
+  function any(row, keys, fallback){
+    row = row || {};
+
+    for(var i = 0; i < keys.length; i++){
+      var key = keys[i];
+
+      if(row[key] !== undefined && row[key] !== null && row[key] !== ''){
+        return row[key];
+      }
+    }
+
+    return fallback === undefined ? '' : fallback;
+  }
+
+  function current(){
+    try{
+      if(window.currentUser) return window.currentUser;
+    }catch(error){}
+
+    try{
+      return JSON.parse(
+        localStorage.getItem('iTrack_user') ||
+        localStorage.getItem('itrack_current_user') ||
+        '{}'
+      );
+    }catch(error){
+      return {};
+    }
+  }
+
+  function rowsOf(response){
+    if(!response) return [];
+    if(Array.isArray(response)) return response;
+    if(Array.isArray(response.data)) return response.data;
+
+    var keys = [
+      'rows',
+      'items',
+      'reports',
+      'laporan',
+      'workReports',
+      'data'
+    ];
+
+    for(var i = 0; i < keys.length; i++){
+      if(response.data && Array.isArray(response.data[keys[i]])){
+        return response.data[keys[i]];
+      }
+    }
+
+    return [];
+  }
+
+  function notify(type, title, message){
+    if(typeof window.toast === 'function'){
+      return window.toast(title || 'Info', message || '', type || 'info');
+    }
+
+    alert((title || 'Info') + '\n' + (message || ''));
+  }
+
+  function showLoad(title, message){
+    if(window.iTrackNativeLoading && window.iTrackNativeLoading.begin){
+      return window.iTrackNativeLoading.begin(title, message, 300);
+    }
+
+    if(typeof window.showLoading === 'function'){
+      return window.showLoading(title, message);
+    }
+
+    return null;
+  }
+
+  function hideLoad(token){
+    if(window.iTrackNativeLoading && window.iTrackNativeLoading.end){
+      return window.iTrackNativeLoading.end(token);
+    }
+
+    if(typeof window.hideLoading === 'function'){
+      return window.hideLoading(token);
+    }
+  }
+
+  async function apiCall(action, payload){
+    if(typeof window.api !== 'function'){
+      throw new Error('Fungsi API frontend tidak tersedia.');
+    }
+
+    return await window.api(action, payload || {});
+  }
+
+  async function callFirst(actions, payload){
+    var lastError = null;
+
+    for(var i = 0; i < actions.length; i++){
+      try{
+        var result = await apiCall(actions[i], payload || {});
+
+        if(result && result.success === false){
+          lastError = new Error(result.message || ('Action gagal: ' + actions[i]));
+          continue;
+        }
+
+        return result;
+      }catch(error){
+        lastError = error;
+      }
+    }
+
+    throw lastError || new Error('Action backend revisi belum tersedia.');
+  }
+
+  function getReportId(row){
+    return any(row, [
+      'REPORT_ID',
+      'reportId',
+      'ID_LAPORAN',
+      'idLaporan',
+      'ID Laporan',
+      'id',
+      'ID'
+    ]);
+  }
+
+  function getStatus(row){
+    return upper(any(row, [
+      'STATUS_LAPORAN',
+      'statusLaporan',
+      'Status Laporan',
+      'status'
+    ]));
+  }
+
+  function isoDate(value){
+    if(window.iTrackDateTimeStable && window.iTrackDateTimeStable.isoDate){
+      return window.iTrackDateTimeStable.isoDate(value);
+    }
+
+    var s = String(value || '');
+
+    if(/^\d{4}-\d{2}-\d{2}/.test(s)){
+      return s.slice(0,10);
+    }
+
+    return s;
+  }
+
+  function displayDate(value){
+    if(window.iTrackDateTimeStable && window.iTrackDateTimeStable.displayDate){
+      return window.iTrackDateTimeStable.displayDate(value);
+    }
+
+    if(typeof window.formatDateID === 'function'){
+      return window.formatDateID(value);
+    }
+
+    var s = isoDate(value);
+    var m = String(s).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+
+    if(m){
+      return m[3] + '/' + m[2] + '/' + m[1];
+    }
+
+    return s || '-';
+  }
+
+  function displayTime(value){
+    if(window.iTrackDateTimeStable && window.iTrackDateTimeStable.time){
+      return window.iTrackDateTimeStable.time(value);
+    }
+
+    if(typeof window.onlyTime === 'function'){
+      return window.onlyTime(value);
+    }
+
+    var m = String(value || '').match(/(\d{1,2}):(\d{2})/);
+
+    if(m){
+      return String(m[1]).padStart(2,'0') + ':' + m[2];
+    }
+
+    return '';
+  }
+
+  function driveView(url){
+    url = String(url || '').trim();
+
+    if(!url) return '';
+
+    var m1 = url.match(/drive\.google\.com\/file\/d\/([^/]+)/);
+
+    if(m1 && m1[1]){
+      return 'https://drive.google.com/uc?export=view&id=' + m1[1];
+    }
+
+    var m2 = url.match(/[?&]id=([^&]+)/);
+
+    if(url.indexOf('drive.google.com') !== -1 && m2 && m2[1]){
+      return 'https://drive.google.com/uc?export=view&id=' + m2[1];
+    }
+
+    return url;
+  }
+
+  async function getReports(force){
+    if(!force && CACHE.length && Date.now() - CACHE_AT < 12000){
+      return CACHE;
+    }
+
+    if(Array.isArray(window.__iTrackMyReports) && window.__iTrackMyReports.length){
+      CACHE = window.__iTrackMyReports;
+      CACHE_AT = Date.now();
+      return CACHE;
+    }
+
+    if(typeof window.api !== 'function'){
+      return [];
+    }
+
+    var user = current();
+
+    var payload = {
+      userId: user.USER_ID || user.userId || '',
+      username: user.USERNAME || user.username || ''
+    };
+
+    var actions = [
+      'getMyWorkReports',
+      'getUserReports',
+      'getWorkReportsForUser'
+    ];
+
+    for(var i = 0; i < actions.length; i++){
+      try{
+        var res = await window.api(actions[i], payload);
+        var rows = rowsOf(res);
+
+        if(rows.length){
+          CACHE = rows;
+          CACHE_AT = Date.now();
+          window.__iTrackMyReports = rows;
+          return rows;
+        }
+      }catch(error){}
+    }
+
+    return [];
+  }
+
+  function findCards(){
+    var nodes = Array.prototype.slice.call(
+      document.querySelectorAll('div, article, section, li, tr')
+    );
+
+    var cards = [];
+
+    nodes.forEach(function(el){
+      var text = textOf(el);
+
+      if(!text) return;
+
+      var hasRevision =
+        upper(text).indexOf('STATUS: REVISI') !== -1 ||
+        upper(text).indexOf('REVISI') !== -1;
+
+      if(!hasRevision) return;
+
+      var detailButton = Array.prototype.find.call(el.querySelectorAll('button'), function(button){
+        return norm(button.textContent) === 'detail';
+      });
+
+      if(!detailButton) return;
+
+      var likelyReportCard =
+        norm(text).indexOf('divisi') !== -1 &&
+        norm(text).indexOf('kegiatan') !== -1 &&
+        norm(text).indexOf('durasi') !== -1;
+
+      if(likelyReportCard){
+        cards.push(el);
+      }
+    });
+
+    return cards.filter(function(card){
+      return !cards.some(function(other){
+        return other !== card && other.contains(card);
+      });
+    });
+  }
+
+  function matchReport(card, reports, index){
+    var cardText = textOf(card);
+
+    var byIndex = reports[index];
+
+    if(byIndex && getStatus(byIndex).indexOf('REVISI') !== -1){
+      return byIndex;
+    }
+
+    for(var i = 0; i < reports.length; i++){
+      var report = reports[i];
+
+      if(getStatus(report).indexOf('REVISI') === -1) continue;
+
+      var tanggal = displayDate(any(report, [
+        'TANGGAL',
+        'Tanggal',
+        'tanggal',
+        'date'
+      ]));
+
+      var divisi = any(report, [
+        'DIVISI',
+        'Divisi',
+        'divisi'
+      ]);
+
+      var durasi = any(report, [
+        'TOTAL_DURASI',
+        'Total Durasi',
+        'totalDurasi'
+      ]);
+
+      var okTanggal = tanggal && cardText.indexOf(tanggal) !== -1;
+      var okDivisi = !divisi || norm(cardText).indexOf(norm(divisi)) !== -1;
+      var okDurasi = !durasi || norm(cardText).indexOf(norm(durasi)) !== -1;
+
+      if(okTanggal && okDivisi && okDurasi){
+        return report;
+      }
+    }
+
+    return null;
+  }
+
+  function cleanButtons(card){
+    card.querySelectorAll(
+      '[data-edit-revision-report],' +
+      '[data-user-edit-revision],' +
+      '[data-irx-edit-revision],' +
+      '[data-irz-single-edit],' +
+      '[data-isr-edit-revision],' +
+      '.edit-revision-report'
+    ).forEach(function(button){
+      try{
+        button.remove();
+      }catch(error){
+        button.style.display = 'none';
+      }
+    });
+
+    Array.prototype.slice.call(card.querySelectorAll('button')).forEach(function(button){
+      if(norm(button.textContent) === 'edit revisi'){
+        try{
+          button.remove();
+        }catch(error){
+          button.style.display = 'none';
+        }
+      }
+    });
+  }
+
+  function ensureModal(){
+    if(q('irv5Modal')) return;
+
+    var element = document.createElement('div');
+    element.id = 'irv5Modal';
+    element.className = 'irv5-bg';
+
+    element.innerHTML =
+      '<div class="irv5-modal">' +
+        '<div class="irv5-head">' +
+          '<div>' +
+            '<h2 id="irv5Title">Edit Revisi Laporan</h2>' +
+            '<p id="irv5Sub">Perbaiki laporan lalu kirim ulang.</p>' +
+          '</div>' +
+          '<button type="button" class="irv5-close" id="irv5Close">Tutup</button>' +
+        '</div>' +
+        '<div id="irv5Body"></div>' +
+      '</div>';
+
+    document.body.appendChild(element);
+
+    q('irv5Close').onclick = function(){
+      element.classList.remove('show');
+    };
+  }
+
+  function showModal(title, sub, html){
+    ensureModal();
+
+    q('irv5Title').textContent = title || 'Edit Revisi Laporan';
+    q('irv5Sub').textContent = sub || '';
+    q('irv5Body').innerHTML = html || '';
+    q('irv5Modal').classList.add('show');
+  }
+
+  function closeModal(){
+    var modal = q('irv5Modal');
+
+    if(modal){
+      modal.classList.remove('show');
+    }
+  }
+
+  function info(label, value){
+    return '<div class="irv5-info">' +
+      '<small>' + esc(label) + '</small>' +
+      '<b>' + esc(value || '-') + '</b>' +
+    '</div>';
+  }
+
+  function findCachedReport(id){
+    var reports = window.__iTrackMyReports || CACHE || [];
+
+    for(var i = 0; i < reports.length; i++){
+      if(String(getReportId(reports[i])) === String(id)){
+        return reports[i];
+      }
+    }
+
+    return {};
+  }
+
+  async function getDetail(id){
+    var user = current();
+
+    var payload = {
+      reportId: id,
+      idLaporan: id,
+      userId: user.USER_ID || user.userId || '',
+      username: user.USERNAME || user.username || ''
+    };
+
+    try{
+      var res = await callFirst([
+        'getMyWorkReportFullDetail',
+        'getWorkReportRevisionDetail',
+        'adminGetWorkReportFullDetail',
+        'getWorkReportFullDetail'
+      ], payload);
+
+      var data = res.data || res;
+
+      return {
+        report: data.report || data.header || data.laporan || findCachedReport(id),
+        items: data.items || data.details || data.kegiatan || data.activities || []
+      };
+
+    }catch(error){
+      var items = await callFirst([
+        'getWorkReportItems',
+        'getReportItems'
+      ], payload);
+
+      return {
+        report: findCachedReport(id),
+        items: rowsOf(items)
+      };
+    }
+  }
+
+  function itemHtml(item, index){
+    item = item || {};
+
+    var mulai = displayTime(any(item, [
+      'JAM_MULAI',
+      'Jam Mulai',
+      'jamMulai',
+      'start'
+    ]));
+
+    var selesai = displayTime(any(item, [
+      'JAM_SELESAI',
+      'Jam Selesai',
+      'jamSelesai',
+      'end'
+    ]));
+
+    var uraian = any(item, [
+      'URAIAN_KEGIATAN',
+      'Uraian Kegiatan',
+      'uraianKegiatan',
+      'uraian',
+      'deskripsi'
+    ]);
+
+    var dokumentasi = any(item, [
+      'DOKUMENTASI_URL',
+      'URL Dokumentasi',
+      'dokumentasiUrl',
+      'urlDokumentasi',
+      'Dokumentasi'
+    ]);
+
+    var img = driveView(dokumentasi);
+
+    return '' +
+      '<div class="irv5-item" data-irv5-item>' +
+        '<div class="irv5-item-head">' +
+          '<b>Kegiatan ' + (index + 1) + '</b>' +
+          '<button type="button" class="btn btn-red btn-mini" data-irv5-remove>Hapus</button>' +
+        '</div>' +
+
+        '<div class="irv5-grid2">' +
+          '<div class="irv5-field">' +
+            '<input type="time" class="irv5Start" value="' + attr(mulai) + '">' +
+            '<label>Jam Mulai</label>' +
+          '</div>' +
+
+          '<div class="irv5-field">' +
+            '<input type="time" class="irv5End" value="' + attr(selesai) + '">' +
+            '<label>Jam Selesai</label>' +
+          '</div>' +
+        '</div>' +
+
+        '<div class="irv5-field">' +
+          '<textarea class="irv5Desc" placeholder=" ">' + esc(uraian) + '</textarea>' +
+          '<label>Uraian Kegiatan</label>' +
+        '</div>' +
+
+        '<div class="irv5-photo-row">' +
+          '<div class="irv5-thumb">' +
+            (img ? '<img src="' + attr(img) + '" alt="Dokumentasi">' : 'Belum ada gambar') +
+          '</div>' +
+
+          '<div>' +
+            '<input type="file" class="irv5Photo" accept="image/*" capture="environment" data-existing-doc="' + attr(dokumentasi) + '">' +
+            '<div class="irv5-mini">Pilih foto baru untuk mengganti dokumentasi. Kosongkan jika tetap memakai foto lama.</div>' +
+            (dokumentasi ? '<a class="irv5-doc-link" href="' + attr(dokumentasi) + '" target="_blank">📎 Buka Dokumentasi Lama</a>' : '') +
+          '</div>' +
+        '</div>' +
+      '</div>';
+  }
+
+  function bindEditor(){
+    var add = q('irv5AddItem');
+    var cancel = q('irv5Cancel');
+    var submit = q('irv5Submit');
+
+    if(add){
+      add.onclick = function(){
+        var box = q('irv5Items');
+        if(!box) return;
+
+        var empty = box.querySelector('.irv5-empty');
+        if(empty) empty.remove();
+
+        var count = box.querySelectorAll('[data-irv5-item]').length;
+
+        if(count >= 10){
+          notify('warning', 'Maksimal kegiatan', 'Satu laporan maksimal 10 kegiatan.');
+          return;
+        }
+
+        box.insertAdjacentHTML('beforeend', itemHtml({}, count));
+        bindEditor();
+        renumber();
+      };
+    }
+
+    if(cancel){
+      cancel.onclick = closeModal;
+    }
+
+    if(submit){
+      submit.onclick = submitRevision;
+    }
+
+    document.querySelectorAll('[data-irv5-remove]').forEach(function(button){
+      if(button.__irv5Bound) return;
+
+      button.__irv5Bound = true;
+
+      button.onclick = function(){
+        var item = button.closest('[data-irv5-item]');
+
+        if(item){
+          item.remove();
+        }
+
+        renumber();
+      };
+    });
+
+    document.querySelectorAll('.irv5Photo').forEach(function(input){
+      if(input.__irv5Bound) return;
+
+      input.__irv5Bound = true;
+
+      input.onchange = function(){
+        var file = input.files && input.files[0];
+
+        if(!file) return;
+
+        var reader = new FileReader();
+
+        reader.onload = function(event){
+          input.dataset.base64 = event.target.result;
+
+          var thumb = input.closest('[data-irv5-item]').querySelector('.irv5-thumb');
+
+          if(thumb){
+            thumb.innerHTML = '<img src="' + attr(event.target.result) + '" alt="Preview">';
+          }
+        };
+
+        reader.readAsDataURL(file);
+      };
+    });
+  }
+
+  function renumber(){
+    var items = document.querySelectorAll('#irv5Items [data-irv5-item]');
+
+    items.forEach(function(item, index){
+      var title = item.querySelector('.irv5-item-head b');
+
+      if(title){
+        title.textContent = 'Kegiatan ' + (index + 1);
+      }
+    });
+
+    var box = q('irv5Items');
+
+    if(box && !items.length){
+      box.innerHTML = '<div class="irv5-empty">Belum ada kegiatan. Klik Tambah Kegiatan.</div>';
+    }
+  }
+
+  function collectPayload(){
+    var user = current();
+    var items = [];
+
+    document.querySelectorAll('#irv5Items [data-irv5-item]').forEach(function(item, index){
+      var photo = item.querySelector('.irv5Photo');
+      var base64 = photo && photo.dataset ? photo.dataset.base64 || '' : '';
+      var oldDoc = photo ? photo.getAttribute('data-existing-doc') || '' : '';
+
+      items.push({
+        urutan: index + 1,
+        jamMulai: item.querySelector('.irv5Start') ? item.querySelector('.irv5Start').value : '',
+        jamSelesai: item.querySelector('.irv5End') ? item.querySelector('.irv5End').value : '',
+        uraianKegiatan: item.querySelector('.irv5Desc') ? item.querySelector('.irv5Desc').value.trim() : '',
+        photoBase64: base64,
+        dokumentasiBase64: base64,
+        urlDokumentasi: base64 ? '' : oldDoc
+      });
+    });
+
+    return {
+      reportId: REVISION_STATE.reportId,
+      idLaporan: REVISION_STATE.reportId,
+      userId: user.USER_ID || user.userId || '',
+      username: user.USERNAME || user.username || '',
+      tanggal: q('irv5Date') ? q('irv5Date').value : '',
+      divisi: q('irv5Division') ? q('irv5Division').value : '',
+      catatanUser: q('irv5Note') ? q('irv5Note').value.trim() : '',
+      note: q('irv5Note') ? q('irv5Note').value.trim() : '',
+      items: items,
+      activities: items,
+      statusLaporan: 'MENUNGGU',
+      status: 'MENUNGGU'
+    };
+  }
+
+  async function submitRevision(){
+    var payload = collectPayload();
+
+    if(!payload.reportId){
+      notify('error', 'ID kosong', 'ID laporan tidak ditemukan.');
+      return;
+    }
+
+    if(!payload.tanggal){
+      notify('warning', 'Tanggal wajib', 'Tanggal laporan belum diisi.');
+      return;
+    }
+
+    if(!payload.items.length){
+      notify('warning', 'Kegiatan kosong', 'Minimal satu kegiatan wajib diisi.');
+      return;
+    }
+
+    for(var i = 0; i < payload.items.length; i++){
+      if(!payload.items[i].jamMulai || !payload.items[i].jamSelesai || !payload.items[i].uraianKegiatan){
+        notify('warning', 'Belum lengkap', 'Kegiatan ' + (i + 1) + ' wajib lengkap.');
+        return;
+      }
+    }
+
+    if(!confirm('Kirim ulang revisi laporan ini?')) return;
+
+    var token = showLoad('Mengirim revisi...', 'Menyimpan perubahan laporan.');
+
+    try{
+      var res = await callFirst([
+        'resubmitWorkReportRevision',
+        'updateWorkReportRevision',
+        'submitWorkReportRevision',
+        'resubmitReportRevision',
+        'editWorkReportRevision'
+      ], payload);
+
+      if(res && res.success === false){
+        throw new Error(res.message || 'Gagal mengirim revisi.');
+      }
+
+      notify('success', 'Revisi terkirim', 'Laporan dikirim ulang dan menunggu validasi admin.');
+      closeModal();
+
+      if(typeof window.loadMyReports === 'function'){
+        window.loadMyReports();
+      }
+
+      if(typeof window.loadRecentActivities === 'function'){
+        window.loadRecentActivities();
+      }
+
+    }catch(error){
+      notify('error', 'Gagal mengirim revisi', error.message || 'Terjadi kesalahan.');
+    }finally{
+      hideLoad(token);
+    }
+  }
+
+  async function openEditor(id){
+    if(!id){
+      notify('error', 'ID kosong', 'Tidak bisa membuka revisi karena ID laporan kosong.');
+      return;
+    }
+
+    var token = showLoad('Memuat revisi...', 'Mengambil detail laporan.');
+
+    try{
+      var data = await getDetail(id);
+      var report = data.report || {};
+      var items = Array.isArray(data.items) ? data.items : [];
+
+      REVISION_STATE = {
+        reportId: id,
+        report: report,
+        items: items
+      };
+
+      var tanggal = isoDate(any(report, [
+        'TANGGAL',
+        'Tanggal',
+        'tanggal',
+        'date'
+      ]));
+
+      var divisi = any(report, [
+        'DIVISI',
+        'Divisi',
+        'divisi'
+      ]);
+
+      var catatanPeserta = any(report, [
+        'CATATAN_USER',
+        'Catatan Peserta',
+        'catatanPeserta',
+        'catatanUser',
+        'note'
+      ]);
+
+      var catatanAdmin = any(report, [
+        'CATATAN_ADMIN',
+        'Catatan Admin',
+        'catatanAdmin',
+        'Catatan Revisi'
+      ], 'Admin belum menambahkan catatan revisi.');
+
+      var html = '';
+
+      html += '<div class="irv5-alert"><b>Mode Revisi Aktif.</b><br>Perbaiki data sesuai catatan admin, lalu kirim ulang. Status kembali MENUNGGU.</div>';
+
+      html += '<div class="irv5-summary">' +
+        info('ID Laporan', id) +
+        info('Tanggal', displayDate(tanggal)) +
+        info('Divisi', divisi) +
+        info('Status', 'REVISI') +
+      '</div>';
+
+      html += '<div class="irv5-section">' +
+        '<div class="irv5-title">' +
+          '<div>' +
+            '<h3>Catatan Admin</h3>' +
+            '<p>Instruksi revisi.</p>' +
+          '</div>' +
+        '</div>' +
+        '<div class="irv5-alert" style="margin-bottom:0">' + esc(catatanAdmin) + '</div>' +
+      '</div>';
+
+      html += '<div class="irv5-section">' +
+        '<div class="irv5-grid2">' +
+          '<div class="irv5-field">' +
+            '<input id="irv5Date" type="date" value="' + attr(tanggal) + '">' +
+            '<label>Tanggal</label>' +
+          '</div>' +
+          '<div class="irv5-field">' +
+            '<input id="irv5Division" value="' + attr(divisi) + '">' +
+            '<label>Divisi</label>' +
+          '</div>' +
+        '</div>' +
+        '<div class="irv5-field">' +
+          '<textarea id="irv5Note">' + esc(catatanPeserta) + '</textarea>' +
+          '<label>Catatan Peserta</label>' +
+        '</div>' +
+      '</div>';
+
+      html += '<div class="irv5-section">' +
+        '<div class="irv5-title">' +
+          '<div>' +
+            '<h3>Detail Kegiatan</h3>' +
+            '<p>Edit/tambah/hapus kegiatan dan ganti dokumentasi.</p>' +
+          '</div>' +
+          '<button type="button" class="btn btn-secondary btn-mini" id="irv5AddItem">Tambah Kegiatan</button>' +
+        '</div>' +
+        '<div id="irv5Items">' +
+          (items.length ? items.map(itemHtml).join('') : '<div class="irv5-empty">Belum ada kegiatan. Klik Tambah Kegiatan.</div>') +
+        '</div>' +
+      '</div>';
+
+      html += '<div class="irv5-actions">' +
+        '<button type="button" class="btn btn-secondary" id="irv5Cancel">Batal</button>' +
+        '<button type="button" class="btn btn-primary" id="irv5Submit">Kirim Pembaruan Revisi</button>' +
+      '</div>';
+
+      showModal('Edit Revisi Laporan', 'Ubah laporan lalu submit ulang.', html);
+      bindEditor();
+
+    }catch(error){
+      notify('error', 'Gagal membuka revisi', error.message || 'Terjadi kesalahan.');
+    }finally{
+      hideLoad(token);
+    }
+  }
+
+  function addButtons(){
+    getReports(false).then(function(reports){
+      var cards = findCards();
+
+      cards.forEach(function(card, index){
+        cleanButtons(card);
+
+        var report = matchReport(card, reports, index);
+        var id = getReportId(report) || card.getAttribute('data-report-id') || '';
+
+        if(!id && reports.length === 1){
+          id = getReportId(reports[0]);
+        }
+
+        if(!id) return;
+
+        card.setAttribute('data-report-id', id);
+
+        var detailButton = Array.prototype.find.call(card.querySelectorAll('button'), function(button){
+          return norm(button.textContent) === 'detail';
+        });
+
+        if(!detailButton) return;
+
+        var button = document.createElement('button');
+        button.type = 'button';
+        button.className = detailButton.className || 'btn btn-secondary';
+        button.textContent = 'Edit Revisi';
+        button.setAttribute('data-edit-revision-report', id);
+        button.style.marginTop = '8px';
+
+        button.onclick = function(event){
+          event.preventDefault();
+          event.stopPropagation();
+          openEditor(id);
+        };
+
+        detailButton.insertAdjacentElement('afterend', button);
+      });
+    });
+  }
+
+  window.openRevisionReportEditor = openEditor;
+  window.iTrackFixRevisionCardButton = addButtons;
+
+  var oldRender = window.renderMyReports;
+
+  if(typeof oldRender === 'function' && !oldRender.__irv5Wrapped){
+    window.renderMyReports = function(rows){
+      window.__iTrackMyReports = Array.isArray(rows) ? rows : [];
+      var result = oldRender.apply(this, arguments);
+
+      setTimeout(addButtons, 80);
+      setTimeout(addButtons, 500);
+      setTimeout(addButtons, 1200);
+
+      return result;
+    };
+
+    window.renderMyReports.__irv5Wrapped = true;
+  }
+
+  document.addEventListener('click', function(event){
+    var button = event.target && event.target.closest
+      ? event.target.closest('[data-edit-revision-report]')
+      : null;
+
+    if(!button) return;
+
+    event.preventDefault();
+    event.stopPropagation();
+
+    openEditor(button.getAttribute('data-edit-revision-report'));
+  }, true);
+
+  var observer = new MutationObserver(function(){
+    clearTimeout(observer.__timer);
+    observer.__timer = setTimeout(addButtons, 180);
+  });
+
+  function boot(){
+    try{
+      observer.observe(document.body, {
+        childList: true,
+        subtree: true
+      });
+    }catch(error){}
+
+    setTimeout(addButtons, 300);
+    setTimeout(addButtons, 1000);
+    setTimeout(addButtons, 2500);
+  }
+
+  if(document.readyState === 'loading'){
+    document.addEventListener('DOMContentLoaded', boot);
+  }else{
+    boot();
+  }
+
+  console.warn('[iTrack] Revisi V5 aktif. Tombol dan popup editor siap.');
+})();
+</script>
 </body></html>
