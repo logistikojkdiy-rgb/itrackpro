@@ -32,7 +32,7 @@
 </head><body>
 <div id="splash" class="splash"><div style="text-align:center"><div class="splash-logo"></div><h1>iTrack</h1><p>Internship Tracker</p></div></div><div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loading-card"><div class="loader"></div><h3 id="loadingTitle">Memproses...</h3><p id="loadingText">Mohon tunggu sebentar.</p><div class="progress-line"><span></span></div></div></div><div id="authPage" class="auth-page"></div><div id="appPage" class="app hidden"></div><div id="outsideAttendanceModal" class="modal"></div><div id="detailModal" class="modal"></div><div id="itStage1Modal" class="it-stage1-modal"><div class="it-stage1-card" id="itStage1ModalCard"></div></div>
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbxnYzmGiZSRccev_KC0ORJSJ-q2j8c3M8fhmH1tq2MIE7vbQm9JNTtjJ8o9m14FudBj0g/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
+const API_URL='https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
 let currentUser=null,currentRoleIsAdmin=false,settings={APP_NAME:'iTrack Internship OJK DIY',APP_SHORT_NAME:'iTrack',APP_LOGO_URL:DEFAULT_LOGO,OFFICE_NAME:'Kantor OJK DIY',OFFICE_ADDRESS:'Jalan Jenderal Sudirman No. 22, Gowongan, Jetis, Yogyakarta 55232',OFFICE_LATITUDE:-7.7830584,OFFICE_LONGITUDE:110.3687544,OFFICE_RADIUS_METER:100,LATE_AFTER:'08:15',WORK_END_TIME:'17:00',ADMIN_NOTIFICATION_EMAIL:''};let currentCameraMode='in',cameraStream=null,capturedBase64='',currentLocation=null,currentDistance=null,serverTimeData=null,workItemCounter=0,isSubmittingAttendance=false;let state={today:null,adminAttendance:[],attendanceFilter:'SEMUA',retryPayload:null,retryAction:'',retryMode:'',recent:[],calendar:[],exportLogs:[],alerts:{}};
 const META={'user-home':['Dashboard','Hari ini'],'user-attendance':['Riwayat Absensi','Data saya'],'user-work':['Laporan','Catat kegiatan'],'user-leave':['Izin','Ajukan izin'],'user-profile':['Profil','Data akun'],'user-calendar':['Kalender','Kehadiran'],'user-progress':['Progress','Magang'],'admin-home':['Dashboard Admin','Monitoring'],'admin-attendance':['Absensi','Monitoring'],'admin-reports':['Laporan','Validasi'],'admin-leaves':['Izin','Approval'],'admin-menu':['Menu Admin','Akses lainnya'],'admin-registrations':['Registrasi','Verifikasi'],'admin-users':['Peserta','Data akun'],'admin-export':['Export','Unduh data'],'admin-export-logs':['Log Export','Riwayat export'],'admin-settings':['Pengaturan','Sistem']};
 const USER_MENUS=[['user-home','Home','home'],['user-attendance','Absensi','camera'],['user-work','Laporan','file'],['user-leave','Izin','calendar'],['user-profile','Profil','user']];const ADMIN_MENUS=[['admin-home','Home','home'],['admin-attendance','Absensi','camera'],['admin-reports','Laporan','file'],['admin-leaves','Izin','calendar'],['admin-registrations','Registrasi','user-plus'],['admin-users','Peserta','users'],['admin-export','Export','download'],['admin-export-logs','Log Export','file'],['admin-settings','Pengaturan','settings']];
@@ -1652,7 +1652,7 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 </style>
 <script id="itrack-preserve-ui-admin-upgrade-script">
 (function(){
-  var ADMIN_UPGRADE_EXEC_URL = 'https://script.google.com/macros/s/AKfycbxnYzmGiZSRccev_KC0ORJSJ-q2j8c3M8fhmH1tq2MIE7vbQm9JNTtjJ8o9m14FudBj0g/exec';
+  var ADMIN_UPGRADE_EXEC_URL = 'https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';
   function itxAny(row, keys, fallback){ row=row||{}; for(var i=0;i<keys.length;i++){var k=keys[i]; if(row[k]!==undefined && row[k]!==null && row[k] !== '') return row[k];} return fallback===undefined?'':fallback; }
   function itxEsc(v){ return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
   function itxEscAttr(v){ return itxEsc(v).replace(/`/g,'&#096;'); }
@@ -1924,7 +1924,7 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 
 <script id="itrack-pretty-report-detail-script">
 (function(){
-  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbxnYzmGiZSRccev_KC0ORJSJ-q2j8c3M8fhmH1tq2MIE7vbQm9JNTtjJ8o9m14FudBj0g/exec';
+  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';
   var reportCache = [];
   var reportCacheAt = 0;
 
@@ -2717,7 +2717,7 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 
 <script id="itrack-pretty-admin-detail-v2-script">
 (function(){
-  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbxnYzmGiZSRccev_KC0ORJSJ-q2j8c3M8fhmH1tq2MIE7vbQm9JNTtjJ8o9m14FudBj0g/exec';
+  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';
 
   function esc(value){
     return String(value == null ? '' : value)
