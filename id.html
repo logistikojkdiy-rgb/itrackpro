@@ -32,7 +32,7 @@
 </head><body>
 <div id="splash" class="splash"><div style="text-align:center"><div class="splash-logo"></div><h1>iTrack</h1><p>Internship Tracker</p></div></div><div id="toast" class="toast"></div><div id="loading" class="loading"><div class="loading-card"><div class="loader"></div><h3 id="loadingTitle">Memproses...</h3><p id="loadingText">Mohon tunggu sebentar.</p><div class="progress-line"><span></span></div></div></div><div id="authPage" class="auth-page"></div><div id="appPage" class="app hidden"></div><div id="outsideAttendanceModal" class="modal"></div><div id="detailModal" class="modal"></div><div id="itStage1Modal" class="it-stage1-modal"><div class="it-stage1-card" id="itStage1ModalCard"></div></div>
 <script>
-const API_URL='https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
+const API_URL='https://script.google.com/macros/s/AKfycbyaxOik6zN8lRYLNTaEaf9AtsymYZqsdiBsxVTOOTCdJZdF2peSPhAg37yFJQ0UEfesTA/exec';const DEFAULT_LOGO='https://ik.imagekit.io/logojkdiy/ITrack.png?updatedAt=1780625610938';const VIDEO_URL='https://ik.imagekit.io/logojkdiy/Panel%20Synergy+.mp4?updatedAt=1775700490855';
 let currentUser=null,currentRoleIsAdmin=false,settings={APP_NAME:'iTrack Internship OJK DIY',APP_SHORT_NAME:'iTrack',APP_LOGO_URL:DEFAULT_LOGO,OFFICE_NAME:'Kantor OJK DIY',OFFICE_ADDRESS:'Jalan Jenderal Sudirman No. 22, Gowongan, Jetis, Yogyakarta 55232',OFFICE_LATITUDE:-7.7830584,OFFICE_LONGITUDE:110.3687544,OFFICE_RADIUS_METER:100,LATE_AFTER:'08:15',WORK_END_TIME:'17:00',ADMIN_NOTIFICATION_EMAIL:''};let currentCameraMode='in',cameraStream=null,capturedBase64='',currentLocation=null,currentDistance=null,serverTimeData=null,workItemCounter=0,isSubmittingAttendance=false;let state={today:null,adminAttendance:[],attendanceFilter:'SEMUA',retryPayload:null,retryAction:'',retryMode:'',recent:[],calendar:[],exportLogs:[],alerts:{}};
 const META={'user-home':['Dashboard','Hari ini'],'user-attendance':['Riwayat Absensi','Data saya'],'user-work':['Laporan','Catat kegiatan'],'user-leave':['Izin','Ajukan izin'],'user-profile':['Profil','Data akun'],'user-calendar':['Kalender','Kehadiran'],'user-progress':['Progress','Magang'],'admin-home':['Dashboard Admin','Monitoring'],'admin-attendance':['Absensi','Monitoring'],'admin-reports':['Laporan','Validasi'],'admin-leaves':['Izin','Approval'],'admin-menu':['Menu Admin','Akses lainnya'],'admin-registrations':['Registrasi','Verifikasi'],'admin-users':['Peserta','Data akun'],'admin-export':['Export','Unduh data'],'admin-export-logs':['Log Export','Riwayat export'],'admin-settings':['Pengaturan','Sistem']};
 const USER_MENUS=[['user-home','Home','home'],['user-attendance','Absensi','camera'],['user-work','Laporan','file'],['user-leave','Izin','calendar'],['user-profile','Profil','user']];const ADMIN_MENUS=[['admin-home','Home','home'],['admin-attendance','Absensi','camera'],['admin-reports','Laporan','file'],['admin-leaves','Izin','calendar'],['admin-registrations','Registrasi','user-plus'],['admin-users','Peserta','users'],['admin-export','Export','download'],['admin-export-logs','Log Export','file'],['admin-settings','Pengaturan','settings']];
@@ -1652,7 +1652,7 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 </style>
 <script id="itrack-preserve-ui-admin-upgrade-script">
 (function(){
-  var ADMIN_UPGRADE_EXEC_URL = 'https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';
+  var ADMIN_UPGRADE_EXEC_URL = 'https://script.google.com/macros/s/AKfycbyaxOik6zN8lRYLNTaEaf9AtsymYZqsdiBsxVTOOTCdJZdF2peSPhAg37yFJQ0UEfesTA/exec';
   function itxAny(row, keys, fallback){ row=row||{}; for(var i=0;i<keys.length;i++){var k=keys[i]; if(row[k]!==undefined && row[k]!==null && row[k] !== '') return row[k];} return fallback===undefined?'':fallback; }
   function itxEsc(v){ return String(v==null?'':v).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#039;'); }
   function itxEscAttr(v){ return itxEsc(v).replace(/`/g,'&#096;'); }
@@ -1924,7 +1924,7 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 
 <script id="itrack-pretty-report-detail-script">
 (function(){
-  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';
+  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyaxOik6zN8lRYLNTaEaf9AtsymYZqsdiBsxVTOOTCdJZdF2peSPhAg37yFJQ0UEfesTA/exec';
   var reportCache = [];
   var reportCacheAt = 0;
 
@@ -2717,7 +2717,7 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
 
 <script id="itrack-pretty-admin-detail-v2-script">
 (function(){
-  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbxJQ-MUX4HCH2Px3zWeC7a1mJ1MTJ03o_CWoPF160kfIatq8y3SiHtzBDlTvj8DpcXJUA/exec';
+  var EXEC_URL = 'https://script.google.com/macros/s/AKfycbyaxOik6zN8lRYLNTaEaf9AtsymYZqsdiBsxVTOOTCdJZdF2peSPhAg37yFJQ0UEfesTA/exec';
 
   function esc(value){
     return String(value == null ? '' : value)
@@ -6148,6 +6148,161 @@ function initAll(){setTimeout(()=>{initReport();initExport()},80)}const oldOpen=
   }
 
   console.warn('[iTrack] Revisi V5 aktif. Tombol dan popup editor siap.');
+})();
+</script>
+<script id="patch-laporan-magang-jsonp-download">
+(function(){
+  var API_URL = 'https://script.google.com/macros/s/AKfycbyaxOik6zN8lRYLNTaEaf9AtsymYZqsdiBsxVTOOTCdJZdF2peSPhAg37yFJQ0UEfesTA/exec';
+
+  function query(data) {
+    return Object.keys(data || {}).map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(data[k] == null ? '' : data[k]);
+    }).join('&');
+  }
+
+  function jsonp(action, payload) {
+    return new Promise(function(resolve, reject) {
+      var cb = 'itrackCb' + Date.now() + Math.floor(Math.random() * 100000);
+      var script = document.createElement('script');
+
+      window[cb] = function(res) {
+        try {
+          delete window[cb];
+          script.remove();
+        } catch (e) {}
+        resolve(res);
+      };
+
+      script.onerror = function() {
+        try {
+          delete window[cb];
+          script.remove();
+        } catch (e) {}
+        reject(new Error('Gagal memanggil backend JSONP.'));
+      };
+
+      script.src = API_URL + '?' + query(Object.assign({}, payload || {}, {
+        action: action,
+        callback: cb
+      }));
+
+      document.body.appendChild(script);
+    });
+  }
+
+  function getFilterPayload() {
+    var dates = Array.prototype.slice.call(document.querySelectorAll('input[type="date"]'));
+    var selects = Array.prototype.slice.call(document.querySelectorAll('select'));
+
+    return {
+      startDate: dates[0] ? dates[0].value : '',
+      endDate: dates[1] ? dates[1].value : '',
+      tanggalMulai: dates[0] ? dates[0].value : '',
+      tanggalSelesai: dates[1] ? dates[1].value : '',
+      username: selects[0] ? selects[0].value : '',
+      namaPengguna: selects[0] ? selects[0].value : '',
+      peserta: selects[0] ? selects[0].value : '',
+      status: selects[1] ? selects[1].value : '',
+      statusLaporan: selects[1] ? selects[1].value : ''
+    };
+  }
+
+  function findResultBox() {
+    var box = document.querySelector('#hasilProses, #result, .hasil-proses, .result, pre');
+    if (box) return box;
+
+    var div = document.createElement('div');
+    div.id = 'hasilProses';
+    div.style.cssText = 'margin:16px;padding:14px;border-radius:18px;background:#fff;border:1px solid #DDEAF5;color:#172A45;max-height:520px;overflow:auto;';
+    document.body.appendChild(div);
+    return div;
+  }
+
+  function showHtml(html) {
+    findResultBox().innerHTML = html;
+  }
+
+  function showError(message, data) {
+    showHtml(
+      '<div style="color:#B42318;font-family:Arial">' +
+      '<b>Gagal</b><p>' + escapeHtml(message || 'Terjadi kesalahan.') + '</p>' +
+      (data ? '<pre style="white-space:pre-wrap">' + escapeHtml(JSON.stringify(data, null, 2)) + '</pre>' : '') +
+      '</div>'
+    );
+  }
+
+  function escapeHtml(value) {
+    return String(value == null ? '' : value)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
+  async function previewLaporanMagang() {
+    showHtml('<div style="font-family:Arial;color:#172A45"><b>Memuat preview laporan...</b><p style="color:#64748B;font-size:12px">Mohon tunggu.</p></div>');
+
+    try {
+      var res = await jsonp('previewWorkReportExport', getFilterPayload());
+
+      if (!res || res.success === false || res.berhasil === false) {
+        showError(res && (res.message || res.pesan) || 'Preview gagal.', res);
+        return;
+      }
+
+      showHtml(res.data && res.data.html ? res.data.html : '<pre>' + escapeHtml(JSON.stringify(res, null, 2)) + '</pre>');
+
+    } catch (err) {
+      showError(err.message || String(err));
+    }
+  }
+
+  function downloadLaporanMagangPdf() {
+    window.open(API_URL + '?' + query(Object.assign({}, getFilterPayload(), {
+      action: 'exportWorkReportPdfSafe'
+    })), '_blank');
+  }
+
+  function downloadLaporanMagangCsv() {
+    window.open(API_URL + '?' + query(Object.assign({}, getFilterPayload(), {
+      action: 'exportWorkReportCsvSafe'
+    })), '_blank');
+  }
+
+  document.addEventListener('click', function(e) {
+    var btn = e.target.closest('button,a,[role="button"]');
+    if (!btn) return;
+
+    var text = String(btn.innerText || btn.textContent || '').toLowerCase();
+
+    if (text.indexOf('preview') >= 0) {
+      e.preventDefault();
+      e.stopPropagation();
+      previewLaporanMagang();
+      return;
+    }
+
+    if (text.indexOf('download pdf') >= 0 || text.indexOf('unduh pdf') >= 0) {
+      e.preventDefault();
+      e.stopPropagation();
+      downloadLaporanMagangPdf();
+      return;
+    }
+
+    if (text.indexOf('download csv') >= 0 || text.indexOf('unduh csv') >= 0) {
+      e.preventDefault();
+      e.stopPropagation();
+      downloadLaporanMagangCsv();
+      return;
+    }
+  }, true);
+
+  window.previewLaporanMagang = previewLaporanMagang;
+  window.downloadLaporanMagangPdf = downloadLaporanMagangPdf;
+  window.downloadLaporanMagangCsv = downloadLaporanMagangCsv;
+
+  console.warn('[iTrack] Patch laporan magang preview/download aktif.');
 })();
 </script>
 </body></html>
